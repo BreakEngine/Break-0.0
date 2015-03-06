@@ -1,9 +1,13 @@
 #include <iostream>
 #include "../Infrastructure/Engine.h"
 using namespace std;
-int main(){
+using namespace Break::Infrastructure;
 
-	int xin;
-	cin>>xin;
+int main(){
+	EnginePtr engine = Engine::Instance;
+	engine->setup(API::OPENGL);
+	engine->start();
+	int x = 0;
+	cin>>x;
 	return 0;
 }
