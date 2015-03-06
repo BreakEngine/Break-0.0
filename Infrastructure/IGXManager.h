@@ -1,5 +1,6 @@
 #pragma once
 #include<memory>
+#include <glm/common.hpp>
 namespace Break{
 	namespace Infrastructure{
 		//graphics manager abstract class that will handle APIs
@@ -45,6 +46,14 @@ namespace Break{
 			 * \author Moustapha Saad
 			 */
 			virtual void swapBuffer();
+			/*!
+			 * \function void setCursorPosition(glm::uvec2 val)
+			 *
+			 * \brief set cursor position based on the library used
+			 *
+			 * \author Moustapha Saad
+			 */
+			virtual void setCursorPostion(glm::uvec2 val);
 
 		};
 		typedef std::shared_ptr<IGXManager> IGXManagerPtr;

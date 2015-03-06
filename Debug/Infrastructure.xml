@@ -3,5 +3,3630 @@
     <assembly>
         "Infrastructure"
     </assembly>
-    <members />
+    <members>
+        <member name="F:Break.Infrastructure.IMouse._position">
+@brief	The position. 
+</member>
+        <member name="F:Break.Infrastructure.IMouse._data">
+@brief	The data map. 
+</member>
+        <member name="M:Break.Infrastructure.IMouse.update">
+ @fn	virtual void IMouse::update();
+
+ @brief	Updates this object.
+
+ @author	Moustapha Saad
+ @date	24/01/2015
+
+</member>
+        <member name="M:Break.Infrastructure.IMouse.setPosition(glm.detail.tvec2&lt;System.UInt32,0x0&gt;)">
+ @fn	static void IMouse::setPosition(glm::uvec2 val);
+
+ @brief	Sets the position.
+
+ @author	Moustapha Saad
+ @date	29/01/2015
+
+ @param	val	The value.
+
+</member>
+        <member name="M:Break.Infrastructure.IMouse.getPosition">
+ @fn	static glm::uvec2 IMouse::getPosition();
+
+ @brief	Gets the position.
+
+ @author	Moustapha Saad
+ @date	29/01/2015
+
+ @return	The position.
+
+</member>
+        <member name="M:Break.Infrastructure.IMouse.getButton(Break.Infrastructure.IMouse.Buttons)">
+ @fn	static ButtonState IMouse::getButton(Buttons b);
+
+ @brief	Gets a button.
+
+ @author	Moustapha Saad
+ @date	24/01/2015
+
+ @param	b	The Buttons to process.
+
+ @return	The button state.
+
+</member>
+        <member name="T:Break.Infrastructure.IMouse.ButtonState">
+ @enum	ButtonState
+
+ @brief	Values that represent button states.
+
+</member>
+        <member name="T:Break.Infrastructure.IMouse.Buttons">
+ @enum	Buttons
+
+ @brief	Values that represent buttons.
+
+</member>
+        <member name="M:Break.Infrastructure.IMouse.Dispose">
+ @fn	IMouse::~IMouse();
+
+ @brief	Destructor.
+
+ @author	Moustapha Saad
+ @date	24/01/2015
+
+</member>
+        <member name="M:Break.Infrastructure.IMouse.#ctor">
+ @fn	IMouse::IMouse();
+
+ @brief	Default constructor.
+
+ @author	Moustapha Saad
+ @date	24/01/2015
+
+</member>
+        <member name="M:glm.unpackHalf2x16(System.UInt32!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
+Returns a two-component floating-point vector with components obtained by unpacking a 32-bit unsigned integer into a pair of 16-bit values, 
+interpreting those values as 16-bit floating-point numbers according to the OpenGL Specification, 
+and converting them to 32-bit floating-point values.
+The first component of the vector is obtained from the 16 least-significant bits of v; 
+the second component is obtained from the 16 most-significant bits of v.
+
+@see <a href="http://www.opengl.org/sdk/docs/manglsl/xhtml/unpackHalf2x16.xml">GLSL unpackHalf2x16 man page</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 8.4 Floating-Point Pack and Unpack Functions</a></member>
+        <member name="M:glm.packHalf2x16(glm.detail.tvec2&lt;System.Single,0x0&gt;!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
+Returns an unsigned integer obtained by converting the components of a two-component floating-point vector 
+to the 16-bit floating-point representation found in the OpenGL Specification, 
+and then packing these two 16- bit integers into a 32-bit unsigned integer.
+The first vector component specifies the 16 least-significant bits of the result; 
+the second component specifies the 16 most-significant bits.
+
+@see <a href="http://www.opengl.org/sdk/docs/manglsl/xhtml/packHalf2x16.xml">GLSL packHalf2x16 man page</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 8.4 Floating-Point Pack and Unpack Functions</a></member>
+        <member name="M:glm.unpackDouble2x32(System.Double!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
+Returns a two-component unsigned integer vector representation of v. 
+The bit-level representation of v is preserved. 
+The first component of the vector contains the 32 least significant bits of the double; 
+the second component consists the 32 most significant bits.
+
+@see <a href="http://www.opengl.org/sdk/docs/manglsl/xhtml/unpackDouble2x32.xml">GLSL unpackDouble2x32 man page</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 8.4 Floating-Point Pack and Unpack Functions</a></member>
+        <member name="M:glm.packDouble2x32(glm.detail.tvec2&lt;System.UInt32,0x0&gt;!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
+Returns a double-precision value obtained by packing the components of v into a 64-bit value. 
+If an IEEE 754 Inf or NaN is created, it will not signal, and the resulting floating point value is unspecified. 
+Otherwise, the bit- level representation of v is preserved. 
+The first vector component specifies the 32 least significant bits; 
+the second component specifies the 32 most significant bits.
+
+@see <a href="http://www.opengl.org/sdk/docs/manglsl/xhtml/packDouble2x32.xml">GLSL packDouble2x32 man page</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 8.4 Floating-Point Pack and Unpack Functions</a></member>
+        <member name="M:glm.unpackSnorm4x8(System.UInt32!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
+First, unpacks a single 32-bit unsigned integer p into a pair of 16-bit unsigned integers, four 8-bit unsigned integers, or four 8-bit signed integers. 
+Then, each component is converted to a normalized floating-point value to generate the returned two- or four-component vector.
+
+The conversion for unpacked fixed-point value f to floating point is done as follows:
+unpackSnorm4x8: clamp(f / 127.0, -1, +1)
+
+The first component of the returned vector will be extracted from the least significant bits of the input; 
+the last component will be extracted from the most significant bits.
+
+@see <a href="http://www.opengl.org/sdk/docs/manglsl/xhtml/unpackSnorm4x8.xml">GLSL unpackSnorm4x8 man page</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 8.4 Floating-Point Pack and Unpack Functions</a></member>
+        <member name="M:glm.unpackUnorm4x8(System.UInt32!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
+First, unpacks a single 32-bit unsigned integer p into a pair of 16-bit unsigned integers, four 8-bit unsigned integers, or four 8-bit signed integers. 
+Then, each component is converted to a normalized floating-point value to generate the returned two- or four-component vector.
+
+The conversion for unpacked fixed-point value f to floating point is done as follows:
+unpackUnorm4x8: f / 255.0
+
+The first component of the returned vector will be extracted from the least significant bits of the input; 
+the last component will be extracted from the most significant bits.
+
+@see <a href="http://www.opengl.org/sdk/docs/manglsl/xhtml/unpackUnorm4x8.xml">GLSL unpackUnorm4x8 man page</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 8.4 Floating-Point Pack and Unpack Functions</a></member>
+        <member name="M:glm.unpackSnorm2x16(System.UInt32!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
+First, unpacks a single 32-bit unsigned integer p into a pair of 16-bit unsigned integers, four 8-bit unsigned integers, or four 8-bit signed integers. 
+Then, each component is converted to a normalized floating-point value to generate the returned two- or four-component vector.
+
+The conversion for unpacked fixed-point value f to floating point is done as follows:
+unpackSnorm2x16: clamp(f / 32767.0, -1, +1)
+
+The first component of the returned vector will be extracted from the least significant bits of the input; 
+the last component will be extracted from the most significant bits.
+
+@see <a href="http://www.opengl.org/sdk/docs/manglsl/xhtml/unpackSnorm2x16.xml">GLSL unpackSnorm2x16 man page</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 8.4 Floating-Point Pack and Unpack Functions</a></member>
+        <member name="M:glm.unpackUnorm2x16(System.UInt32!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
+First, unpacks a single 32-bit unsigned integer p into a pair of 16-bit unsigned integers, four 8-bit unsigned integers, or four 8-bit signed integers. 
+Then, each component is converted to a normalized floating-point value to generate the returned two- or four-component vector.
+
+The conversion for unpacked fixed-point value f to floating point is done as follows:
+unpackUnorm2x16: f / 65535.0 
+
+The first component of the returned vector will be extracted from the least significant bits of the input; 
+the last component will be extracted from the most significant bits.
+
+@see <a href="http://www.opengl.org/sdk/docs/manglsl/xhtml/unpackUnorm2x16.xml">GLSL unpackUnorm2x16 man page</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 8.4 Floating-Point Pack and Unpack Functions</a></member>
+        <member name="M:glm.packSnorm4x8(glm.detail.tvec4&lt;System.Single,0x0&gt;!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
+First, converts each component of the normalized floating-point value v into 8- or 16-bit integer values. 
+Then, the results are packed into the returned 32-bit unsigned integer.
+
+The conversion for component c of v to fixed point is done as follows:
+packSnorm4x8:	round(clamp(c, -1, +1) * 127.0) 
+
+The first component of the vector will be written to the least significant bits of the output; 
+the last component will be written to the most significant bits.
+
+@see <a href="http://www.opengl.org/sdk/docs/manglsl/xhtml/packSnorm4x8.xml">GLSL packSnorm4x8 man page</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 8.4 Floating-Point Pack and Unpack Functions</a></member>
+        <member name="M:glm.packUnorm4x8(glm.detail.tvec4&lt;System.Single,0x0&gt;!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
+First, converts each component of the normalized floating-point value v into 8- or 16-bit integer values. 
+Then, the results are packed into the returned 32-bit unsigned integer.
+
+The conversion for component c of v to fixed point is done as follows:
+packUnorm4x8:	round(clamp(c, 0, +1) * 255.0)
+
+The first component of the vector will be written to the least significant bits of the output; 
+the last component will be written to the most significant bits.
+
+@see <a href="http://www.opengl.org/sdk/docs/manglsl/xhtml/packUnorm4x8.xml">GLSL packUnorm4x8 man page</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 8.4 Floating-Point Pack and Unpack Functions</a></member>
+        <member name="M:glm.packSnorm2x16(glm.detail.tvec2&lt;System.Single,0x0&gt;!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
+First, converts each component of the normalized floating-point value v into 8- or 16-bit integer values. 
+Then, the results are packed into the returned 32-bit unsigned integer.
+
+The conversion for component c of v to fixed point is done as follows:
+packSnorm2x16: round(clamp(v, -1, +1) * 32767.0)
+
+The first component of the vector will be written to the least significant bits of the output; 
+the last component will be written to the most significant bits.
+
+@see <a href="http://www.opengl.org/sdk/docs/manglsl/xhtml/packSnorm2x16.xml">GLSL packSnorm2x16 man page</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 8.4 Floating-Point Pack and Unpack Functions</a></member>
+        <member name="M:glm.packUnorm2x16(glm.detail.tvec2&lt;System.Single,0x0&gt;!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
+@addtogroup core_func_packing
+@{
+First, converts each component of the normalized floating-point value v into 8- or 16-bit integer values. 
+Then, the results are packed into the returned 32-bit unsigned integer.
+
+The conversion for component c of v to fixed point is done as follows:
+packUnorm2x16: round(clamp(c, 0, +1) * 65535.0) 
+
+The first component of the vector will be written to the least significant bits of the output; 
+the last component will be written to the most significant bits.
+
+@see <a href="http://www.opengl.org/sdk/docs/manglsl/xhtml/packUnorm2x16.xml">GLSL packUnorm2x16 man page</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 8.4 Floating-Point Pack and Unpack Functions</a></member>
+        <member name="F:Break.Infrastructure.IKeyboard._data">
+@brief	The data of the keys. 
+</member>
+        <member name="M:Break.Infrastructure.IKeyboard.update">
+ @fn	virtual void IKeyboard::update();
+
+ @brief	Updates this object.
+
+ @author	Moustapha Saad
+ @date	24/01/2015
+
+</member>
+        <member name="M:Break.Infrastructure.IKeyboard.#ctor">
+ @fn	virtual void IKeyboard::update();
+
+ @brief	Updates this object.
+
+ @author	Moustapha Saad
+ @date	23/01/2015
+
+</member>
+        <member name="M:Break.Infrastructure.IKeyboard.getKey(Break.Infrastructure.IKeyboard.Keys)">
+ @fn	static KeyState IKeyboard::getKey(Keys key);
+
+ @brief	Gets a key current state.
+
+ @author	Moustapha Saad
+ @date	23/01/2015
+
+ @param	key	The key.
+
+ @return	KeyState.
+
+</member>
+        <member name="T:Break.Infrastructure.IKeyboard.Keys">
+ @enum	Keys
+
+ @brief	Values that represent keys.
+
+</member>
+        <member name="T:Break.Infrastructure.IKeyboard.KeyState">
+ @enum	KeyState
+
+ @brief	Values that represent key states.
+
+</member>
+        <member name="D:glm.f64quat">
+Default double-precision floating-point quaternion.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.f64mat4">
+Default double-precision floating-point 4x4 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.f64mat3">
+Default double-precision floating-point 3x3 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.f64mat2">
+Default double-precision floating-point 2x2 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.f64mat4x4">
+Default double-precision floating-point 4x4 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.f64mat4x3">
+Default double-precision floating-point 4x3 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.f64mat4x2">
+Default double-precision floating-point 4x2 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.f64mat3x4">
+Default double-precision floating-point 3x4 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.f64mat3x3">
+Default double-precision floating-point 3x3 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.f64mat3x2">
+Default double-precision floating-point 3x2 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.f64mat2x4">
+Default double-precision floating-point 2x4 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.f64mat2x3">
+Default double-precision floating-point 2x3 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.f64mat2x2">
+Default double-precision floating-point 2x2 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.f64vec4">
+Default double-precision floating-point vector of 4 components.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.f64vec3">
+Default double-precision floating-point vector of 3 components.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.f64vec2">
+Default double-precision floating-point vector of 2 components.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.f64vec1">
+Default double-precision floating-point vector of 1 components.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.f32quat">
+Default single-precision floating-point quaternion.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.f32mat4">
+Default single-precision floating-point 4x4 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.f32mat3">
+Default single-precision floating-point 3x3 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.f32mat2">
+Default single-precision floating-point 2x2 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.f32mat4x4">
+Default single-precision floating-point 4x4 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.f32mat4x3">
+Default single-precision floating-point 4x3 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.f32mat4x2">
+Default single-precision floating-point 4x2 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.f32mat3x4">
+Default single-precision floating-point 3x4 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.f32mat3x3">
+Default single-precision floating-point 3x3 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.f32mat3x2">
+Default single-precision floating-point 3x2 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.f32mat2x4">
+Default single-precision floating-point 2x4 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.f32mat2x3">
+Default single-precision floating-point 2x3 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.f32mat2x2">
+Default single-precision floating-point 2x2 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.f32vec4">
+Default single-precision floating-point vector of 4 components.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.f32vec3">
+Default single-precision floating-point vector of 3 components.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.f32vec2">
+Default single-precision floating-point vector of 2 components.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.f32vec1">
+Default single-precision floating-point vector of 1 components.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.fmat4">
+Default single-precision floating-point 4x4 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.fmat3">
+Default single-precision floating-point 3x3 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.fmat2">
+Default single-precision floating-point 2x2 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.fmat4x4">
+Default single-precision floating-point 4x4 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.fmat4x3">
+Default single-precision floating-point 4x3 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.fmat4x2">
+Default single-precision floating-point 4x2 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.fmat3x4">
+Default single-precision floating-point 3x4 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.fmat3x3">
+Default single-precision floating-point 3x3 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.fmat3x2">
+Default single-precision floating-point 3x2 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.fmat2x4">
+Default single-precision floating-point 2x4 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.fmat2x3">
+Default single-precision floating-point 2x3 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.fmat2x2">
+Default single-precision floating-point 2x2 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.fvec4">
+Default single-precision floating-point vector of 4 components.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.fvec3">
+Default single-precision floating-point vector of 3 components.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.fvec2">
+Default single-precision floating-point vector of 2 components.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.fvec1">
+Default single-precision floating-point vector of 1 components.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_f64quat">
+High double-precision floating-point quaternion.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_f32quat">
+High single-precision floating-point quaternion.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_f64quat">
+Medium double-precision floating-point quaternion.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_f32quat">
+Medium single-precision floating-point quaternion.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_f64quat">
+Low double-precision floating-point quaternion.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_f32quat">
+Low single-precision floating-point quaternion.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_f64mat4">
+High double-precision floating-point 4x4 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_f64mat3">
+High double-precision floating-point 3x3 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_f64mat2">
+High double-precision floating-point 1x1 matrix.
+@see gtc_type_precision
+High double-precision floating-point 2x2 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_f64mat4x4">
+High double-precision floating-point 4x4 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_f64mat4x3">
+High double-precision floating-point 4x3 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_f64mat4x2">
+High double-precision floating-point 4x2 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_f64mat3x4">
+High double-precision floating-point 3x4 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_f64mat3x3">
+High double-precision floating-point 3x3 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_f64mat3x2">
+High double-precision floating-point 3x2 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_f64mat2x4">
+High double-precision floating-point 2x4 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_f64mat2x3">
+High double-precision floating-point 2x3 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_f64mat2x2">
+High double-precision floating-point 1x1 matrix.
+@see gtc_type_precision
+High double-precision floating-point 2x2 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_f64mat4">
+Medium double-precision floating-point 4x4 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_f64mat3">
+Medium double-precision floating-point 3x3 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_f64mat2">
+Medium double-precision floating-point 1x1 matrix.
+@see gtc_type_precision
+Medium double-precision floating-point 2x2 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_f64mat4x4">
+Medium double-precision floating-point 4x4 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_f64mat4x3">
+Medium double-precision floating-point 4x3 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_f64mat4x2">
+Medium double-precision floating-point 4x2 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_f64mat3x4">
+Medium double-precision floating-point 3x4 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_f64mat3x3">
+Medium double-precision floating-point 3x3 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_f64mat3x2">
+Medium double-precision floating-point 3x2 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_f64mat2x4">
+Medium double-precision floating-point 2x4 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_f64mat2x3">
+Medium double-precision floating-point 2x3 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_f64mat2x2">
+Medium double-precision floating-point 1x1 matrix.
+@see gtc_type_precision
+Medium double-precision floating-point 2x2 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_f64mat4">
+Low double-precision floating-point 4x4 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_f64mat3">
+Low double-precision floating-point 3x3 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_f64mat2">
+Low double-precision floating-point 1x1 matrix.
+@see gtc_type_precision
+Low double-precision floating-point 2x2 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_f64mat4x4">
+Low double-precision floating-point 4x4 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_f64mat4x3">
+Low double-precision floating-point 4x3 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_f64mat4x2">
+Low double-precision floating-point 4x2 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_f64mat3x4">
+Low double-precision floating-point 3x4 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_f64mat3x3">
+Low double-precision floating-point 3x3 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_f64mat3x2">
+Low double-precision floating-point 3x2 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_f64mat2x4">
+Low double-precision floating-point 2x4 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_f64mat2x3">
+Low double-precision floating-point 2x3 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_f64mat2x2">
+Low double-precision floating-point 1x1 matrix.
+@see gtc_type_precision
+Low double-precision floating-point 2x2 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_f32mat4">
+High single-precision floating-point 4x4 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_f32mat3">
+High single-precision floating-point 3x3 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_f32mat2">
+High single-precision floating-point 1x1 matrix.
+@see gtc_type_precision
+High single-precision floating-point 2x2 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_f32mat4x4">
+High single-precision floating-point 4x4 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_f32mat4x3">
+High single-precision floating-point 4x3 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_f32mat4x2">
+High single-precision floating-point 4x2 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_f32mat3x4">
+High single-precision floating-point 3x4 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_f32mat3x3">
+High single-precision floating-point 3x3 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_f32mat3x2">
+High single-precision floating-point 3x2 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_f32mat2x4">
+High single-precision floating-point 2x4 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_f32mat2x3">
+High single-precision floating-point 2x3 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_f32mat2x2">
+High single-precision floating-point 1x1 matrix.
+@see gtc_type_precision
+High single-precision floating-point 2x2 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_f32mat4">
+Medium single-precision floating-point 4x4 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_f32mat3">
+Medium single-precision floating-point 3x3 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_f32mat2">
+Medium single-precision floating-point 1x1 matrix.
+@see gtc_type_precision
+Medium single-precision floating-point 2x2 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_f32mat4x4">
+Medium single-precision floating-point 4x4 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_f32mat4x3">
+Medium single-precision floating-point 4x3 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_f32mat4x2">
+Medium single-precision floating-point 4x2 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_f32mat3x4">
+Medium single-precision floating-point 3x4 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_f32mat3x3">
+Medium single-precision floating-point 3x3 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_f32mat3x2">
+Medium single-precision floating-point 3x2 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_f32mat2x4">
+Medium single-precision floating-point 2x4 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_f32mat2x3">
+Medium single-precision floating-point 2x3 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_f32mat2x2">
+High single-precision floating-point 1x1 matrix.
+@see gtc_type_precision
+Low single-precision floating-point 2x2 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_f32mat4">
+Low single-precision floating-point 4x4 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_f32mat3">
+Low single-precision floating-point 3x3 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_f32mat2">
+Low single-precision floating-point 1x1 matrix.
+@see gtc_type_precision
+Low single-precision floating-point 2x2 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_f32mat4x4">
+Low single-precision floating-point 4x4 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_f32mat4x3">
+Low single-precision floating-point 4x3 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_f32mat4x2">
+Low single-precision floating-point 4x2 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_f32mat3x4">
+Low single-precision floating-point 3x4 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_f32mat3x3">
+Low single-precision floating-point 3x3 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_f32mat3x2">
+Low single-precision floating-point 3x2 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_f32mat2x4">
+Low single-precision floating-point 2x4 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_f32mat2x3">
+Low single-precision floating-point 2x3 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_f32mat2x2">
+Low single-precision floating-point 1x1 matrix.
+@see gtc_type_precision
+Low single-precision floating-point 2x2 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_fmat4">
+High single-precision floating-point 4x4 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_fmat3">
+High single-precision floating-point 3x3 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_fmat2">
+High single-precision floating-point 1x1 matrix.
+@see gtc_type_precision
+High single-precision floating-point 2x2 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_fmat4x4">
+High single-precision floating-point 4x4 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_fmat4x3">
+High single-precision floating-point 4x3 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_fmat4x2">
+High single-precision floating-point 4x2 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_fmat3x4">
+High single-precision floating-point 3x4 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_fmat3x3">
+High single-precision floating-point 3x3 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_fmat3x2">
+High single-precision floating-point 3x2 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_fmat2x4">
+High single-precision floating-point 2x4 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_fmat2x3">
+High single-precision floating-point 2x3 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_fmat2x2">
+High single-precision floating-point 1x1 matrix.
+@see gtc_type_precision
+High single-precision floating-point 2x2 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_fmat4">
+Medium single-precision floating-point 4x4 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_fmat3">
+Medium single-precision floating-point 3x3 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_fmat2">
+Medium single-precision floating-point 1x1 matrix.
+@see gtc_type_precision
+Medium single-precision floating-point 2x2 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_fmat4x4">
+Medium single-precision floating-point 4x4 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_fmat4x3">
+Medium single-precision floating-point 4x3 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_fmat4x2">
+Medium single-precision floating-point 4x2 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_fmat3x4">
+Medium single-precision floating-point 3x4 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_fmat3x3">
+Medium single-precision floating-point 3x3 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_fmat3x2">
+Medium single-precision floating-point 3x2 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_fmat2x4">
+Medium single-precision floating-point 2x4 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_fmat2x3">
+Medium single-precision floating-point 2x3 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_fmat2x2">
+Medium single-precision floating-point 1x1 matrix.
+@see gtc_type_precision
+Medium single-precision floating-point 2x2 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_fmat4">
+Low single-precision floating-point 4x4 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_fmat3">
+Low single-precision floating-point 3x3 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_fmat2">
+Low single-precision floating-point 1x1 matrix.
+@see gtc_type_precision
+Low single-precision floating-point 2x2 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_fmat4x4">
+Low single-precision floating-point 4x4 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_fmat4x3">
+Low single-precision floating-point 4x3 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_fmat4x2">
+Low single-precision floating-point 4x2 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_fmat3x4">
+Low single-precision floating-point 3x4 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_fmat3x3">
+Low single-precision floating-point 3x3 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_fmat3x2">
+Low single-precision floating-point 3x2 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_fmat2x4">
+Low single-precision floating-point 2x4 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_fmat2x3">
+Low single-precision floating-point 2x3 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_fmat2x2">
+Low single-precision floating-point 1x1 matrix.
+@see gtc_type_precision
+Low single-precision floating-point 2x2 matrix.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_f64vec4">
+High double-precision floating-point vector of 4 components.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_f64vec3">
+High double-precision floating-point vector of 3 components.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_f64vec2">
+High double-precision floating-point vector of 2 components.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_f64vec1">
+High double-precision floating-point vector of 1 component.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_f64vec4">
+Medium double-precision floating-point vector of 4 components.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_f64vec3">
+Medium double-precision floating-point vector of 3 components.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_f64vec2">
+Medium double-precision floating-point vector of 2 components.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_f64vec1">
+Medium double-precision floating-point vector of 1 component.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_f64vec4">
+Low double-precision floating-point vector of 4 components.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_f64vec3">
+Low double-precision floating-point vector of 3 components.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_f64vec2">
+Low double-precision floating-point vector of 2 components.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_f64vec1">
+Low double-precision floating-point vector of 1 component.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_f32vec4">
+High single-precision floating-point vector of 4 components.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_f32vec3">
+High single-precision floating-point vector of 3 components.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_f32vec2">
+High single-precision floating-point vector of 2 components.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_f32vec1">
+High single-precision floating-point vector of 1 component.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_f32vec4">
+Medium single-precision floating-point vector of 4 components.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_f32vec3">
+Medium single-precision floating-point vector of 3 components.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_f32vec2">
+Medium single-precision floating-point vector of 2 components.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_f32vec1">
+Medium single-precision floating-point vector of 1 component.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_f32vec4">
+Low single-precision floating-point vector of 4 components.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_f32vec3">
+Low single-precision floating-point vector of 3 components.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_f32vec2">
+Low single-precision floating-point vector of 2 components.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_f32vec1">
+Low single-precision floating-point vector of 1 component.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_fvec4">
+High Single-precision floating-point vector of 4 components.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_fvec3">
+High Single-precision floating-point vector of 3 components.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_fvec2">
+High Single-precision floating-point vector of 2 components.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_fvec1">
+High single-precision floating-point vector of 1 component.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_vec1">
+High single-precision floating-point vector of 1 component.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_fvec4">
+Medium Single-precision floating-point vector of 4 components.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_fvec3">
+Medium Single-precision floating-point vector of 3 components.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_fvec2">
+Medium Single-precision floating-point vector of 2 components.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_fvec1">
+Medium single-precision floating-point vector of 1 component.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_vec1">
+Medium single-precision floating-point vector of 1 component.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_fvec4">
+Low single-precision floating-point vector of 4 components.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_fvec3">
+Low single-precision floating-point vector of 3 components.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_fvec2">
+Low single-precision floating-point vector of 2 components.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_fvec1">
+Low single-precision floating-point vector of 1 component.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_vec1">
+Low single-precision floating-point vector of 1 component.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.f64">
+Default 64 bit double-precision floating-point scalar.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.f32">
+Default 32 bit single-precision floating-point scalar.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.float64_t">
+Default 64 bit double-precision floating-point scalar.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.float32_t">
+Default 32 bit single-precision floating-point scalar.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.float64">
+Default 64 bit double-precision floating-point scalar.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.float32">
+Default 32 bit single-precision floating-point scalar.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_f64">
+High 64 bit double-precision floating-point scalar.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_f32">
+High 32 bit single-precision floating-point scalar.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_float64_t">
+High 64 bit double-precision floating-point scalar.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_float32_t">
+High 32 bit single-precision floating-point scalar.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_float64">
+High 64 bit double-precision floating-point scalar.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_float32">
+High 32 bit single-precision floating-point scalar.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_f64">
+Medium 64 bit double-precision floating-point scalar.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_f32">
+Medium 32 bit single-precision floating-point scalar.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_float64_t">
+Medium 64 bit double-precision floating-point scalar.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_float32_t">
+Medium 32 bit single-precision floating-point scalar.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_float64">
+Medium 64 bit double-precision floating-point scalar.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_float32">
+Medium 32 bit single-precision floating-point scalar.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_f64">
+Low 64 bit double-precision floating-point scalar.
+@see gtc_type_precision
+
+Low 64 bit double-precision floating-point scalar.
+@see gtc_type_precision
+
+Low 64 bit double-precision floating-point scalar.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_f32">
+Low 32 bit single-precision floating-point scalar.
+@see gtc_type_precision
+
+Low 32 bit single-precision floating-point scalar.
+@see gtc_type_precision
+
+Low 32 bit single-precision floating-point scalar.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_float64_t">
+Low 64 bit double-precision floating-point scalar.
+@see gtc_type_precision
+
+Low 64 bit double-precision floating-point scalar.
+@see gtc_type_precision
+
+Low 64 bit double-precision floating-point scalar.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_float32_t">
+Low 32 bit single-precision floating-point scalar.
+@see gtc_type_precision
+
+Low 32 bit single-precision floating-point scalar.
+@see gtc_type_precision
+
+Low 32 bit single-precision floating-point scalar.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_float64">
+Low 64 bit double-precision floating-point scalar.
+@see gtc_type_precision
+
+Low 64 bit double-precision floating-point scalar.
+@see gtc_type_precision
+
+Low 64 bit double-precision floating-point scalar.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_float32">
+Low 32 bit single-precision floating-point scalar.
+@see gtc_type_precision
+
+Low 32 bit single-precision floating-point scalar.
+@see gtc_type_precision
+
+Low 32 bit single-precision floating-point scalar.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.u64vec4">
+Default precision 64 bit unsigned integer vector of 4 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.u64vec3">
+Default precision 64 bit unsigned integer vector of 3 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.u64vec2">
+Default precision 64 bit unsigned integer vector of 2 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.u64vec1">
+Default precision 64 bit unsigned integer scalar type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_u64vec4">
+High precision 64 bit unsigned integer vector of 4 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_u64vec3">
+High precision 64 bit unsigned integer vector of 3 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_u64vec2">
+High precision 64 bit unsigned integer vector of 2 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_u64vec1">
+High precision 64 bit unsigned integer scalar type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_u64vec4">
+Medium precision 64 bit unsigned integer vector of 4 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_u64vec3">
+Medium precision 64 bit unsigned integer vector of 3 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_u64vec2">
+Medium precision 64 bit unsigned integer vector of 2 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_u64vec1">
+Medium precision 64 bit unsigned integer scalar type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_u64vec4">
+Low precision 64 bit unsigned integer vector of 4 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_u64vec3">
+Low precision 64 bit unsigned integer vector of 3 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_u64vec2">
+Low precision 64 bit unsigned integer vector of 2 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_u64vec1">
+Low precision 64 bit unsigned integer scalar type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.u32vec4">
+Default precision 32 bit unsigned integer vector of 4 components type.
+@see gtc_type_precision
+
+Default precision 32 bit unsigned integer vector of 4 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.u32vec3">
+Default precision 32 bit unsigned integer vector of 3 components type.
+@see gtc_type_precision
+
+Default precision 32 bit unsigned integer vector of 3 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.u32vec2">
+Default precision 32 bit unsigned integer vector of 2 components type.
+@see gtc_type_precision
+
+Default precision 32 bit unsigned integer vector of 2 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.u32vec1">
+Default precision 32 bit unsigned integer scalar type.
+@see gtc_type_precision
+
+Default precision 32 bit unsigned integer scalar type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_u32vec4">
+High precision 32 bit unsigned integer vector of 4 components type.
+@see gtc_type_precision
+
+High precision 32 bit unsigned integer vector of 4 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_u32vec3">
+High precision 32 bit unsigned integer vector of 3 components type.
+@see gtc_type_precision
+
+High precision 32 bit unsigned integer vector of 3 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_u32vec2">
+High precision 32 bit unsigned integer vector of 2 components type.
+@see gtc_type_precision
+
+High precision 32 bit unsigned integer vector of 2 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_u32vec1">
+High precision 32 bit unsigned integer scalar type.
+@see gtc_type_precision
+
+High precision 32 bit unsigned integer scalar type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_u32vec4">
+Medium precision 32 bit unsigned integer vector of 4 components type.
+@see gtc_type_precision
+
+Medium precision 32 bit unsigned integer vector of 4 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_u32vec3">
+Medium precision 32 bit unsigned integer vector of 3 components type.
+@see gtc_type_precision
+
+Medium precision 32 bit unsigned integer vector of 3 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_u32vec2">
+Medium precision 32 bit unsigned integer vector of 2 components type.
+@see gtc_type_precision
+
+Medium precision 32 bit unsigned integer vector of 2 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_u32vec1">
+Medium precision 32 bit unsigned integer scalar type.
+@see gtc_type_precision
+
+Medium precision 32 bit unsigned integer scalar type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_u32vec4">
+Low precision 32 bit unsigned integer vector of 4 components type.
+@see gtc_type_precision
+
+Low precision 32 bit unsigned integer vector of 4 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_u32vec3">
+Low precision 32 bit unsigned integer vector of 3 components type.
+@see gtc_type_precision
+
+Low precision 32 bit unsigned integer vector of 3 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_u32vec2">
+Low precision 32 bit unsigned integer vector of 2 components type.
+@see gtc_type_precision
+
+Low precision 32 bit unsigned integer vector of 2 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_u32vec1">
+Low precision 32 bit unsigned integer scalar type.
+@see gtc_type_precision
+
+Low precision 32 bit unsigned integer scalar type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.u16vec4">
+Default precision 16 bit unsigned integer vector of 4 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.u16vec3">
+Default precision 16 bit unsigned integer vector of 3 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.u16vec2">
+Default precision 16 bit unsigned integer vector of 2 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.u16vec1">
+Default precision 16 bit unsigned integer scalar type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_u16vec4">
+High precision 16 bit unsigned integer vector of 4 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_u16vec3">
+High precision 16 bit unsigned integer vector of 3 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_u16vec2">
+High precision 16 bit unsigned integer vector of 2 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_u16vec1">
+High precision 16 bit unsigned integer scalar type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_u16vec4">
+Medium precision 16 bit unsigned integer vector of 4 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_u16vec3">
+Medium precision 16 bit unsigned integer vector of 3 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_u16vec2">
+Medium precision 16 bit unsigned integer vector of 2 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_u16vec1">
+Medium precision 16 bit unsigned integer scalar type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_u16vec4">
+Low precision 16 bit unsigned integer vector of 4 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_u16vec3">
+Low precision 16 bit unsigned integer vector of 3 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_u16vec2">
+Low precision 16 bit unsigned integer vector of 2 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_u16vec1">
+Low precision 16 bit unsigned integer scalar type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.u8vec4">
+Default precision 8 bit unsigned integer vector of 4 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.u8vec3">
+Default precision 8 bit unsigned integer vector of 3 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.u8vec2">
+Default precision 8 bit unsigned integer vector of 2 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.u8vec1">
+Default precision 8 bit unsigned integer scalar type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_u8vec4">
+High precision 8 bit unsigned integer vector of 4 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_u8vec3">
+High precision 8 bit unsigned integer vector of 3 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_u8vec2">
+High precision 8 bit unsigned integer vector of 2 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_u8vec1">
+High precision 8 bit unsigned integer scalar type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_u8vec4">
+Medium precision 8 bit unsigned integer vector of 4 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_u8vec3">
+Medium precision 8 bit unsigned integer vector of 3 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_u8vec2">
+Medium precision 8 bit unsigned integer vector of 2 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_u8vec1">
+Medium precision 8 bit unsigned integer scalar type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_u8vec4">
+Low precision 8 bit unsigned integer vector of 4 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_u8vec3">
+Low precision 8 bit unsigned integer vector of 3 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_u8vec2">
+Low precision 8 bit unsigned integer vector of 2 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_u8vec1">
+Low precision 8 bit unsigned integer scalar type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.u64">
+64 bit unsigned integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.u32">
+32 bit unsigned integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.u16">
+16 bit unsigned integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.u8">
+8 bit unsigned integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.uint64_t">
+64 bit unsigned integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.uint32_t">
+32 bit unsigned integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.uint16_t">
+16 bit unsigned integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.uint8_t">
+8 bit unsigned integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.uint64">
+64 bit unsigned integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.uint32">
+32 bit unsigned integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.uint16">
+16 bit unsigned integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.uint8">
+8 bit unsigned integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_u64">
+Medium precision 64 bit unsigned integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_u32">
+Medium precision 32 bit unsigned integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_u16">
+Medium precision 16 bit unsigned integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_u8">
+Medium precision 8 bit unsigned integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_uint64_t">
+Medium precision 64 bit unsigned integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_uint32_t">
+Medium precision 32 bit unsigned integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_uint16_t">
+Medium precision 16 bit unsigned integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_uint8_t">
+Medium precision 8 bit unsigned integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_uint64">
+Medium precision 64 bit unsigned integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_uint32">
+Medium precision 32 bit unsigned integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_uint16">
+Medium precision 16 bit unsigned integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_uint8">
+Medium precision 8 bit unsigned integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_u64">
+Medium precision 64 bit unsigned integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_u32">
+Medium precision 32 bit unsigned integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_u16">
+Medium precision 16 bit unsigned integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_u8">
+Medium precision 8 bit unsigned integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_uint64_t">
+Medium precision 64 bit unsigned integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_uint32_t">
+Medium precision 32 bit unsigned integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_uint16_t">
+Medium precision 16 bit unsigned integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_uint8_t">
+Medium precision 8 bit unsigned integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_uint64">
+Medium precision 64 bit unsigned integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_uint32">
+Medium precision 32 bit unsigned integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_uint16">
+Medium precision 16 bit unsigned integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_uint8">
+Medium precision 8 bit unsigned integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_u64">
+Low precision 64 bit unsigned integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_u32">
+Low precision 32 bit unsigned integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_u16">
+Low precision 16 bit unsigned integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_u8">
+Low precision 8 bit unsigned integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_uint64_t">
+Low precision 64 bit unsigned integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_uint32_t">
+Low precision 32 bit unsigned integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_uint16_t">
+Low precision 16 bit unsigned integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_uint8_t">
+Low precision 8 bit unsigned integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_uint64">
+Low precision 64 bit unsigned integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_uint32">
+Low precision 32 bit unsigned integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_uint16">
+Low precision 16 bit unsigned integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_uint8">
+Low precision 8 bit unsigned integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.i64vec4">
+Default precision 64 bit signed integer vector of 4 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.i64vec3">
+Default precision 64 bit signed integer vector of 3 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.i64vec2">
+Default precision 64 bit signed integer vector of 2 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.i64vec1">
+Default precision 64 bit signed integer scalar type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_i64vec4">
+High precision 64 bit signed integer vector of 4 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_i64vec3">
+High precision 64 bit signed integer vector of 3 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_i64vec2">
+High precision 64 bit signed integer vector of 2 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_i64vec1">
+High precision 64 bit signed integer scalar type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_i64vec4">
+Medium precision 64 bit signed integer vector of 4 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_i64vec3">
+Medium precision 64 bit signed integer vector of 3 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_i64vec2">
+Medium precision 64 bit signed integer vector of 2 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_i64vec1">
+Medium precision 64 bit signed integer scalar type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_i64vec4">
+Low precision 64 bit signed integer vector of 4 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_i64vec3">
+Low precision 64 bit signed integer vector of 3 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_i64vec2">
+Low precision 64 bit signed integer vector of 2 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_i64vec1">
+Low precision 64 bit signed integer scalar type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.i32vec4">
+Default precision 32 bit signed integer vector of 4 components type.
+@see gtc_type_precision
+
+Default precision 32 bit signed integer vector of 4 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.i32vec3">
+Default precision 32 bit signed integer vector of 3 components type.
+@see gtc_type_precision
+
+Default precision 32 bit signed integer vector of 3 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.i32vec2">
+Default precision 32 bit signed integer vector of 2 components type.
+@see gtc_type_precision
+
+Default precision 32 bit signed integer vector of 2 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.i32vec1">
+Default precision 32 bit signed integer scalar type.
+@see gtc_type_precision
+
+Default precision 32 bit signed integer scalar type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_i32vec4">
+High precision 32 bit signed integer vector of 4 components type.
+@see gtc_type_precision
+
+High precision 32 bit signed integer vector of 4 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_i32vec3">
+High precision 32 bit signed integer vector of 3 components type.
+@see gtc_type_precision
+
+High precision 32 bit signed integer vector of 3 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_i32vec2">
+High precision 32 bit signed integer vector of 2 components type.
+@see gtc_type_precision
+
+High precision 32 bit signed integer vector of 2 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_i32vec1">
+High precision 32 bit signed integer scalar type.
+@see gtc_type_precision
+
+High precision 32 bit signed integer scalar type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_i32vec4">
+Medium precision 32 bit signed integer vector of 4 components type.
+@see gtc_type_precision
+
+Medium precision 32 bit signed integer vector of 4 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_i32vec3">
+Medium precision 32 bit signed integer vector of 3 components type.
+@see gtc_type_precision
+
+Medium precision 32 bit signed integer vector of 3 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_i32vec2">
+Medium precision 32 bit signed integer vector of 2 components type.
+@see gtc_type_precision
+
+Medium precision 32 bit signed integer vector of 2 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_i32vec1">
+Medium precision 32 bit signed integer scalar type.
+@see gtc_type_precision
+
+Medium precision 32 bit signed integer scalar type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_i32vec4">
+Low precision 32 bit signed integer vector of 4 components type.
+@see gtc_type_precision
+
+Low precision 32 bit signed integer vector of 4 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_i32vec3">
+Low precision 32 bit signed integer vector of 3 components type.
+@see gtc_type_precision
+
+Low precision 32 bit signed integer vector of 3 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_i32vec2">
+Low precision 32 bit signed integer vector of 2 components type.
+@see gtc_type_precision
+
+Low precision 32 bit signed integer vector of 2 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_i32vec1">
+Low precision 32 bit signed integer scalar type.
+@see gtc_type_precision
+
+Low precision 32 bit signed integer scalar type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.i16vec4">
+Default precision 16 bit signed integer vector of 4 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.i16vec3">
+Default precision 16 bit signed integer vector of 3 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.i16vec2">
+Default precision 16 bit signed integer vector of 2 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.i16vec1">
+Default precision 16 bit signed integer scalar type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_i16vec4">
+High precision 16 bit signed integer vector of 4 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_i16vec3">
+High precision 16 bit signed integer vector of 3 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_i16vec2">
+High precision 16 bit signed integer vector of 2 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_i16vec1">
+High precision 16 bit signed integer scalar type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_i16vec4">
+Medium precision 16 bit signed integer vector of 4 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_i16vec3">
+Medium precision 16 bit signed integer vector of 3 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_i16vec2">
+Medium precision 16 bit signed integer vector of 2 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_i16vec1">
+Medium precision 16 bit signed integer scalar type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_i16vec4">
+Low precision 16 bit signed integer vector of 4 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_i16vec3">
+Low precision 16 bit signed integer vector of 3 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_i16vec2">
+Low precision 16 bit signed integer vector of 2 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_i16vec1">
+Low precision 16 bit signed integer scalar type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.i8vec4">
+Default precision 8 bit signed integer vector of 4 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.i8vec3">
+Default precision 8 bit signed integer vector of 3 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.i8vec2">
+Default precision 8 bit signed integer vector of 2 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.i8vec1">
+Default precision 8 bit signed integer scalar type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_i8vec4">
+High precision 8 bit signed integer vector of 4 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_i8vec3">
+High precision 8 bit signed integer vector of 3 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_i8vec2">
+High precision 8 bit signed integer vector of 2 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_i8vec1">
+High precision 8 bit signed integer scalar type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_i8vec4">
+Medium precision 8 bit signed integer vector of 4 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_i8vec3">
+Medium precision 8 bit signed integer vector of 3 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_i8vec2">
+Medium precision 8 bit signed integer vector of 2 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_i8vec1">
+Medium precision 8 bit signed integer scalar type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_i8vec4">
+Low precision 8 bit signed integer vector of 4 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_i8vec3">
+Low precision 8 bit signed integer vector of 3 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_i8vec2">
+Low precision 8 bit signed integer vector of 2 components type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_i8vec1">
+Low precision 8 bit signed integer scalar type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.i64">
+64 bit signed integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.i32">
+32 bit signed integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.i16">
+16 bit signed integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.i8">
+8 bit signed integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.int64_t">
+64 bit signed integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.int32_t">
+32 bit signed integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.int16_t">
+16 bit signed integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.int8_t">
+8 bit signed integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.int64">
+64 bit signed integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.int32">
+32 bit signed integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.int16">
+16 bit signed integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.int8">
+8 bit signed integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_i64">
+High precision 64 bit signed integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_i32">
+High precision 32 bit signed integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_i16">
+High precision 16 bit signed integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_i8">
+High precision 8 bit signed integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_int64_t">
+High precision 64 bit signed integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_int32_t">
+32 bit signed integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_int16_t">
+High precision 16 bit signed integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_int8_t">
+High precision 8 bit signed integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_int64">
+High precision 64 bit signed integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_int32">
+High precision 32 bit signed integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_int16">
+High precision 16 bit signed integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_int8">
+High precision 8 bit signed integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_i64">
+Medium precision 64 bit signed integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_i32">
+Medium precision 32 bit signed integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_i16">
+Medium precision 16 bit signed integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_i8">
+Medium precision 8 bit signed integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_int64_t">
+Medium precision 64 bit signed integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_int32_t">
+Medium precision 32 bit signed integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_int16_t">
+Medium precision 16 bit signed integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_int8_t">
+Medium precision 8 bit signed integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_int64">
+Medium precision 64 bit signed integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_int32">
+Medium precision 32 bit signed integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_int16">
+Medium precision 16 bit signed integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_int8">
+Medium precision 8 bit signed integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_i64">
+Low precision 64 bit signed integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_i32">
+Low precision 32 bit signed integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_i16">
+Low precision 16 bit signed integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_i8">
+Low precision 8 bit signed integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_int64_t">
+Low precision 64 bit signed integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_int32_t">
+Low precision 32 bit signed integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_int16_t">
+Low precision 16 bit signed integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_int8_t">
+Low precision 8 bit signed integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_int64">
+Low precision 64 bit signed integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_int32">
+Low precision 32 bit signed integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_int16">
+Low precision 16 bit signed integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_int8">
+@addtogroup gtc_type_precision
+@{
+Low precision 8 bit signed integer type.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.dquat">
+Quaternion of default double-precision floating-point numbers.
+
+@see gtc_quaternion
+</member>
+        <member name="D:glm.highp_dquat">
+Quaternion of high double-precision floating-point numbers.
+
+@see gtc_quaternion
+</member>
+        <member name="D:glm.mediump_dquat">
+Quaternion of medium double-precision floating-point numbers.
+
+@see gtc_quaternion
+</member>
+        <member name="D:glm.lowp_dquat">
+Quaternion of low double-precision floating-point numbers.
+
+@see gtc_quaternion
+</member>
+        <member name="D:glm.fquat">
+Quaternion of default single-precision floating-point numbers.
+
+@see gtc_quaternion
+
+Default single-precision floating-point quaternion.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_fquat">
+Quaternion of high single-precision floating-point numbers.
+
+@see gtc_quaternion
+</member>
+        <member name="D:glm.mediump_fquat">
+Quaternion of medium single-precision floating-point numbers.
+
+@see gtc_quaternion
+</member>
+        <member name="D:glm.lowp_fquat">
+Quaternion of low single-precision floating-point numbers.
+
+@see gtc_quaternion
+</member>
+        <member name="D:glm.quat">
+Quaternion of default single-precision floating-point numbers.
+</member>
+        <member name="D:glm.highp_quat">
+Quaternion of high single-precision floating-point numbers.
+
+@see gtc_quaternion
+</member>
+        <member name="D:glm.mediump_quat">
+Quaternion of medium single-precision floating-point numbers.
+
+@see gtc_quaternion
+</member>
+        <member name="D:glm.lowp_quat">
+Quaternion of low single-precision floating-point numbers.
+
+@see gtc_quaternion
+</member>
+        <member name="D:glm.dmat4x4">
+4 * 4 matrix of double-precision floating-point numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a></member>
+        <member name="D:glm.dmat4x3">
+4 * 3 matrix of double-precision floating-point numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a></member>
+        <member name="D:glm.dmat4x2">
+4 * 2 matrix of double-precision floating-point numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a></member>
+        <member name="D:glm.dmat3x4">
+3 * 4 matrix of double-precision floating-point numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a></member>
+        <member name="D:glm.dmat3x3">
+3 * 3 matrix of double-precision floating-point numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a></member>
+        <member name="D:glm.dmat3x2">
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a></member>
+        <member name="D:glm.dmat2x4">
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a></member>
+        <member name="D:glm.dmat2x3">
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a></member>
+        <member name="D:glm.dmat2x2">
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a></member>
+        <member name="D:glm.dmat4">
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a></member>
+        <member name="D:glm.dmat3">
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a></member>
+        <member name="D:glm.dmat2">
+@}
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a></member>
+        <member name="D:glm.highp_dmat4x4">
+4 columns of 4 components matrix of high precision floating-point numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.mediump_dmat4x4">
+4 columns of 4 components matrix of medium precision floating-point numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.lowp_dmat4x4">
+4 columns of 4 components matrix of low precision floating-point numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.highp_dmat4">
+4 columns of 4 components matrix of high precision floating-point numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.mediump_dmat4">
+4 columns of 4 components matrix of medium precision floating-point numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.lowp_dmat4">
+@}
+@addtogroup core_precision
+@{
+4 columns of 4 components matrix of low precision floating-point numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.highp_dmat4x3">
+4 columns of 3 components matrix of high precision floating-point numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.mediump_dmat4x3">
+4 columns of 3 components matrix of medium precision floating-point numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.lowp_dmat4x3">
+@}
+@addtogroup core_precision
+@{
+4 columns of 3 components matrix of low precision floating-point numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.highp_dmat4x2">
+4 columns of 2 components matrix of high precision floating-point numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.mediump_dmat4x2">
+4 columns of 2 components matrix of medium precision floating-point numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.lowp_dmat4x2">
+@}
+@addtogroup core_precision
+@{
+4 columns of 2 components matrix of low precision floating-point numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.highp_dmat3x4">
+3 columns of 4 components matrix of high precision floating-point numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.mediump_dmat3x4">
+3 columns of 4 components matrix of medium precision floating-point numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.lowp_dmat3x4">
+@}
+@addtogroup core_precision
+@{
+3 columns of 4 components matrix of low precision floating-point numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.highp_dmat3x3">
+3 columns of 3 components matrix of high precision floating-point numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.mediump_dmat3x3">
+3 columns of 3 components matrix of medium precision floating-point numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.lowp_dmat3x3">
+3 columns of 3 components matrix of low precision floating-point numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.highp_dmat3">
+3 columns of 3 components matrix of high precision floating-point numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.mediump_dmat3">
+3 columns of 3 components matrix of medium precision floating-point numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.lowp_dmat3">
+@}
+@addtogroup core_precision
+@{
+3 columns of 3 components matrix of low precision floating-point numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.highp_dmat3x2">
+3 columns of 2 components matrix of high precision floating-point numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.mediump_dmat3x2">
+3 columns of 2 components matrix of medium precision floating-point numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.lowp_dmat3x2">
+@}
+@addtogroup core_precision
+@{
+3 columns of 2 components matrix of low precision floating-point numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.highp_dmat2x4">
+2 columns of 4 components matrix of high precision floating-point numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.mediump_dmat2x4">
+2 columns of 4 components matrix of medium precision floating-point numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.lowp_dmat2x4">
+@}
+@addtogroup core_precision
+@{
+2 columns of 4 components matrix of low precision floating-point numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.highp_dmat2x3">
+2 columns of 3 components matrix of high precision floating-point numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.mediump_dmat2x3">
+2 columns of 3 components matrix of medium precision floating-point numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.lowp_dmat2x3">
+@}
+@addtogroup core_precision
+@{
+2 columns of 3 components matrix of low precision floating-point numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.highp_dmat2x2">
+2 columns of 2 components matrix of high precision floating-point numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.mediump_dmat2x2">
+2 columns of 2 components matrix of medium precision floating-point numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.lowp_dmat2x2">
+2 columns of 2 components matrix of low precision floating-point numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.highp_dmat2">
+2 columns of 2 components matrix of high precision floating-point numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.mediump_dmat2">
+2 columns of 2 components matrix of medium precision floating-point numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.lowp_dmat2">
+@addtogroup core_precision
+@{
+2 columns of 2 components matrix of low precision floating-point numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.mat4">
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a></member>
+        <member name="D:glm.mat3">
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a></member>
+        <member name="D:glm.mat2">
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a></member>
+        <member name="D:glm.mat4x4">
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a></member>
+        <member name="D:glm.mat4x3">
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a></member>
+        <member name="D:glm.mat4x2">
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a></member>
+        <member name="D:glm.mat3x4">
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a></member>
+        <member name="D:glm.mat3x3">
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a></member>
+        <member name="D:glm.mat3x2">
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a></member>
+        <member name="D:glm.mat2x4">
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a></member>
+        <member name="D:glm.mat2x3">
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a></member>
+        <member name="D:glm.mat2x2">
+@}
+@addtogroup core_types
+@{
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a></member>
+        <member name="D:glm.highp_mat4x4">
+4 columns of 4 components matrix of high precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a>
+4 columns of 4 components matrix of high precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.mediump_mat4x4">
+4 columns of 4 components matrix of medium precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a>
+4 columns of 4 components matrix of medium precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.lowp_mat4x4">
+4 columns of 4 components matrix of low precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a>
+4 columns of 4 components matrix of low precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.highp_mat4">
+4 columns of 4 components matrix of high precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a>
+4 columns of 4 components matrix of high precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.mediump_mat4">
+4 columns of 4 components matrix of medium precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a>
+4 columns of 4 components matrix of medium precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.lowp_mat4">
+@}
+@addtogroup core_precision
+@{
+4 columns of 4 components matrix of low precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a>
+4 columns of 4 components matrix of low precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.highp_mat4x3">
+4 columns of 3 components matrix of high precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a>
+4 columns of 3 components matrix of high precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.mediump_mat4x3">
+4 columns of 3 components matrix of medium precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a>
+4 columns of 3 components matrix of medium precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.lowp_mat4x3">
+@}
+@addtogroup core_precision
+@{
+4 columns of 3 components matrix of low precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a>
+4 columns of 3 components matrix of low precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.highp_mat4x2">
+4 columns of 2 components matrix of high precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a>
+4 columns of 2 components matrix of high precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.mediump_mat4x2">
+4 columns of 2 components matrix of medium precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a>
+4 columns of 2 components matrix of medium precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.lowp_mat4x2">
+@}
+@addtogroup core_precision
+@{
+4 columns of 2 components matrix of low precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a>
+4 columns of 2 components matrix of low precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.highp_mat3x4">
+3 columns of 4 components matrix of high precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a>
+3 columns of 4 components matrix of high precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.mediump_mat3x4">
+3 columns of 4 components matrix of medium precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a>
+3 columns of 4 components matrix of medium precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.lowp_mat3x4">
+@}
+@addtogroup core_precision
+@{
+3 columns of 4 components matrix of low precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a>
+3 columns of 4 components matrix of low precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.highp_mat3x3">
+3 columns of 3 components matrix of high precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a>
+3 columns of 3 components matrix of high precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.mediump_mat3x3">
+3 columns of 3 components matrix of medium precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a>
+3 columns of 3 components matrix of medium precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.lowp_mat3x3">
+3 columns of 3 components matrix of low precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a>
+3 columns of 3 components matrix of low precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.highp_mat3">
+3 columns of 3 components matrix of high precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a>
+3 columns of 3 components matrix of high precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.mediump_mat3">
+3 columns of 3 components matrix of medium precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a>
+3 columns of 3 components matrix of medium precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.lowp_mat3">
+@}
+@addtogroup core_precision
+@{
+3 columns of 3 components matrix of low precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a>
+3 columns of 3 components matrix of low precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.highp_mat3x2">
+3 columns of 2 components matrix of high precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a>
+3 columns of 2 components matrix of high precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.mediump_mat3x2">
+3 columns of 2 components matrix of medium precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a>
+3 columns of 2 components matrix of medium precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.lowp_mat3x2">
+@}
+@addtogroup core_precision
+@{
+3 columns of 2 components matrix of low precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a>
+3 columns of 2 components matrix of low precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.highp_mat2x4">
+2 columns of 4 components matrix of high precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a>
+2 columns of 4 components matrix of high precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.mediump_mat2x4">
+2 columns of 4 components matrix of medium precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a>
+2 columns of 4 components matrix of medium precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.lowp_mat2x4">
+@}
+@addtogroup core_precision
+@{
+2 columns of 4 components matrix of low precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a>
+2 columns of 4 components matrix of low precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.highp_mat2x3">
+2 columns of 3 components matrix of high precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a>
+2 columns of 3 components matrix of high precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.mediump_mat2x3">
+2 columns of 3 components matrix of medium precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a>
+2 columns of 3 components matrix of medium precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.lowp_mat2x3">
+@}
+@addtogroup core_precision
+@{
+2 columns of 3 components matrix of low precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a>
+2 columns of 3 components matrix of low precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.highp_mat2x2">
+2 columns of 2 components matrix of high precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a>
+2 columns of 2 components matrix of high precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.mediump_mat2x2">
+2 columns of 2 components matrix of medium precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a>
+2 columns of 2 components matrix of medium precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.lowp_mat2x2">
+2 columns of 2 components matrix of low precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a>
+2 columns of 2 components matrix of low precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.highp_mat2">
+2 columns of 2 components matrix of high precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a>
+2 columns of 2 components matrix of high precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.mediump_mat2">
+2 columns of 2 components matrix of medium precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a>
+2 columns of 2 components matrix of medium precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.lowp_mat2">
+@addtogroup core_precision
+@{
+2 columns of 2 components matrix of low precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a>
+2 columns of 2 components matrix of low precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.highp_float">
+High precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.4 Floats</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.mediump_float">
+Medium precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.4 Floats</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.lowp_float">
+@addtogroup core_precision
+@{
+Low precision floating-point numbers. 
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.4 Floats</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.bvec4">
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a></member>
+        <member name="D:glm.bvec3">
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a></member>
+        <member name="D:glm.bvec2">
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a></member>
+        <member name="D:glm.uvec4">
+4 components vector of unsigned integer numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a></member>
+        <member name="D:glm.uvec3">
+3 components vector of unsigned integer numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a></member>
+        <member name="D:glm.uvec2">
+2 components vector of unsigned integer numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a></member>
+        <member name="D:glm.ivec4">
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a></member>
+        <member name="D:glm.ivec3">
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a></member>
+        <member name="D:glm.ivec2">
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a></member>
+        <member name="D:glm.dvec4">
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a></member>
+        <member name="D:glm.dvec3">
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a></member>
+        <member name="D:glm.dvec2">
+2 components vector of double-precision floating-point numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a></member>
+        <member name="D:glm.vec4">
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a></member>
+        <member name="D:glm.vec3">
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a></member>
+        <member name="D:glm.vec2">
+@}
+@addtogroup core_types
+@{
+2 components vector of floating-point numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a></member>
+        <member name="D:glm.lowp_bvec4">
+4 components vector of low precision bool numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.mediump_bvec4">
+4 components vector of medium precision bool numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.highp_bvec4">
+4 components vector of high precision bool numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.lowp_uvec4">
+4 components vector of low precision unsigned integer numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.mediump_uvec4">
+4 components vector of medium precision unsigned integer numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.highp_uvec4">
+4 components vector of high precision unsigned integer numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.lowp_ivec4">
+4 components vector of low precision signed integer numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.mediump_ivec4">
+4 components vector of medium precision signed integer numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.highp_ivec4">
+4 components vector of high precision signed integer numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.lowp_dvec4">
+4 components vector of low double-precision floating-point numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.mediump_dvec4">
+4 components vector of medium double-precision floating-point numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.highp_dvec4">
+4 components vector of high double-precision floating-point numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.lowp_vec4">
+4 components vector of low single-precision floating-point numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a>
+Low single-precision floating-point vector of 4 components.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_vec4">
+4 components vector of medium single-precision floating-point numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a>
+Medium Single-precision floating-point vector of 4 components.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_vec4">
+@}
+@addtogroup core_precision
+@{
+4 components vector of high single-precision floating-point numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a>
+High Single-precision floating-point vector of 4 components.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_bvec3">
+3 components vector of low precision bool numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.mediump_bvec3">
+3 components vector of medium precision bool numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.highp_bvec3">
+3 components vector of high precision bool numbers.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.lowp_uvec3">
+3 components vector of low precision unsigned integer numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.mediump_uvec3">
+3 components vector of medium precision unsigned integer numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.highp_uvec3">
+3 components vector of high precision unsigned integer numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.lowp_ivec3">
+3 components vector of low precision signed integer numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.mediump_ivec3">
+3 components vector of medium precision signed integer numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.highp_ivec3">
+3 components vector of high precision signed integer numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.lowp_dvec3">
+3 components vector of low double-precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.mediump_dvec3">
+3 components vector of medium double-precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.highp_dvec3">
+3 components vector of high double-precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.lowp_vec3">
+3 components vector of low single-precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a>
+Low single-precision floating-point vector of 3 components.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_vec3">
+3 components vector of medium single-precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a>
+Medium Single-precision floating-point vector of 3 components.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_vec3">
+@}
+@addtogroup core_precision
+@{
+3 components vector of high single-precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a>
+High Single-precision floating-point vector of 3 components.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.lowp_bvec2">
+2 components vector of low precision bool numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.mediump_bvec2">
+2 components vector of medium precision bool numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.highp_bvec2">
+2 components vector of high precision bool numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.lowp_uvec2">
+2 components vector of low precision unsigned integer numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.mediump_uvec2">
+2 components vector of medium precision unsigned integer numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.highp_uvec2">
+2 components vector of high precision unsigned integer numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.lowp_ivec2">
+2 components vector of low precision signed integer numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.mediump_ivec2">
+2 components vector of medium precision signed integer numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.highp_ivec2">
+2 components vector of high precision signed integer numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.lowp_dvec2">
+2 components vector of low double-precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.mediump_dvec2">
+2 components vector of medium double-precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.highp_dvec2">
+2 components vector of high double-precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.lowp_vec2">
+2 components vector of low single-precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a>
+Low single-precision floating-point vector of 2 components.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.mediump_vec2">
+2 components vector of medium single-precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a>
+Medium Single-precision floating-point vector of 2 components.
+@see gtc_type_precision
+</member>
+        <member name="D:glm.highp_vec2">
+@addtogroup core_precision
+@{
+2 components vector of high single-precision floating-point numbers.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a>
+High Single-precision floating-point vector of 2 components.
+@see gtc_type_precision
+</member>
+        <member name="M:glm.uintBitsToFloat(System.UInt32!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
+Returns a floating-point value corresponding to a
+unsigned integer encoding of a floating-point value.
+If an inf or NaN is passed in, it will not signal, and the
+resulting floating point value is unspecified. Otherwise,
+the bit-level representation is preserved.
+
+@see <a href="http://www.opengl.org/sdk/docs/manglsl/xhtml/uintBitsToFloat.xml">GLSL uintBitsToFloat man page</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 8.3 Common Functions</a></member>
+        <member name="M:glm.intBitsToFloat(System.Int32!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
+Returns a floating-point value corresponding to a signed
+integer encoding of a floating-point value.
+If an inf or NaN is passed in, it will not signal, and the
+resulting floating point value is unspecified. Otherwise,
+the bit-level representation is preserved.
+
+@see <a href="http://www.opengl.org/sdk/docs/manglsl/xhtml/intBitsToFloat.xml">GLSL intBitsToFloat man page</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 8.3 Common Functions</a></member>
+        <member name="M:glm.floatBitsToUint(System.Single!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
+Returns a unsigned integer value representing
+the encoding of a floating-point value. The floatingpoint
+value's bit-level representation is preserved.
+
+@see <a href="http://www.opengl.org/sdk/docs/manglsl/xhtml/floatBitsToUint.xml">GLSL floatBitsToUint man page</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 8.3 Common Functions</a></member>
+        <member name="M:glm.floatBitsToInt(System.Single!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
+Returns a signed integer value representing
+the encoding of a floating-point value. The floating-point
+value's bit-level representation is preserved.
+
+@see <a href="http://www.opengl.org/sdk/docs/manglsl/xhtml/floatBitsToInt.xml">GLSL floatBitsToInt man page</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 8.3 Common Functions</a></member>
+        <member name="D:glm.uint">
+Unsigned integer type.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.3 Integers</a></member>
+        <member name="D:glm.highp_uint">
+High precision unsigned integer. 
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.3 Integers</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.mediump_uint">
+Medium precision unsigned integer. 
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.3 Integers</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.lowp_uint">
+Low precision unsigned integer. 
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.3 Integers</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.highp_int">
+High precision signed integer.
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.3 Integers</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.mediump_int">
+Medium precision signed integer. 
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.3 Integers</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.lowp_int">
+@addtogroup core_precision
+@{
+Low precision signed integer. 
+There is no guarantee on the actual precision.
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.3 Integers</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="M:_wassert(System.Char!System.Runtime.CompilerServices.IsConst*,System.Char!System.Runtime.CompilerServices.IsConst*,System.UInt32)">
+OpenGL Mathematics (glm.g-truc.net)
+
+Copyright (c) 2005 - 2014 G-Truc Creation (www.g-truc.net)
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+@ref core
+@file glm/core/func_common.hpp
+@date 2008-03-08 / 2010-01-26
+@author Christophe Riccio
+
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 8.3 Common Functions</a>
+
+@defgroup core_func_common Common functions
+@ingroup core
+
+These all operate component-wise. The description is per component.
+OpenGL Mathematics (glm.g-truc.net)
+
+Copyright (c) 2005 - 2014 G-Truc Creation (www.g-truc.net)
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+@ref core
+@file glm/core/setup.hpp
+@date 2006-11-13 / 2013-03-30
+@author Christophe Riccio
+
+OpenGL Mathematics (glm.g-truc.net)
+
+Copyright (c) 2005 - 2014 G-Truc Creation (www.g-truc.net)
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+@ref core
+@file glm/core/_fixes.hpp
+@date 2011-02-21 / 2011-11-22
+@author Christophe Riccio
+
+OpenGL Mathematics (glm.g-truc.net)
+
+Copyright (c) 2005 - 2014 G-Truc Creation (www.g-truc.net)
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+@ref core
+@file glm/fwd.hpp
+@date 2013-03-30 / 2013-03-31
+@author Christophe Riccio
+OpenGL Mathematics (glm.g-truc.net)
+
+Copyright (c) 2005 - 2014 G-Truc Creation (www.g-truc.net)
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+@ref core
+@file glm/core/type_int.hpp
+@date 2008-08-22 / 2013-03-30
+@author Christophe Riccio
+OpenGL Mathematics (glm.g-truc.net)
+
+Copyright (c) 2005 - 2014 G-Truc Creation (www.g-truc.net)
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+@ref core
+@file glm/core/setup.hpp
+@date 2006-11-13 / 2013-03-30
+@author Christophe Riccio
+
+OpenGL Mathematics (glm.g-truc.net)
+
+Copyright (c) 2005 - 2014 G-Truc Creation (www.g-truc.net)
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+@ref core
+@file glm/core/_vectorize.hpp
+@date 2011-10-14 / 2011-10-14
+@author Christophe Riccio
+</member>
+    </members>
 </doc>

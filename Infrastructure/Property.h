@@ -135,7 +135,9 @@ namespace Break{
 			 *
 			 * @param [in,out]	val	The value.
 			 */
- 
+			Prop operator->()const{
+				return getVal();
+			}
 			void operator =(const Prop& val){
 				setVal(val);
 			}

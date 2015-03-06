@@ -5,7 +5,7 @@ using namespace std;
 using namespace Break::Infrastructure;
 EnginePtr Engine::_instance = nullptr;
 Property<EnginePtr,Engine,Permission::READ> Engine::Instance((*Engine::_instance.get()),&Engine::get,&Engine::set);
-Engine::Engine(){
+Engine::Engine():GraphicsDevice(*this,&Engine::getGraphicsDevice,NULL){
 	_mainThread = NULL;
 	_api = API::NONE;
 	_joinable = false;
@@ -21,6 +21,12 @@ Engine::~Engine(){
 		_renderer = nullptr;
 	if(_graphicsManager)
 		_graphicsManager= nullptr;
+	if(_inputDevices.size()>0){
+		for(auto& device : _inputDevices){
+			device = nullptr;
+		}
+		_inputDevices.clear();
+	}
 	delete _mainThread;
 }
 EnginePtr Engine::get(){
@@ -41,6 +47,10 @@ void Engine::setup(API api,IRendererPtr renderer){
 	}else{
 		throw exception("API parameter is not initialized");
 	}
+}
+
+IGXManagerPtr Engine::getGraphicsDevice(){
+	return _graphicsManager;
 }
 
 bool Engine::init(){

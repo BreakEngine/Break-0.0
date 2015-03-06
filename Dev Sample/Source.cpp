@@ -2,7 +2,6 @@
 #include "../Infrastructure/Engine.h"
 using namespace std;
 using namespace Break::Infrastructure;
-
 int main(){
 	EnginePtr engine = Engine::Instance;
 	engine->setup(API::OPENGL);

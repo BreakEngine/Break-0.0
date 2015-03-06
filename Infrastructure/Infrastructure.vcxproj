@@ -14,6 +14,9 @@
     <ClInclude Include="AccessException.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="IGXManager.h" />
+    <ClInclude Include="IKeyboard.h" />
+    <ClInclude Include="IMouse.h" />
+    <ClInclude Include="InputDevice.h" />
     <ClInclude Include="IRenderer.h" />
     <ClInclude Include="Property.h" />
     <ClInclude Include="Time.h" />
@@ -22,6 +25,9 @@
   <ItemGroup>
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="IGXManager.cpp" />
+    <ClCompile Include="IKeyboard.cpp" />
+    <ClCompile Include="IMouse.cpp" />
+    <ClCompile Include="InputDevice.cpp" />
     <ClCompile Include="IRenderer.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="TimeStep.cpp" />

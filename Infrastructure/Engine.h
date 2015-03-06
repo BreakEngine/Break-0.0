@@ -1,9 +1,11 @@
 #pragma once
 #include<memory>
 #include<thread>
+#include<vector>
 #include "Property.h"
 #include "IRenderer.h"
 #include "IGXManager.h"
+#include "InputDevice.h"
 namespace Break{
 	namespace Infrastructure{
 		//API for choosing API that'll be used
@@ -23,7 +25,7 @@ namespace Break{
 			 * \author Moustapha Saad
 			 *  
 			 */
-			void setup(API,IRendererPtr=IRendererPtr(new IRenderer()));
+			void setup(API,IRendererPtr r =IRendererPtr(new IRenderer()));
 			/*!
 			 * \function start()
 			 *
@@ -49,6 +51,9 @@ namespace Break{
 			 * \author Moustapha Saad
 			 */
 			static Property<std::shared_ptr<Engine>,Engine,Permission::READ> Instance;
+
+			//property of graphics device 
+			Property<IGXManagerPtr,Engine,Permission::READ> GraphicsDevice;
 		private:
 			/*!
 			 * \function get()
@@ -59,6 +64,16 @@ namespace Break{
 			 */
 			std::shared_ptr<Engine> get();
 			void set(std::shared_ptr<Engine>);
+
+			
+			/*!
+			 * \function IGXManagerPtr getGraphicsDevice()
+			 *
+			 * \brief returns pointer to the graphics device used
+			 *
+			 * \author Moustapha Saad
+			 */
+			IGXManagerPtr getGraphicsDevice();
 
 			/*!
 			 * \function init()
@@ -121,6 +136,9 @@ namespace Break{
 
 			//pointer to the used graphics manager
 			IGXManagerPtr _graphicsManager;
+
+			//vector of input devices that the engine will hold
+			std::vector<InputDevicePtr> _inputDevices;
 
 			//constructor of the engine
 			Engine();
