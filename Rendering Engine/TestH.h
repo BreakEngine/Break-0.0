@@ -1,9 +1,7 @@
 #pragma once
-#include "../Infrastructure/IGXManager.h"
 namespace Renderer{
-	class Test:public Break::Infrastructure::IGXManager{
+	class Test{
 	public:
 		Test();
-		virtual bool init();
 	};
 }
