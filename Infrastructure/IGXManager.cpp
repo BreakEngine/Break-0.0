@@ -8,7 +8,7 @@ IGXManager::~IGXManager(){
 
 }
 
-bool IGXManager::init(){
+bool IGXManager::init(ApplicationPtr app){
 	return true;
 }
 
@@ -20,5 +20,8 @@ void IGXManager::clearBuffer(){
 
 }
 void IGXManager::swapBuffer(){
+
+}
+void IGXManager::setCursorPostion(glm::uvec2 val){
 
 }

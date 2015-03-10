@@ -3,9 +3,15 @@
 #include "TimeStep.h"
 #include <memory>
 namespace Break{
+	namespace Renderer{
+		class GLManager;
+		class DXManager;
+	}
 	namespace Infrastructure{
 		
 		class Application{
+			friend class Renderer::GLManager;
+			friend class Renderer::DXManager;
 		protected:
 			IDisplayPtr _display;
 		public:
