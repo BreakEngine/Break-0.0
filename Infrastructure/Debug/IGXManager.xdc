@@ -3281,5 +3281,14 @@ Default double-precision floating-point 4x4 matrix.
 Default double-precision floating-point quaternion.
 @see gtc_type_precision
 </member>
+<member name="M:Break.Infrastructure.Application.cleanUp" decl="true" source="d:\break engine\infrastructure\application.h" line="29">
+ @fn	virtual void Application::cleanUp();
+
+ @brief	Clean up resources used in this application.
+
+ @author	Moustapha Saad
+ @date	05/02/2015
+
+</member>
 </members>
 </doc>

@@ -1,6 +1,7 @@
 #pragma once
 #include<memory>
 #include <glm/common.hpp>
+#include "Application.h"
 namespace Break{
 	namespace Infrastructure{
 		//graphics manager abstract class that will handle APIs
@@ -18,7 +19,7 @@ namespace Break{
 			 *
 			 * \author Moustapha Saad
 			 */
-			virtual bool init();
+			virtual bool init(ApplicationPtr);
 
 			/*!
 			 * \function void start()

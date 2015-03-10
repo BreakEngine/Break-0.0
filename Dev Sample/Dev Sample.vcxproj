@@ -71,9 +71,6 @@
     <ProjectReference Include="..\Physics Engine\Physics Engine.vcxproj">
       <Project>{34de0898-f7f7-4c47-9949-adb528d520b3}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\Rendering Engine\Rendering Engine.vcxproj">
-      <Project>{35eb6ac7-a684-49a1-afbf-bad56813c2aa}</Project>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp" />
