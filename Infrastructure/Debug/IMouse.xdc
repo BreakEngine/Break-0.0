@@ -3830,5 +3830,14 @@ the second component is obtained from the 16 most-significant bits of v.
 <member name="F:Break.Infrastructure.IMouse._position" decl="false" source="d:\break engine\infrastructure\imouse.h" line="107">
 @brief	The position. 
 </member>
+<member name="M:Break.Infrastructure.Application.cleanUp" decl="true" source="d:\break engine\infrastructure\application.h" line="23">
+ @fn	virtual void Application::cleanUp();
+
+ @brief	Clean up resources used in this application.
+
+ @author	Moustapha Saad
+ @date	05/02/2015
+
+</member>
 </members>
 </doc>

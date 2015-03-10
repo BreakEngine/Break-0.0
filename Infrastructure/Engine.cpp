@@ -12,6 +12,7 @@ Engine::Engine():GraphicsDevice(*this,&Engine::getGraphicsDevice,NULL){
 	_cleaningUp = false;
 	_renderer = nullptr;
 	_graphicsManager = nullptr;
+	_application = nullptr;
 }
 Engine::~Engine(){
 	_cleaningUp = true;
@@ -21,6 +22,8 @@ Engine::~Engine(){
 		_renderer = nullptr;
 	if(_graphicsManager)
 		_graphicsManager= nullptr;
+	if(_application)
+		_application = nullptr;
 	if(_inputDevices.size()>0){
 		for(auto& device : _inputDevices){
 			device = nullptr;
@@ -37,11 +40,12 @@ EnginePtr Engine::get(){
 void Engine::set(EnginePtr val){
 	return;
 }
-void Engine::setup(API api,IRendererPtr renderer){
+void Engine::setup(ApplicationPtr app,API api,IRendererPtr renderer){
 	_api = api;
 	_renderer = renderer;
+	_application = app;
 	if(_api == API::OPENGL){
-
+		cout<<"creating opengl handle to window of title = "<<_application->getDisplay()->getTitle()<<endl;
 	}else if(_api == API::DIRECTX){
 
 	}else{

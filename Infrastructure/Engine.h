@@ -6,6 +6,7 @@
 #include "IRenderer.h"
 #include "IGXManager.h"
 #include "InputDevice.h"
+#include "Application.h"
 namespace Break{
 	namespace Infrastructure{
 		//API for choosing API that'll be used
@@ -25,7 +26,7 @@ namespace Break{
 			 * \author Moustapha Saad
 			 *  
 			 */
-			void setup(API,IRendererPtr r =IRendererPtr(new IRenderer()));
+			void setup(ApplicationPtr app,API,IRendererPtr r =IRendererPtr(new IRenderer()));
 			/*!
 			 * \function start()
 			 *
@@ -139,6 +140,9 @@ namespace Break{
 
 			//vector of input devices that the engine will hold
 			std::vector<InputDevicePtr> _inputDevices;
+
+			//Application
+			ApplicationPtr _application;
 
 			//constructor of the engine
 			Engine();

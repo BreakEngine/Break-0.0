@@ -4,6 +4,52 @@
         "Infrastructure"
     </assembly>
     <members>
+        <member name="F:Break.Infrastructure.IKeyboard._data">
+@brief	The data of the keys. 
+</member>
+        <member name="M:Break.Infrastructure.IKeyboard.update">
+ @fn	virtual void IKeyboard::update();
+
+ @brief	Updates this object.
+
+ @author	Moustapha Saad
+ @date	24/01/2015
+
+</member>
+        <member name="M:Break.Infrastructure.IKeyboard.#ctor">
+ @fn	virtual void IKeyboard::update();
+
+ @brief	Updates this object.
+
+ @author	Moustapha Saad
+ @date	23/01/2015
+
+</member>
+        <member name="M:Break.Infrastructure.IKeyboard.getKey(Break.Infrastructure.IKeyboard.Keys)">
+ @fn	static KeyState IKeyboard::getKey(Keys key);
+
+ @brief	Gets a key current state.
+
+ @author	Moustapha Saad
+ @date	23/01/2015
+
+ @param	key	The key.
+
+ @return	KeyState.
+
+</member>
+        <member name="T:Break.Infrastructure.IKeyboard.Keys">
+ @enum	Keys
+
+ @brief	Values that represent keys.
+
+</member>
+        <member name="T:Break.Infrastructure.IKeyboard.KeyState">
+ @enum	KeyState
+
+ @brief	Values that represent key states.
+
+</member>
         <member name="F:Break.Infrastructure.IMouse._position">
 @brief	The position. 
 </member>
@@ -217,50 +263,13 @@ the last component will be written to the most significant bits.
 
 @see <a href="http://www.opengl.org/sdk/docs/manglsl/xhtml/packUnorm2x16.xml">GLSL packUnorm2x16 man page</a>
 @see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 8.4 Floating-Point Pack and Unpack Functions</a></member>
-        <member name="F:Break.Infrastructure.IKeyboard._data">
-@brief	The data of the keys. 
-</member>
-        <member name="M:Break.Infrastructure.IKeyboard.update">
- @fn	virtual void IKeyboard::update();
+        <member name="M:Break.Infrastructure.Application.cleanUp">
+ @fn	virtual void Application::cleanUp();
 
- @brief	Updates this object.
+ @brief	Clean up resources used in this application.
 
  @author	Moustapha Saad
- @date	24/01/2015
-
-</member>
-        <member name="M:Break.Infrastructure.IKeyboard.#ctor">
- @fn	virtual void IKeyboard::update();
-
- @brief	Updates this object.
-
- @author	Moustapha Saad
- @date	23/01/2015
-
-</member>
-        <member name="M:Break.Infrastructure.IKeyboard.getKey(Break.Infrastructure.IKeyboard.Keys)">
- @fn	static KeyState IKeyboard::getKey(Keys key);
-
- @brief	Gets a key current state.
-
- @author	Moustapha Saad
- @date	23/01/2015
-
- @param	key	The key.
-
- @return	KeyState.
-
-</member>
-        <member name="T:Break.Infrastructure.IKeyboard.Keys">
- @enum	Keys
-
- @brief	Values that represent keys.
-
-</member>
-        <member name="T:Break.Infrastructure.IKeyboard.KeyState">
- @enum	KeyState
-
- @brief	Values that represent key states.
+ @date	05/02/2015
 
 </member>
         <member name="D:glm.f64quat">
