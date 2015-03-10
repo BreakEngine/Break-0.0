@@ -10,7 +10,7 @@
 namespace Break{
 	namespace Infrastructure{
 		//API for choosing API that'll be used
-		enum API{ OPENGL, DIRECTX, NONE };
+		enum API{ OPENGL, DIRECTX };
 
 		//main class of the engine that manages everything 
 		class Engine{
@@ -107,7 +107,7 @@ namespace Break{
 			 *
 			 * \author Moustapha Saad
 			 */
-			void update();
+			void update(TimeStep);
 			/*!
 			 * \function render()
 			 *
