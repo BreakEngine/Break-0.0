@@ -1,5 +1,6 @@
 #pragma once
 #include "AccessException.h"
+#include <iostream>
 namespace Break{
 	namespace Infrastructure{
 		enum Permission{
@@ -161,6 +162,10 @@ namespace Break{
 			Prop operator %=(const Prop& val){
 				setVal(getVal()%val);
 				return *this;
+			}
+			friend std::ostream& operator<< (std::ostream& stream, const Prop& val) {
+				stream<<val;
+				return stream;
 			}
  
 		};

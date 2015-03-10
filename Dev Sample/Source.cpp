@@ -1,10 +1,12 @@
 #include <iostream>
+#include<string>
 #include "../Infrastructure/Engine.h"
+#include "TestApplication.h"
 using namespace std;
 using namespace Break::Infrastructure;
 int main(){
 	EnginePtr engine = Engine::Instance;
-	engine->setup(API::OPENGL);
+	engine->setup(ApplicationPtr(new TestApp()),API::OPENGL);
 	engine->start();
 	int x = 0;
 	cin>>x;

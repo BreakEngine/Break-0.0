@@ -12,7 +12,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AccessException.h" />
+    <ClInclude Include="Application.h" />
+    <ClInclude Include="Display.h" />
     <ClInclude Include="Engine.h" />
+    <ClInclude Include="IDisplay.h" />
     <ClInclude Include="IGXManager.h" />
     <ClInclude Include="IKeyboard.h" />
     <ClInclude Include="IMouse.h" />
@@ -23,7 +26,9 @@
     <ClInclude Include="TimeStep.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Application.cpp" />
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="IDisplay.cpp" />
     <ClCompile Include="IGXManager.cpp" />
     <ClCompile Include="IKeyboard.cpp" />
     <ClCompile Include="IMouse.cpp" />
