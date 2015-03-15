@@ -21,12 +21,24 @@
     <ClCompile Include="GLManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DXKeyboard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GLKeyboard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DXManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GLManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DXKeyboard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GLKeyboard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

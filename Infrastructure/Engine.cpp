@@ -8,8 +8,12 @@ using namespace std;
 using namespace Break::Infrastructure;
 using namespace Break::Renderer;
 EnginePtr Engine::_instance = nullptr;
+
 Property<EnginePtr,Engine,Permission::READ> Engine::Instance((*Engine::_instance.get()),&Engine::get,&Engine::set);
-Engine::Engine():GraphicsDevice(*this,&Engine::getGraphicsDevice,NULL){
+
+Engine::Engine():GraphicsDevice(*this,&Engine::getGraphicsDevice,NULL),
+	Application(*this,&Engine::getApplication,NULL)
+{
 	_mainThread = NULL;
 	_joinable = false;
 	_cleaningUp = false;
@@ -17,6 +21,7 @@ Engine::Engine():GraphicsDevice(*this,&Engine::getGraphicsDevice,NULL){
 	_graphicsManager = nullptr;
 	_application = nullptr;
 }
+
 Engine::~Engine(){
 	_cleaningUp = true;
 	if(_mainThread && !_joinable)
@@ -35,14 +40,17 @@ Engine::~Engine(){
 	}
 	delete _mainThread;
 }
+
 EnginePtr Engine::get(){
 	if(!Engine::_instance)
 		Engine::_instance = EnginePtr(new Engine());
 	return _instance;
 }
+
 void Engine::set(EnginePtr val){
 	return;
 }
+
 void Engine::setup(ApplicationPtr app,API api,IRendererPtr renderer){
 	_api = api;
 	_renderer = renderer;
@@ -58,6 +66,9 @@ void Engine::setup(ApplicationPtr app,API api,IRendererPtr renderer){
 
 IGXManagerPtr Engine::getGraphicsDevice(){
 	return _graphicsManager;
+}
+ApplicationPtr Engine::getApplication(){
+	return _application;
 }
 
 bool Engine::init(){

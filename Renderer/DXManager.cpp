@@ -1,4 +1,6 @@
 #include "DXManager.h"
+#include "../Infrastructure/Display.h"
+#include <GLFW/glfw3.h>
 using namespace Break::Renderer;
 using namespace Break::Infrastructure;
 

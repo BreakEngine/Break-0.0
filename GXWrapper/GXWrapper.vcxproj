@@ -77,10 +77,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Test.cpp" />
+    <ClInclude Include="IVertex.h" />
+    <ClInclude Include="VertexDeclaration.h" />
+    <ClInclude Include="VertexElement.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TestH.h" />
+    <ClCompile Include="IVertex.cpp" />
+    <ClCompile Include="VertexDeclaration.cpp" />
+    <ClCompile Include="VertexElement.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
