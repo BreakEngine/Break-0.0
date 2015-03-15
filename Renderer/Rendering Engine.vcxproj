@@ -89,11 +89,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DX.cpp" />
     <ClCompile Include="DXManager.cpp" />
+    <ClCompile Include="DX_Windw.cpp" />
     <ClCompile Include="GLManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DX.h" />
     <ClInclude Include="DXManager.h" />
+    <ClInclude Include="DX_Windw.h" />
     <ClInclude Include="GLManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

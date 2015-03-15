@@ -1,6 +1,6 @@
 <?xml version="1.0"?><doc>
 <members>
-<member name="M:Break.Infrastructure.Application.cleanUp" decl="true" source="d:\break engine\infrastructure\application.h" line="29">
+<member name="M:Break.Infrastructure.Application.cleanUp" decl="true" source="d:\github\break\infrastructure\application.h" line="29">
  @fn	virtual void Application::cleanUp();
 
  @brief	Clean up resources used in this application.

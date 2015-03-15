@@ -1,6 +1,7 @@
 #pragma once
 #include<memory>
-#include <glm/common.hpp>
+#include<Windows.h>
+#include <glm/glm.hpp>
 #include "Application.h"
 namespace Break{
 	namespace Infrastructure{

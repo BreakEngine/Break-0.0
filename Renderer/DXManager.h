@@ -14,6 +14,11 @@ namespace Break{
 			void clearBuffer();
 			void swapBuffer();
 			void setCursorPostion(glm::uvec2 val);
+
+			DX_Windw *w;
+			DX *d;
+
+			HWND hwnd;
 		};
 	}
 }

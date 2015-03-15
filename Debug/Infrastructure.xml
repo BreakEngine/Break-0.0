@@ -4,52 +4,6 @@
         "Infrastructure"
     </assembly>
     <members>
-        <member name="F:Break.Infrastructure.IKeyboard._data">
-@brief	The data of the keys. 
-</member>
-        <member name="M:Break.Infrastructure.IKeyboard.update">
- @fn	virtual void IKeyboard::update();
-
- @brief	Updates this object.
-
- @author	Moustapha Saad
- @date	24/01/2015
-
-</member>
-        <member name="M:Break.Infrastructure.IKeyboard.#ctor">
- @fn	virtual void IKeyboard::update();
-
- @brief	Updates this object.
-
- @author	Moustapha Saad
- @date	23/01/2015
-
-</member>
-        <member name="M:Break.Infrastructure.IKeyboard.getKey(Break.Infrastructure.IKeyboard.Keys)">
- @fn	static KeyState IKeyboard::getKey(Keys key);
-
- @brief	Gets a key current state.
-
- @author	Moustapha Saad
- @date	23/01/2015
-
- @param	key	The key.
-
- @return	KeyState.
-
-</member>
-        <member name="T:Break.Infrastructure.IKeyboard.Keys">
- @enum	Keys
-
- @brief	Values that represent keys.
-
-</member>
-        <member name="T:Break.Infrastructure.IKeyboard.KeyState">
- @enum	KeyState
-
- @brief	Values that represent key states.
-
-</member>
         <member name="F:Break.Infrastructure.IMouse._position">
 @brief	The position. 
 </member>
@@ -128,6 +82,61 @@
 
  @author	Moustapha Saad
  @date	24/01/2015
+
+</member>
+        <member name="F:Break.Infrastructure.IKeyboard._data">
+@brief	The data of the keys. 
+</member>
+        <member name="M:Break.Infrastructure.IKeyboard.update">
+ @fn	virtual void IKeyboard::update();
+
+ @brief	Updates this object.
+
+ @author	Moustapha Saad
+ @date	24/01/2015
+
+</member>
+        <member name="M:Break.Infrastructure.IKeyboard.#ctor">
+ @fn	virtual void IKeyboard::update();
+
+ @brief	Updates this object.
+
+ @author	Moustapha Saad
+ @date	23/01/2015
+
+</member>
+        <member name="M:Break.Infrastructure.IKeyboard.getKey(Break.Infrastructure.IKeyboard.Keys)">
+ @fn	static KeyState IKeyboard::getKey(Keys key);
+
+ @brief	Gets a key current state.
+
+ @author	Moustapha Saad
+ @date	23/01/2015
+
+ @param	key	The key.
+
+ @return	KeyState.
+
+</member>
+        <member name="T:Break.Infrastructure.IKeyboard.Keys">
+ @enum	Keys
+
+ @brief	Values that represent keys.
+
+</member>
+        <member name="T:Break.Infrastructure.IKeyboard.KeyState">
+ @enum	KeyState
+
+ @brief	Values that represent key states.
+
+</member>
+        <member name="M:Break.Infrastructure.Application.cleanUp">
+ @fn	virtual void Application::cleanUp();
+
+ @brief	Clean up resources used in this application.
+
+ @author	Moustapha Saad
+ @date	05/02/2015
 
 </member>
         <member name="M:glm.unpackHalf2x16(System.UInt32!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
@@ -263,15 +272,38 @@ the last component will be written to the most significant bits.
 
 @see <a href="http://www.opengl.org/sdk/docs/manglsl/xhtml/packUnorm2x16.xml">GLSL packUnorm2x16 man page</a>
 @see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 8.4 Floating-Point Pack and Unpack Functions</a></member>
-        <member name="M:Break.Infrastructure.Application.cleanUp">
- @fn	virtual void Application::cleanUp();
+        <member name="M:glm.uintBitsToFloat(System.UInt32!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
+Returns a floating-point value corresponding to a
+unsigned integer encoding of a floating-point value.
+If an inf or NaN is passed in, it will not signal, and the
+resulting floating point value is unspecified. Otherwise,
+the bit-level representation is preserved.
 
- @brief	Clean up resources used in this application.
+@see <a href="http://www.opengl.org/sdk/docs/manglsl/xhtml/uintBitsToFloat.xml">GLSL uintBitsToFloat man page</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 8.3 Common Functions</a></member>
+        <member name="M:glm.intBitsToFloat(System.Int32!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
+Returns a floating-point value corresponding to a signed
+integer encoding of a floating-point value.
+If an inf or NaN is passed in, it will not signal, and the
+resulting floating point value is unspecified. Otherwise,
+the bit-level representation is preserved.
 
- @author	Moustapha Saad
- @date	05/02/2015
+@see <a href="http://www.opengl.org/sdk/docs/manglsl/xhtml/intBitsToFloat.xml">GLSL intBitsToFloat man page</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 8.3 Common Functions</a></member>
+        <member name="M:glm.floatBitsToUint(System.Single!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
+Returns a unsigned integer value representing
+the encoding of a floating-point value. The floatingpoint
+value's bit-level representation is preserved.
 
-</member>
+@see <a href="http://www.opengl.org/sdk/docs/manglsl/xhtml/floatBitsToUint.xml">GLSL floatBitsToUint man page</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 8.3 Common Functions</a></member>
+        <member name="M:glm.floatBitsToInt(System.Single!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
+Returns a signed integer value representing
+the encoding of a floating-point value. The floating-point
+value's bit-level representation is preserved.
+
+@see <a href="http://www.opengl.org/sdk/docs/manglsl/xhtml/floatBitsToInt.xml">GLSL floatBitsToInt man page</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 8.3 Common Functions</a></member>
         <member name="D:glm.f64quat">
 Default double-precision floating-point quaternion.
 @see gtc_type_precision
@@ -3016,26 +3048,6 @@ There is no guarantee on the actual precision.
 
 @see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.6 Matrices</a>
 @see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
-        <member name="D:glm.highp_float">
-High precision floating-point numbers.
-There is no guarantee on the actual precision.
-
-@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.4 Floats</a>
-@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
-        <member name="D:glm.mediump_float">
-Medium precision floating-point numbers.
-There is no guarantee on the actual precision.
-
-@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.4 Floats</a>
-@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
-        <member name="D:glm.lowp_float">
-@addtogroup core_precision
-@{
-Low precision floating-point numbers. 
-There is no guarantee on the actual precision.
-
-@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.4 Floats</a>
-@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
         <member name="D:glm.bvec4">
 
 @see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.5 Vectors</a></member>
@@ -3376,38 +3388,26 @@ There is no guarantee on the actual precision.
 High Single-precision floating-point vector of 2 components.
 @see gtc_type_precision
 </member>
-        <member name="M:glm.uintBitsToFloat(System.UInt32!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
-Returns a floating-point value corresponding to a
-unsigned integer encoding of a floating-point value.
-If an inf or NaN is passed in, it will not signal, and the
-resulting floating point value is unspecified. Otherwise,
-the bit-level representation is preserved.
+        <member name="D:glm.highp_float">
+High precision floating-point numbers.
+There is no guarantee on the actual precision.
 
-@see <a href="http://www.opengl.org/sdk/docs/manglsl/xhtml/uintBitsToFloat.xml">GLSL uintBitsToFloat man page</a>
-@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 8.3 Common Functions</a></member>
-        <member name="M:glm.intBitsToFloat(System.Int32!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
-Returns a floating-point value corresponding to a signed
-integer encoding of a floating-point value.
-If an inf or NaN is passed in, it will not signal, and the
-resulting floating point value is unspecified. Otherwise,
-the bit-level representation is preserved.
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.4 Floats</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.mediump_float">
+Medium precision floating-point numbers.
+There is no guarantee on the actual precision.
 
-@see <a href="http://www.opengl.org/sdk/docs/manglsl/xhtml/intBitsToFloat.xml">GLSL intBitsToFloat man page</a>
-@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 8.3 Common Functions</a></member>
-        <member name="M:glm.floatBitsToUint(System.Single!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
-Returns a unsigned integer value representing
-the encoding of a floating-point value. The floatingpoint
-value's bit-level representation is preserved.
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.4 Floats</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
+        <member name="D:glm.lowp_float">
+@addtogroup core_precision
+@{
+Low precision floating-point numbers. 
+There is no guarantee on the actual precision.
 
-@see <a href="http://www.opengl.org/sdk/docs/manglsl/xhtml/floatBitsToUint.xml">GLSL floatBitsToUint man page</a>
-@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 8.3 Common Functions</a></member>
-        <member name="M:glm.floatBitsToInt(System.Single!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
-Returns a signed integer value representing
-the encoding of a floating-point value. The floating-point
-value's bit-level representation is preserved.
-
-@see <a href="http://www.opengl.org/sdk/docs/manglsl/xhtml/floatBitsToInt.xml">GLSL floatBitsToInt man page</a>
-@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 8.3 Common Functions</a></member>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.4 Floats</a>
+@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
         <member name="D:glm.uint">
 Unsigned integer type.
 
@@ -3451,64 +3451,6 @@ There is no guarantee on the actual precision.
 @see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.1.3 Integers</a>
 @see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 4.7.2 Precision Qualifier</a></member>
         <member name="M:_wassert(System.Char!System.Runtime.CompilerServices.IsConst*,System.Char!System.Runtime.CompilerServices.IsConst*,System.UInt32)">
-OpenGL Mathematics (glm.g-truc.net)
-
-Copyright (c) 2005 - 2014 G-Truc Creation (www.g-truc.net)
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-
-@ref core
-@file glm/core/func_common.hpp
-@date 2008-03-08 / 2010-01-26
-@author Christophe Riccio
-
-@see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 8.3 Common Functions</a>
-
-@defgroup core_func_common Common functions
-@ingroup core
-
-These all operate component-wise. The description is per component.
-OpenGL Mathematics (glm.g-truc.net)
-
-Copyright (c) 2005 - 2014 G-Truc Creation (www.g-truc.net)
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-
-@ref core
-@file glm/core/setup.hpp
-@date 2006-11-13 / 2013-03-30
-@author Christophe Riccio
-
 OpenGL Mathematics (glm.g-truc.net)
 
 Copyright (c) 2005 - 2014 G-Truc Creation (www.g-truc.net)

@@ -6,6 +6,8 @@ namespace Break{
 	namespace Renderer{
 		class GLManager;
 		class DXManager;
+		class DX_Windw;
+		class DX;
 	}
 	namespace Infrastructure{
 		

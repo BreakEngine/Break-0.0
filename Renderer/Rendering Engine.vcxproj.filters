@@ -21,12 +21,24 @@
     <ClCompile Include="GLManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DX.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DX_Windw.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DXManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GLManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DX.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DX_Windw.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
