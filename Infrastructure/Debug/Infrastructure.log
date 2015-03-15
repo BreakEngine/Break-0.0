@@ -1,0 +1,34 @@
+﻿Build started 3/15/2015 10:13:31 PM.
+     1>Project "E:\Game Committee\Game Engine 1.0\Break\Infrastructure\Infrastructure.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /doc"Debug\\" /Gd /TP /analyze- /errorReport:prompt /D "BUILD_DLL" Application.cpp Engine.cpp IDisplay.cpp IGXManager.cpp IKeyboard.cpp IMouse.cpp InputDevice.cpp IRenderer.cpp Time.cpp TimeStep.cpp
+         TimeStep.cpp
+         Time.cpp
+         IRenderer.cpp
+         InputDevice.cpp
+         IMouse.cpp
+         IKeyboard.cpp
+         IGXManager.cpp
+         IDisplay.cpp
+         Engine.cpp
+         Application.cpp
+         Generating Code...
+       Lib:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\Lib.exe /OUT:"E:\Game Committee\Game Engine 1.0\Break\Debug\Infrastructure.lib" /NOLOGO Debug\Application.obj
+         Debug\Engine.obj
+         Debug\IDisplay.obj
+         Debug\IGXManager.obj
+         Debug\IKeyboard.obj
+         Debug\IMouse.obj
+         Debug\InputDevice.obj
+         Debug\IRenderer.obj
+         Debug\Time.obj
+         Debug\TimeStep.obj
+         Infrastructure.vcxproj -> E:\Game Committee\Game Engine 1.0\Break\Debug\Infrastructure.lib
+       XdcMake:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\xdcmake.exe /old "Infrastructure" /nologo /Fo"E:\Game Committee\Game Engine 1.0\Break\Debug\Infrastructure.xml" /FsDebug\Application.xdc /FsDebug\Engine.xdc /FsDebug\IDisplay.xdc /FsDebug\IGXManager.xdc /FsDebug\IKeyboard.xdc /FsDebug\IMouse.xdc /FsDebug\InputDevice.xdc /FsDebug\IRenderer.xdc /FsDebug\Time.xdc /FsDebug\TimeStep.xdc
+     1>Done Building Project "E:\Game Committee\Game Engine 1.0\Break\Infrastructure\Infrastructure.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:31.62
