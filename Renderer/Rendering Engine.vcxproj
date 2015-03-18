@@ -41,7 +41,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(SolutionDir)\Libraries\glfw-3.1.bin.WIN32\include;$(SolutionDir)\Libraries\glew-1.10.0\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(SolutionDir)\Libraries\glfw-3.1.bin.WIN32\lib-vc2012;$(SolutionDir)\Libraries\glew-1.10.0\lib\Release\Win32;$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(SolutionDir)\Libraries\glfw-3.1.bin.WIN32\lib;$(SolutionDir)\Libraries\glew-1.10.0\lib\Release\Win32;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(SolutionDir)\Libraries\glfw-3.1.bin.WIN32\include;$(SolutionDir)\Libraries\glew-1.10.0\include;$(IncludePath)</IncludePath>
@@ -89,15 +89,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DX.cpp" />
+    <ClCompile Include="DXKeyboard.cpp" />
     <ClCompile Include="DXManager.cpp" />
-    <ClCompile Include="DX_Windw.cpp" />
+    <ClCompile Include="GLKeyboard.cpp" />
     <ClCompile Include="GLManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DX.h" />
+    <ClInclude Include="DXKeyboard.h" />
     <ClInclude Include="DXManager.h" />
-    <ClInclude Include="DX_Windw.h" />
+    <ClInclude Include="GLKeyboard.h" />
     <ClInclude Include="GLManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

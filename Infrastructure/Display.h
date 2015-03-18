@@ -19,7 +19,9 @@ namespace Break
 			T getHandle(){
 				return handle;
 			}
-			
+			void setHandle(T val){
+				handle = val;
+			}
 		};
 	}
 }

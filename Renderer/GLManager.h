@@ -1,6 +1,7 @@
 #pragma once
 #include "../Infrastructure/IGXManager.h"
 #include "../Infrastructure/Application.h"
+
 namespace Break{
 	namespace Renderer{
 		class GLManager:public Infrastructure::IGXManager{
@@ -14,6 +15,10 @@ namespace Break{
 			void clearBuffer();
 			void swapBuffer();
 			void setCursorPostion(glm::uvec2 val);
+
+			void RenderFrame(float color[]);
+
+			GLFWwindow* window;
 		};
 	}
 }

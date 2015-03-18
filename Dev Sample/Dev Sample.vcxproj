@@ -38,7 +38,10 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LibraryPath>$(SolutionDir)\Libraries\glfw-3.1.bin.WIN32\lib;$(LibraryPath)</LibraryPath>
+    <ReferencePath>$(ReferencePath)</ReferencePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -46,6 +49,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -70,6 +74,9 @@
     </ProjectReference>
     <ProjectReference Include="..\Physics Engine\Physics Engine.vcxproj">
       <Project>{34de0898-f7f7-4c47-9949-adb528d520b3}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Renderer\Rendering Engine.vcxproj">
+      <Project>{35eb6ac7-a684-49a1-afbf-bad56813c2aa}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

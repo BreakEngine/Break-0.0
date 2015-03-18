@@ -1,5 +1,4 @@
 #include "DX_Windw.h"
-using namespace Break::Renderer;
 
 DX_Windw::DX_Windw(void)
 {

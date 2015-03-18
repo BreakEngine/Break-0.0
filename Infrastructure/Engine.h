@@ -55,6 +55,9 @@ namespace Break{
 
 			//property of graphics device 
 			Property<IGXManagerPtr,Engine,Permission::READ> GraphicsDevice;
+
+			//Property of application
+			Property<ApplicationPtr, Engine, Permission::READ> Application;
 		private:
 			/*!
 			 * \function get()
@@ -75,6 +78,15 @@ namespace Break{
 			 * \author Moustapha Saad
 			 */
 			IGXManagerPtr getGraphicsDevice();
+
+			/*!
+			 * \function ApplicationPtr getApplication()
+			 *
+			 * \brief returns a copy of the running application
+			 *
+			 * \author Moustapha Saad
+			 */
+			ApplicationPtr getApplication();
 
 			/*!
 			 * \function init()

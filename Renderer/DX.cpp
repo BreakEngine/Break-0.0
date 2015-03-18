@@ -1,5 +1,4 @@
 #include "DX.h"
-using namespace Break::Renderer;
 
 
 DX::DX(void)

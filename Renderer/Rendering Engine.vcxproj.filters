@@ -21,10 +21,10 @@
     <ClCompile Include="GLManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DX.cpp">
+    <ClCompile Include="DXKeyboard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DX_Windw.cpp">
+    <ClCompile Include="GLKeyboard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -35,10 +35,10 @@
     <ClInclude Include="GLManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DX.h">
+    <ClInclude Include="DXKeyboard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DX_Windw.h">
+    <ClInclude Include="GLKeyboard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -3750,7 +3750,7 @@ the second component is obtained from the 16 most-significant bits of v.
 @see <a href="http://www.opengl.org/sdk/docs/manglsl/xhtml/unpackHalf2x16.xml">GLSL unpackHalf2x16 man page</a>
 @see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 8.4 Floating-Point Pack and Unpack Functions</a>
 </member>
-<member name="M:Break.Infrastructure.Application.cleanUp" decl="true" source="d:\github\break\infrastructure\application.h" line="29">
+<member name="M:Break.Infrastructure.Application.cleanUp" decl="true" source="d:\github\break\infrastructure\application.h" line="30">
  @fn	virtual void Application::cleanUp();
 
  @brief	Clean up resources used in this application.

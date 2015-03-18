@@ -1,30 +1,9 @@
-﻿Build started 3/15/2015 9:32:00 PM.
+﻿Build started 3/18/2015 7:08:05 PM.
      1>Project "D:\GitHub\Break\Infrastructure\Infrastructure.vcxproj" on node 2 (Build target(s)).
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /doc"Debug\\" /Gd /TP /analyze- /errorReport:prompt /D "BUILD_DLL" Engine.cpp IGXManager.cpp IMouse.cpp Time.cpp
-         Engine.cpp
-         Generating Code...
-         Compiling...
-         Time.cpp
-         IMouse.cpp
-         IGXManager.cpp
-         Generating Code...
-       Lib:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\Lib.exe /OUT:"D:\GitHub\Break\Debug\Infrastructure.lib" /NOLOGO Debug\Application.obj
-         Debug\Engine.obj
-         Debug\IDisplay.obj
-         Debug\IGXManager.obj
-         Debug\IKeyboard.obj
-         Debug\IMouse.obj
-         Debug\InputDevice.obj
-         Debug\IRenderer.obj
-         Debug\Time.obj
-         Debug\TimeStep.obj
+     1>Lib:
          Infrastructure.vcxproj -> D:\GitHub\Break\Debug\Infrastructure.lib
-       XdcMake:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\xdcmake.exe /old "Infrastructure" /nologo /Fo"D:\GitHub\Break\Debug\Infrastructure.xml" /FsDebug\Application.xdc /FsDebug\Engine.xdc /FsDebug\IDisplay.xdc /FsDebug\IGXManager.xdc /FsDebug\IKeyboard.xdc /FsDebug\IMouse.xdc /FsDebug\InputDevice.xdc /FsDebug\IRenderer.xdc /FsDebug\Time.xdc /FsDebug\TimeStep.xdc
      1>Done Building Project "D:\GitHub\Break\Infrastructure\Infrastructure.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:05.27
+Time Elapsed 00:00:00.08

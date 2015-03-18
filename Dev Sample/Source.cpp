@@ -6,7 +6,7 @@ using namespace std;
 using namespace Break::Infrastructure;
 int main(){
 	EnginePtr engine = Engine::Instance;
-	engine->setup(ApplicationPtr(new TestApp()),API::OPENGL);
+	engine->setup(ApplicationPtr(new TestApp()),API::DIRECTX);
 	engine->start();
 	int x = 0;
 	cin>>x;

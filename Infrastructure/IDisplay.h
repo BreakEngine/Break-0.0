@@ -1,4 +1,10 @@
 #pragma once
+#pragma comment(lib,"opengl32.lib")
+#pragma comment(lib,"glew32.lib")
+#pragma comment(lib,"glfw3.lib")
+#pragma comment(lib,"glfw3dll.lib")
+#pragma comment (lib, "d3d11.lib")
+#pragma comment (lib, "DXGI.lib")
 #include <string>
 #include <memory>
 #include "Property.h"

@@ -1,7 +1,16 @@
 #pragma once
+#pragma comment(lib,"glew32.lib")
+#pragma comment(lib,"glfw3.lib")
+#pragma comment(lib,"glfw3dll.lib")
+
 #include<memory>
-#include<Windows.h>
+#include<windows.h>
+#include<GL\glew.h>
+#include<GL\glfw3.h>
 #include <glm/glm.hpp>
+#include <dxgi.h>
+#include <d3dcommon.h>
+#include <d3d11.h>
 #include "Application.h"
 namespace Break{
 	namespace Infrastructure{
