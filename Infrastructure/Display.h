@@ -13,6 +13,11 @@ namespace Break
 			Display(){
 
 			}
+			Display(const IDisplay& val){
+				_width = val.getWidth();
+				_height = val.getHeight();
+				_title = val.getTitle();
+			}
 			~Display(){
 
 			}

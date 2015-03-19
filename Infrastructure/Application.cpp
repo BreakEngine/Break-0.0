@@ -6,6 +6,7 @@ Application::Application(){
 }
 
 Application::~Application(){
+	cleanUp();
 	_display = nullptr;
 }
 

@@ -13,9 +13,9 @@ namespace Break{
 
 			std::string _title;
 		public:
-			std::string getTitle();
-			unsigned int getWidth();
-			unsigned int getHeight();
+			std::string getTitle()const;
+			unsigned int getWidth()const;
+			unsigned int getHeight()const;
 			void setTitle(std::string val);
 			void setWidth(unsigned int val);
 			void setHeight(unsigned int val);

@@ -8,12 +8,18 @@
 #include "InputDevice.h"
 #include "Application.h"
 namespace Break{
+	namespace Renderer{
+		class GLManager;
+		class DXManager;
+	};
 	namespace Infrastructure{
 		//API for choosing API that'll be used
 		enum API{ OPENGL, DIRECTX };
 
 		//main class of the engine that manages everything 
 		class Engine{
+			friend class Renderer::GLManager;
+			friend class Renderer::DXManager;
 		public:
 			//default destructor of the engine class
 			~Engine();

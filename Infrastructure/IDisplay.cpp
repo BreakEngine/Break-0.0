@@ -15,13 +15,13 @@ float IDisplay::aspectRatio(){
 	return (float)_width/(float)_height;
 }
 
-unsigned int IDisplay::getWidth(){
+unsigned int IDisplay::getWidth()const{
 	return _width;
 }
-unsigned int IDisplay::getHeight(){
+unsigned int IDisplay::getHeight()const{
 	return _height;
 }
-string IDisplay::getTitle(){
+string IDisplay::getTitle()const{
 	return _title;
 }
 void IDisplay::setTitle(std::string val){
