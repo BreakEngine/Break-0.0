@@ -1,0 +1,11 @@
+﻿Build started 3/24/2015 12:25:28 PM.
+     1>Project "E:\Game Committee\Game Engine 1.0\Break\Dev Sample\Dev Sample.vcxproj" on node 3 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Source.cpp
+         Source.cpp
+     1>e:\game committee\game engine 1.0\break\infrastructure\igxmanager.h(3): fatal error C1083: Cannot open include file: 'glm/common.hpp': No such file or directory
+     1>Done Building Project "E:\Game Committee\Game Engine 1.0\Break\Dev Sample\Dev Sample.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:03.44

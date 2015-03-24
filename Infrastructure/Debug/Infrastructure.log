@@ -1,4 +1,4 @@
-﻿Build started 3/15/2015 10:13:31 PM.
+﻿Build started 3/24/2015 12:25:01 PM.
      1>Project "E:\Game Committee\Game Engine 1.0\Break\Infrastructure\Infrastructure.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /doc"Debug\\" /Gd /TP /analyze- /errorReport:prompt /D "BUILD_DLL" Application.cpp Engine.cpp IDisplay.cpp IGXManager.cpp IKeyboard.cpp IMouse.cpp InputDevice.cpp IRenderer.cpp Time.cpp TimeStep.cpp
@@ -31,4 +31,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:31.62
+Time Elapsed 00:00:26.87
