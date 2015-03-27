@@ -95,14 +95,18 @@
   <ItemGroup>
     <ClCompile Include="DXKeyboard.cpp" />
     <ClCompile Include="DXManager.cpp" />
+    <ClCompile Include="DXMouse.cpp" />
     <ClCompile Include="GLKeyboard.cpp" />
     <ClCompile Include="GLManager.cpp" />
+    <ClCompile Include="GLMouse.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DXKeyboard.h" />
     <ClInclude Include="DXManager.h" />
+    <ClInclude Include="DXMouse.h" />
     <ClInclude Include="GLKeyboard.h" />
     <ClInclude Include="GLManager.h" />
+    <ClInclude Include="GLMouse.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -4,6 +4,114 @@
         "Infrastructure"
     </assembly>
     <members>
+        <member name="M:Break.Input.DXMouse.update">
+ @fn	void DXMouse::update();
+
+ @brief	Updates this object.
+
+ @author	Moustapha Saad
+ @date	29/01/2015
+
+</member>
+        <member name="M:Break.Input.DXMouse.mouseMove(System.Int32,System.Int32)">
+ @fn	static void DXMouse::mouseMove(int x, int y);
+
+ @brief	Mouse move.
+
+ @author	Moustapha Saad
+ @date	29/01/2015
+
+ @param	x	The x coordinate.
+ @param	y	The y coordinate.
+
+</member>
+        <member name="M:Break.Input.DXMouse.mouseButton(System.Int32,System.Int32)">
+ @fn	static void DXMouse::mouseButton(int button, int state);
+
+ @brief	Mouse button.
+
+ @author	Moustapha Saad
+ @date	29/01/2015
+
+ @param	button	The button.
+ @param	state 	The state.
+
+</member>
+        <member name="M:Break.Input.GLMouse.update">
+ @fn	void GLMouse::update();
+
+ @brief	Updates this object and key pressing map.
+
+ @author	Moustapha Saad
+ @date	23/01/2015
+
+</member>
+        <member name="M:Break.Input.GLMouse.mouseFunc(GLFWwindow*,System.Int32,System.Int32,System.Int32)">
+ @fn	static void GLMouse::keyboardDownFunc(unsigned char k, int x, int y);
+
+ @brief	Keyboard down function to indicate that a key is down at this moment
+
+ @author	Moustapha Saad
+ @date	23/01/2015
+
+ @param	k	The unsigned char to process.
+ @param	x	The x coordinate.
+ @param	y	The y coordinate.
+
+</member>
+        <member name="M:Break.Input.DXKeyboard.update">
+ @fn	void DXKeyboard::update();
+
+ @brief	Updates this object.
+
+ @author	Moustapha Saad
+ @date	24/01/2015
+
+</member>
+        <member name="M:Break.Input.DXKeyboard.keyboardUp(System.UInt32)">
+ @fn	static void DXKeyboard::keyboardUp(unsigned int k);
+
+ @brief	Keyboard up.
+
+ @author	Moustapha Saad
+ @date	24/01/2015
+
+ @param	k	The unsigned int of the up key.
+
+</member>
+        <member name="M:Break.Input.DXKeyboard.keyboardDown(System.UInt32)">
+ @fn	static void DXKeyboard::keyboardDown(unsigned int k);
+
+ @brief	Keyboard down.
+
+ @author	Moustapha Saad
+ @date	24/01/2015
+
+ @param	k	The unsigned int of the down key.
+
+</member>
+        <member name="M:Break.Input.GLKeyboard.update">
+ @fn	void GLKeyboard::update();
+
+ @brief	Updates this object and key pressing map.
+
+ @author	Moustapha Saad
+ @date	23/01/2015
+
+</member>
+        <member name="M:Break.Input.GLKeyboard.keyboardFunc(GLFWwindow*,System.Int32,System.Int32,System.Int32,System.Int32)">
+ @fn	static void GLKeyboard::keyboardDownFunc(unsigned char k, int x, int y);
+
+ @brief	Keyboard down function to indicate that a key is down at this moment
+
+ @author	Moustapha Saad
+ @date	23/01/2015
+
+ @param	k	The unsigned char to process.
+ @param	x	The x coordinate.
+ @param	y	The y coordinate.
+
+</member>
         <member name="F:Break.Infrastructure.IKeyboard._data">
 @brief	The data of the keys. 
 </member>
@@ -52,11 +160,23 @@
 </member>
         <member name="F:Break.Infrastructure.IMouse._position">
 @brief	The position. 
+
+@brief	The position. 
 </member>
         <member name="F:Break.Infrastructure.IMouse._data">
 @brief	The data map. 
+
+@brief	The data map. 
 </member>
         <member name="M:Break.Infrastructure.IMouse.update">
+ @fn	virtual void IMouse::update();
+
+ @brief	Updates this object.
+
+ @author	Moustapha Saad
+ @date	24/01/2015
+
+
  @fn	virtual void IMouse::update();
 
  @brief	Updates this object.
@@ -3637,5 +3757,6 @@ THE SOFTWARE.
 @date 2011-10-14 / 2011-10-14
 @author Christophe Riccio
 </member>
+        <!-- Discarding badly formed XML document comment for member 'M:_wassert(System.Char!System.Runtime.CompilerServices.IsConst*,System.Char!System.Runtime.CompilerServices.IsConst*,System.UInt32)'. -->
     </members>
 </doc>

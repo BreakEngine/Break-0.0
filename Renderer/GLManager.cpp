@@ -3,6 +3,8 @@
 #include <GLFW/glfw3.h>
 #include "../Infrastructure/Display.h"
 #include "../Infrastructure/Engine.h"
+#include "GLMouse.h"
+#include "GLKeyboard.h"
 using namespace Break::Renderer;
 using namespace Break::Infrastructure;
 
@@ -54,6 +56,9 @@ bool GLManager::init(ApplicationPtr app){
 
 void GLManager::start(){
 	Display<GLFWwindow*>* d = dynamic_cast<Display<GLFWwindow*>*>(Engine::Instance->Application->_display.get());
+	glfwSetKeyCallback(d->getHandle(),&Input::GLKeyboard::keyboardFunc);
+	glfwSetMouseButtonCallback(d->getHandle(),&Input::GLMouse::mouseFunc);
+	glfwSetCursorPosCallback(d->getHandle(),&Input::GLMouse::mouseMotion);
 	while(!glfwWindowShouldClose(d->getHandle())){
 		Engine::Instance->gameloop();
 		glfwPollEvents();
@@ -71,5 +76,7 @@ void GLManager::swapBuffer(){
 	d = NULL;
 }
 void GLManager::setCursorPostion(glm::uvec2 val){
-
+	Display<GLFWwindow*>* d = dynamic_cast<Display<GLFWwindow*>*>(Engine::Instance->Application->_display.get());
+	glfwSetCursorPos(d->getHandle(),(double)val.x,(double)val.y);
+	d = NULL;
 }

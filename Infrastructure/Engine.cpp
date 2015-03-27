@@ -4,6 +4,10 @@
 #include "../Renderer/GLManager.h"
 #include "../Renderer/DXManager.h"
 #include "Time.h"
+#include "../Renderer/GLKeyboard.h"
+#include "../Renderer/DXKeyboard.h"
+#include "../Renderer/GLMouse.h"
+#include "../Renderer/DXMouse.h"
 using namespace std;
 using namespace Break::Infrastructure;
 using namespace Break::Renderer;
@@ -57,8 +61,12 @@ void Engine::setup(ApplicationPtr app,API api,IRendererPtr renderer){
 	_application = app;
 	if(_api == API::OPENGL){
 		_graphicsManager = IGXManagerPtr(new GLManager());
+		_inputDevices.push_back(IKeyboardPtr(new Input::GLKeyboard()));
+		_inputDevices.push_back(IMousePtr(new Input::GLMouse()));
 	}else if(_api == API::DIRECTX){
 		_graphicsManager = IGXManagerPtr(new DXManager());
+		_inputDevices.push_back(IKeyboardPtr(new Input::DXKeyboard()));
+		_inputDevices.push_back(IMousePtr(new Input::DXMouse()));
 	}else{
 		throw exception("API parameter is not initialized");
 	}

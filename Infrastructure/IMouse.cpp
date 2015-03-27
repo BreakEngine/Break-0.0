@@ -10,7 +10,7 @@ IMouse::IMouse(){
 	_data.clear();
 }
 IMouse::~IMouse(){
-	_data.clear();
+	//IMouse::_data.clear();
 }
 void IMouse::update(){
 

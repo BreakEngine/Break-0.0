@@ -1,6 +1,13 @@
 #include "DXManager.h"
 #include "../Infrastructure/Display.h"
 #include "../Infrastructure/Engine.h"
+#include "DXKeyboard.h"
+#include "DXMouse.h"
+#include <windowsx.h>
+//testing purpose headers
+#include <iostream>
+using namespace std;
+//
 using namespace Break::Renderer;
 using namespace Break::Infrastructure;
 
@@ -452,7 +459,16 @@ void DXManager::swapBuffer(){
 	}
 }
 void DXManager::setCursorPostion(glm::uvec2 val){
-
+	Display<HWND>* d = dynamic_cast<Display<HWND>*>(Engine::Instance->Application->_display.get());
+	HWND hnd = d->getHandle();
+	POINT pt;
+	pt.x = val.x;
+	pt.y = val.y;
+	if(hnd){
+		ClientToScreen(hnd,&pt);
+		SetCursorPos(pt.x,pt.y);
+	}
+	d = NULL;
 }
 void DXManager::cleanD3D(){
 	if(_swapChain)
@@ -519,6 +535,33 @@ LRESULT CALLBACK DXManager::WindowProc(HWND hWnd, UINT message, WPARAM wParam, L
 			PostQuitMessage(0);
 			return 0;
 		} break;
+	case WM_KEYDOWN:
+		Input::DXKeyboard::keyboardDown(wParam);
+		break;
+	case WM_KEYUP:
+		Input::DXKeyboard::keyboardUp(wParam);
+		break;
+	case WM_LBUTTONDOWN:
+			Input::DXMouse::mouseButton(0,0);
+		break;
+	case WM_LBUTTONUP:
+			Input::DXMouse::mouseButton(0,1);
+		break;
+	case WM_RBUTTONDOWN:
+			Input::DXMouse::mouseButton(2,0);
+		break;
+	case WM_RBUTTONUP:
+			Input::DXMouse::mouseButton(2,1);
+		break;
+	case WM_MBUTTONDOWN:
+			Input::DXMouse::mouseButton(1,0);
+		break;
+	case WM_MBUTTONUP:
+			Input::DXMouse::mouseButton(1,1);
+		break;
+	case WM_MOUSEMOVE:
+			Input::DXMouse::mouseMove(GET_X_LPARAM(lParam),GET_Y_LPARAM(lParam));
+		break;
 	}
 
 	return DefWindowProc (hWnd, message, wParam, lParam);

@@ -89,7 +89,6 @@ namespace Break{
 
 			static void setPosition(glm::uvec2 val);
 		protected:
-
 			/**
 			 * @fn	virtual void IMouse::update();
 			 *
@@ -98,7 +97,6 @@ namespace Break{
 			 * @author	Moustapha Saad
 			 * @date	24/01/2015
 			 */
-
 			virtual void update();
 
 			/** @brief	The data map. */
