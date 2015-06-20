@@ -1,4 +1,5 @@
 #include"Application.h"
+#include"Engine.h"
 using namespace Break::Infrastructure;
 
 Application::Application(){
@@ -36,4 +37,8 @@ void Application::update(TimeStep time){
 }
 void Application::render(){
 
+}
+
+void Application::shutdown(){
+	Engine::Instance->shutdown();
 }

@@ -160,23 +160,11 @@
 </member>
         <member name="F:Break.Infrastructure.IMouse._position">
 @brief	The position. 
-
-@brief	The position. 
 </member>
         <member name="F:Break.Infrastructure.IMouse._data">
 @brief	The data map. 
-
-@brief	The data map. 
 </member>
         <member name="M:Break.Infrastructure.IMouse.update">
- @fn	virtual void IMouse::update();
-
- @brief	Updates this object.
-
- @author	Moustapha Saad
- @date	24/01/2015
-
-
  @fn	virtual void IMouse::update();
 
  @brief	Updates this object.
@@ -3757,6 +3745,10 @@ THE SOFTWARE.
 @date 2011-10-14 / 2011-10-14
 @author Christophe Riccio
 </member>
+        <!-- Discarding badly formed XML document comment for member 'M:_wassert(System.Char!System.Runtime.CompilerServices.IsConst*,System.Char!System.Runtime.CompilerServices.IsConst*,System.UInt32)'. -->
+        <!-- Discarding badly formed XML document comment for member 'M:_wassert(System.Char!System.Runtime.CompilerServices.IsConst*,System.Char!System.Runtime.CompilerServices.IsConst*,System.UInt32)'. -->
+        <!-- Discarding badly formed XML document comment for member 'M:_wassert(System.Char!System.Runtime.CompilerServices.IsConst*,System.Char!System.Runtime.CompilerServices.IsConst*,System.UInt32)'. -->
+        <!-- Discarding badly formed XML document comment for member 'M:_wassert(System.Char!System.Runtime.CompilerServices.IsConst*,System.Char!System.Runtime.CompilerServices.IsConst*,System.UInt32)'. -->
         <!-- Discarding badly formed XML document comment for member 'M:_wassert(System.Char!System.Runtime.CompilerServices.IsConst*,System.Char!System.Runtime.CompilerServices.IsConst*,System.UInt32)'. -->
     </members>
 </doc>

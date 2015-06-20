@@ -1,13 +1,24 @@
 #include <iostream>
-#include<string>
-#include "../Infrastructure/Engine.h"
+//#include <vld.h>
+#include <string>
+#include "../Infrastructure/Infrastructure.h"
 #include "TestApplication.h"
+#include "TestVertex.h"
+#include <chrono>
+#include <typeinfo>
+
+
 using namespace std;
 using namespace Break::Infrastructure;
-int main(){
-	EnginePtr engine = Engine::Instance;
-	engine->setup(ApplicationPtr(new TestApp()),API::DIRECTX);
-	engine->join(true);
-	engine->start();
+using namespace Break::GXWrapper;
+using namespace glm;
+using namespace std::chrono;
+
+int main(){	
+	Engine::Instance->setup(make_shared<TestApp>(),API::OPENGL);
+	Engine::Instance->join(true);
+	Engine::Instance->start();
+	
+	//system("pause");
 	return 0;
 }

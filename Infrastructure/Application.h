@@ -14,6 +14,15 @@ namespace Break{
 			friend class Renderer::DXManager;
 		protected:
 			IDisplayPtr _display;
+
+			/*!
+			 * \function void shutdown()
+			 *
+			 * \brief closes the Application
+			 *
+			 * \author Moustapha Saad
+			 */
+			void shutdown();
 		public:
 			Application();
 			virtual ~Application();

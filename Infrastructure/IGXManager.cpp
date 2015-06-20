@@ -4,6 +4,7 @@ using namespace Break::Infrastructure;
 IGXManager::IGXManager(){
 
 }
+
 IGXManager::~IGXManager(){
 
 }
@@ -19,9 +20,19 @@ void IGXManager::start(){
 void IGXManager::clearBuffer(){
 
 }
+
 void IGXManager::swapBuffer(){
 
 }
+
 void IGXManager::setCursorPostion(glm::uvec2 val){
 
 }
+/*
+bool IGXManager::createBuffer(GXWrapper::VertexBuffer& buffer){
+	return false;
+}
+
+bool IGXManager::createBuffer(GXWrapper::IndexBuffer& buffer){
+	return false;
+}*/

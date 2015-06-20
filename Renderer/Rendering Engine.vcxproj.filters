@@ -53,5 +53,11 @@
     <ClInclude Include="DXMouse.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GLHandle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DXBufferHandle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

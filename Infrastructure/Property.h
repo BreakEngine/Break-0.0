@@ -62,13 +62,13 @@ namespace Break{
 				if(permission == READ || permission == READ_WRITE)
 					return (instance.*get)();
 				else
-					throw accessError("Can't perform operation due to protection levels");
+					throw accessException("Can't perform operation due to protection levels");
 			}
 			Prop getVal()const{
 				if(permission == READ || permission == READ_WRITE)
 					return (instance.*get)();
 				else
-					throw accessError("Can't perform operation due to protection levels");
+					throw accessException("Can't perform operation due to protection levels");
 			}
  
 			/**
@@ -86,7 +86,7 @@ namespace Break{
 				if(permission == WRITE || permission == READ_WRITE)
 					(instance.*set)(val);
 				else
-					throw accessError("Can't perform operation due to protection levels");
+					throw accessException("Can't perform operation due to protection levels");
 			}
  
 		public:

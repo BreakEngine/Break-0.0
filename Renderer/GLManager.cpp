@@ -5,8 +5,19 @@
 #include "../Infrastructure/Engine.h"
 #include "GLMouse.h"
 #include "GLKeyboard.h"
+#include "GLHandle.h"
+#include <memory>
+#include "../Infrastructure/IGPUHandle.h"
+#include "../GXWrapper/VertexBuffer.h"
+#include "../GXWrapper/IndexBuffer.h"
+#include "../Infrastructure/GPUResource.h"
+#include "../Infrastructure/GlobalDefinitions.h"
+#include "../GXWrapper/GPUException.h"
+
+using namespace std;
 using namespace Break::Renderer;
 using namespace Break::Infrastructure;
+using namespace Break::GXWrapper;
 
 #pragma comment(lib,"opengl32.lib")
 #pragma comment(lib,"glfw3.lib")
@@ -61,7 +72,11 @@ void GLManager::start(){
 	glfwSetCursorPosCallback(d->getHandle(),&Input::GLMouse::mouseMotion);
 	while(!glfwWindowShouldClose(d->getHandle())){
 		Engine::Instance->gameloop();
+		//check if the engine is shutting down
+		if(Engine::Instance->_shutdown)
+			break;
 		glfwPollEvents();
+		//glfwWaitEvents();
 	}
 	d = NULL;
 	return;
@@ -70,13 +85,136 @@ void GLManager::start(){
 void GLManager::clearBuffer(){
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
+
 void GLManager::swapBuffer(){
 	Display<GLFWwindow*>* d = dynamic_cast<Display<GLFWwindow*>*>(Engine::Instance->Application->_display.get());
 	glfwSwapBuffers(d->getHandle());
 	d = NULL;
 }
+
 void GLManager::setCursorPostion(glm::uvec2 val){
 	Display<GLFWwindow*>* d = dynamic_cast<Display<GLFWwindow*>*>(Engine::Instance->Application->_display.get());
 	glfwSetCursorPos(d->getHandle(),(double)val.x,(double)val.y);
 	d = NULL;
+}
+
+bool GLManager::createVertexBuffer(GPUResource* buffer){
+
+	GXWrapper::VertexBuffer* VBuffer = dynamic_cast<GXWrapper::VertexBuffer*>(buffer);
+
+	auto handle = make_shared<GLHandle>();
+	
+	GLuint id;
+	glGenBuffers(1,&id);
+	glBindBuffer(GL_ARRAY_BUFFER,id);
+	
+	
+	switch (VBuffer->getType())
+	{
+
+	//static
+	case 1:
+		glBufferData(GL_ARRAY_BUFFER,VBuffer->getSize(),VBuffer->getData(),GL_STATIC_DRAW);
+		break;
+
+	//dynamic
+	case 0:
+		glBufferData(GL_ARRAY_BUFFER,VBuffer->getSize(),VBuffer->getData(),GL_DYNAMIC_DRAW);
+		break;
+
+	default:
+		return false;
+		break;
+	}
+
+	handle->ID = id;
+
+	VBuffer->_handle = handle;
+	glBindBuffer(GL_ARRAY_BUFFER,0);
+	return true;
+}
+
+bool GLManager::createIndexBuffer(GPUResource* buffer){
+	GXWrapper::IndexBuffer* IBuffer = dynamic_cast<GXWrapper::IndexBuffer*>(buffer);
+
+	auto handle = make_shared<GLHandle>();
+
+	GLuint id;
+	glGenBuffers(1,&id);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,id);
+
+	switch (IBuffer->getType())
+	{
+
+		//static
+	case 1:
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER,IBuffer->getSize(),IBuffer->getData(),GL_STATIC_DRAW);
+		break;
+
+		//dynamic
+	case 0:
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER,IBuffer->getSize(),IBuffer->getData(),GL_DYNAMIC_DRAW);
+		break;
+
+	default:
+		return false;
+		break;
+	}
+
+	handle->ID = id;
+
+	IBuffer->_handle = handle;
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
+	return true;
+}
+
+bool GLManager::updateVertexBuffer(GPUResource* buffer, unsigned int offset, unsigned int size){
+	GXWrapper::VertexBuffer* VBuffer = dynamic_cast<GXWrapper::VertexBuffer*>(buffer);
+
+	if(VBuffer->getType() == VertexBuffer::STATIC)
+		throw GPUException("Cannot Map Vertex Buffer: Buffer type is not dynamic");
+
+	auto handle = dynamic_cast<GLHandle*>(VBuffer->_handle.get());
+
+	glBindBuffer(GL_ARRAY_BUFFER,handle->ID);
+	void* GPUPtr = NULL;
+	GPUPtr = glMapBufferRange(GL_ARRAY_BUFFER,offset,size,GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_RANGE_BIT);
+
+	if(GPUPtr == NULL)
+		throw GXWrapper::GPUException("Cannot Map Vertex Buffer: Failed to get buffer pointer");
+
+	memcpy(GPUPtr,VBuffer->getData(offset),size);
+	glUnmapBuffer(GL_ARRAY_BUFFER);
+
+	glBindBuffer(GL_ARRAY_BUFFER,0);
+	return true;
+}
+
+bool GLManager::updateIndexBuffer(GPUResource* buffer, unsigned int offset, unsigned int size){
+	auto IBuffer = dynamic_cast<GXWrapper::IndexBuffer*>(buffer);
+
+	if(IBuffer->getType() == VertexBuffer::STATIC)
+		throw GPUException("Cannot Map Index Buffer: Buffer type is not dynamic");
+
+	auto handle = dynamic_cast<GLHandle*>(IBuffer->_handle.get());
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,handle->ID);
+	void* GPUPtr = NULL;
+	GPUPtr = glMapBufferRange(GL_ELEMENT_ARRAY_BUFFER,offset,size,GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_RANGE_BIT);
+
+	if(GPUPtr == NULL)
+		throw GXWrapper::GPUException("Cannot Map Index Buffer: Failed to get buffer pointer");
+
+	memcpy(GPUPtr,IBuffer->getData(offset),size);
+	glUnmapBuffer(GL_ELEMENT_ARRAY_BUFFER);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
+	return true;
+}
+
+bool GLManager::deleteBuffer(GPUResource* buffer){
+	auto handle = dynamic_cast<GLHandle*>(buffer->_handle.get());
+	glDeleteBuffers(1,&handle->ID);
+	return true;
 }

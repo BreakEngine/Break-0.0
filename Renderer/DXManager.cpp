@@ -4,12 +4,17 @@
 #include "DXKeyboard.h"
 #include "DXMouse.h"
 #include <windowsx.h>
+#include "DXBufferHandle.h"
+#include "../GXWrapper/VertexBuffer.h"
+#include "../GXWrapper/IndexBuffer.h"
+#include "../GXWrapper/GPUException.h"
 //testing purpose headers
 #include <iostream>
 using namespace std;
 //
 using namespace Break::Renderer;
 using namespace Break::Infrastructure;
+using namespace Break::GXWrapper;
 
 //linking libraries
 #pragma comment (lib, "d3d11.lib")
@@ -437,6 +442,9 @@ void DXManager::windowStart(){
 				break;
 			}
 		}else{
+			//checks if engine is shutting down;
+			if(Engine::Instance->_shutdown)
+				break;
 			Engine::Instance->gameloop();
 		}
 	}
@@ -565,4 +573,128 @@ LRESULT CALLBACK DXManager::WindowProc(HWND hWnd, UINT message, WPARAM wParam, L
 	}
 
 	return DefWindowProc (hWnd, message, wParam, lParam);
+}
+
+bool DXManager::createVertexBuffer(GPUResource* buffer){
+
+	GXWrapper::VertexBuffer* VBuffer = dynamic_cast<GXWrapper::VertexBuffer*>(buffer);
+
+	auto handle = make_shared<DXBufferHandle>();
+
+	CD3D11_BUFFER_DESC bufferDESC;
+	bufferDESC.ByteWidth = VBuffer->getSize();
+	bufferDESC.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+	bufferDESC.MiscFlags = 0;
+
+	switch (VBuffer->getType())
+	{
+	//dynamic
+	case 0:
+		bufferDESC.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+		bufferDESC.Usage = D3D11_USAGE_DYNAMIC;
+		break;
+	//static
+	case 1:
+		bufferDESC.CPUAccessFlags = 0;
+		bufferDESC.Usage = D3D11_USAGE_IMMUTABLE;
+		break;
+	default:
+		break;
+	}
+
+	D3D11_SUBRESOURCE_DATA initData;
+	initData.pSysMem = VBuffer->getData();
+	initData.SysMemPitch = 0;
+	initData.SysMemSlicePitch = 0;
+
+	HRESULT res = _device->CreateBuffer(&bufferDESC,&initData,&handle->DXBuffer);
+
+	VBuffer->_handle = handle;
+
+	if(FAILED(res))
+		return false;
+	else
+		return true;
+}
+
+bool DXManager::createIndexBuffer(GPUResource* buffer){
+	
+	GXWrapper::IndexBuffer* IBuffer = dynamic_cast<GXWrapper::IndexBuffer*>(buffer);
+
+	auto handle = make_shared<DXBufferHandle>();
+
+	D3D11_BUFFER_DESC bufferDesc;
+	bufferDesc.ByteWidth = IBuffer->getSize();
+	bufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
+	bufferDesc.MiscFlags = 0;
+
+	switch (IBuffer->getType())
+	{
+		//dynamic
+	case 0:
+		bufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+		bufferDesc.Usage = D3D11_USAGE_DYNAMIC;
+		break;
+		//static
+	case 1:
+		bufferDesc.CPUAccessFlags = 0;
+		bufferDesc.Usage = D3D11_USAGE_IMMUTABLE;
+		break;
+	default:
+		break;
+	}
+
+	D3D11_SUBRESOURCE_DATA initData;
+	initData.pSysMem = IBuffer->getData();
+	initData.SysMemPitch = 0;
+	initData.SysMemSlicePitch = 0;
+
+	HRESULT res = _device->CreateBuffer(&bufferDesc,&initData,&handle->DXBuffer);
+
+	IBuffer->_handle = handle;
+	if(FAILED(res))
+		return false;
+	else
+		return true;
+
+}
+
+bool DXManager::updateVertexBuffer(GPUResource* buffer,unsigned int offset,unsigned int size){
+	auto VBuffer = dynamic_cast<GXWrapper::VertexBuffer*>(buffer);
+
+	if(VBuffer->getType() == VertexBuffer::STATIC)
+		throw GPUException("Cannot Map Vertex Buffer: Buffer type is not dynamic");
+
+	DXBufferHandle* handle = dynamic_cast<DXBufferHandle*>(VBuffer->_handle.get());
+
+	D3D11_MAPPED_SUBRESOURCE mappedData;
+	_deviceContext->Map(handle->DXBuffer, 0, D3D11_MAP_WRITE, 0, &mappedData);
+
+	memcpy(mappedData.pData,VBuffer->getData(offset),size);
+
+	_deviceContext->Unmap(handle->DXBuffer,0);
+
+}
+
+bool DXManager::updateIndexBuffer(GPUResource* buffer, unsigned int offset, unsigned int size){
+	auto IBuffer = dynamic_cast<GXWrapper::IndexBuffer*>(buffer);
+
+	if(IBuffer->getType() == VertexBuffer::STATIC)
+		throw GPUException("Cannot Map Index Buffer: Buffer type is not dynamic");
+
+	DXBufferHandle* handle = dynamic_cast<DXBufferHandle*>(IBuffer->_handle.get());
+
+	D3D11_MAPPED_SUBRESOURCE mappedData;
+	_deviceContext->Map(handle->DXBuffer, 0, D3D11_MAP_WRITE, 0, &mappedData);
+
+	memcpy(mappedData.pData,IBuffer->getData(offset),size);
+
+	_deviceContext->Unmap(handle->DXBuffer,0);
+}
+
+bool DXManager::deleteBuffer(GPUResource* buffer){
+	auto handle = dynamic_cast<DXBufferHandle*>(buffer->_handle.get());
+
+	handle->DXBuffer->Release();
+	return true;
 }

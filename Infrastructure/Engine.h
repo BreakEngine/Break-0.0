@@ -33,6 +33,7 @@ namespace Break{
 			 *  
 			 */
 			void setup(ApplicationPtr app,API,IRendererPtr r =IRendererPtr(new IRenderer()));
+
 			/*!
 			 * \function start()
 			 *
@@ -41,6 +42,7 @@ namespace Break{
 			 * \author Moustapha Saad
 			 */
 			void start();
+
 			/*!
 			 * \function join(bool)
 			 *
@@ -49,6 +51,26 @@ namespace Break{
 			 * \author Moustapha Saad
 			 */
 			void join(bool val);
+
+			/*!
+			 * \function void shutdown()
+			 *
+			 * \brief terminates the whole engine
+			 *
+			 * \author Moustapha Saad
+			 */
+			void shutdown();
+
+			void cleanUp();
+
+			/*!
+			 * \function API getAPI()
+			 *
+			 * \brief returns the used api
+			 *
+			 * \author Moustapha Saad
+			 */
+			API getAPI();
 			
 			/*!
 			 * \Property Instance 
@@ -102,6 +124,7 @@ namespace Break{
 			 * \author Moustapha Saad
 			 */
 			bool init();
+
 			/*!
 			 * \function gameloop()
 			 *
@@ -110,6 +133,7 @@ namespace Break{
 			 * \author Moustapha Saad
 			 */
 			void gameloop();
+
 			/*!
 			 * \function input()
 			 *
@@ -118,6 +142,7 @@ namespace Break{
 			 * \author Moustapha Saad
 			 */
 			void input();
+
 			/*!
 			 * \function update()
 			 *
@@ -126,6 +151,7 @@ namespace Break{
 			 * \author Moustapha Saad
 			 */
 			void update(TimeStep);
+
 			/*!
 			 * \function render()
 			 *
@@ -147,6 +173,9 @@ namespace Break{
 			//boolean to indicate the destruction process of the engine to stop all the loops
 			bool _cleaningUp;
 
+			//boolean to indicate the if the engine should shutdown
+			bool _shutdown;
+
 			//the chosen API that will the application run
 			API _api;
 
@@ -161,6 +190,9 @@ namespace Break{
 
 			//Application
 			ApplicationPtr _application;
+
+			//indicates the init process has finished
+			bool _initFinished;
 
 			//constructor of the engine
 			Engine();

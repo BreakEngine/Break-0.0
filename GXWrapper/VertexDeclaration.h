@@ -1,21 +1,30 @@
 #pragma once
+
 #include "VertexElement.h"
 #include <vector>
+
 namespace Break{
 	namespace GXWrapper{
 		class VertexDeclaration{
-		private:
-			//storing elements of vertex
+		protected:
+			//size of full data
+			uint _size;
+			//elements vector
 			std::vector<VertexElement> _elements;
-			//storing stride the exact size of each vertex
-			unsigned int _stride;
 
+			uint calcSize();
 		public:
-
-			VertexDeclaration(int stride, VertexElement* elements,int elementsC);
-			//copy constructor
+			VertexDeclaration();
+			VertexDeclaration(std::vector<VertexElement>& e);
+			VertexDeclaration(VertexElement* e, uint count);
 			VertexDeclaration(const VertexDeclaration& val);
-			virtual ~VertexDeclaration();
+
+			void append(VertexElement& v);
+
+			uint getSize();
+
+			~VertexDeclaration();
+
 		};
 	}
 }

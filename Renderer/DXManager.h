@@ -5,6 +5,7 @@
 #include <d3d11.h>
 #include "../Infrastructure/IGXManager.h"
 #include "../Infrastructure/Application.h"
+
 namespace Break{
 	namespace Renderer{
 		class DXManager:public Infrastructure::IGXManager{
@@ -46,6 +47,11 @@ namespace Break{
 			void clearBuffer();
 			void swapBuffer();
 			void setCursorPostion(glm::uvec2 val);
+			bool createVertexBuffer(Infrastructure::GPUResource* buffer) override;
+			bool createIndexBuffer(Infrastructure::GPUResource* buffer) override;
+			bool updateVertexBuffer(Infrastructure::GPUResource*,uint offset,uint size) override;
+			bool updateIndexBuffer(Infrastructure::GPUResource* buffer, uint offset, uint size) override;
+			bool deleteBuffer(Infrastructure::GPUResource* buffer) override;
 		};
 	}
 }

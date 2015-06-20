@@ -24,24 +24,11 @@ Engine::Engine():GraphicsDevice(*this,&Engine::getGraphicsDevice,NULL),
 	_renderer = nullptr;
 	_graphicsManager = nullptr;
 	_application = nullptr;
+	_shutdown = false;
+	_initFinished = false;
 }
 
 Engine::~Engine(){
-	_cleaningUp = true;
-	if(_mainThread && !_joinable)
-		_mainThread->detach();
-	if(_renderer)
-		_renderer = nullptr;
-	if(_graphicsManager)
-		_graphicsManager= nullptr;
-	if(_application)
-		_application = nullptr;
-	if(_inputDevices.size()>0){
-		for(auto& device : _inputDevices){
-			device = nullptr;
-		}
-		_inputDevices.clear();
-	}
 	delete _mainThread;
 }
 
@@ -82,8 +69,16 @@ ApplicationPtr Engine::getApplication(){
 bool Engine::init(){
 	try{
 		//init graphics device manager
-		_graphicsManager->init(_application);
+		_initFinished = _graphicsManager->init(_application);
+		if(_application){
+			_application->init();
+			_application->loadResources();
+			_application->setupScene();
+		}
 		_graphicsManager->start();
+
+		cleanUp();
+
 		return true;
 	}catch(exception e){
 		cerr<<e.what()<<endl;
@@ -91,19 +86,32 @@ bool Engine::init(){
 	}
 }
 
-void Engine::start(){
-	//for init application
-	if(_application){
-		_application->init();
-		_application->loadResources();
-		_application->setupScene();
+void Engine::cleanUp(){
+	_cleaningUp = true;
+	if(_mainThread && !_joinable)
+		_mainThread->detach();
+	if(_renderer)
+		_renderer = nullptr;
+	if(_application)
+		_application = nullptr;
+	if(_graphicsManager)
+		_graphicsManager= nullptr;
+	if(_inputDevices.size()>0){
+		for(auto& device : _inputDevices){
+			device = nullptr;
+		}
+		_inputDevices.clear();
 	}
+}
 
+void Engine::start(){
 	if(_graphicsManager!=nullptr)
 		_mainThread = new thread(&Engine::init,this);
+
 	if(_mainThread && _joinable)
 		_mainThread->join();
 
+	//for init application
 }
 void Engine::join(bool val){
 	_joinable = val;
@@ -168,6 +176,15 @@ void Engine::gameloop(){
 	{
 		//increase frame count by one
 		Time::_frameCounter++;
+
 		render();
 	}
+	else
+	{
+		//this_thread::sleep_for(chrono::duration<int,milli>(1));
+	}
+}
+
+void Engine::shutdown(){
+	_shutdown = true;
 }
