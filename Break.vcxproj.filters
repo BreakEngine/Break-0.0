@@ -1,0 +1,225 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="inc">
+      <UniqueIdentifier>{d27cf4fb-bb68-4a1e-9d82-0c32c2791b85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{b407c67c-9a1a-400e-9270-ba511c07e21e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="inc\AccessException.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Application.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Buffer.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Display.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\DXBufferHandle.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\DXKeyboard.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\DXManager.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\DXMouse.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Engine.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Geometry.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\GeometryHandle.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\GLHandle.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\GLKeyboard.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\GLManager.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\GLMouse.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\GlobalDefinitions.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\GPUException.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\GPUResource.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\GXWrapper.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\IAttribute.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\IDisplay.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\IGPUHandle.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\IGXManager.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\IKeyboard.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\IMouse.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\IndexBuffer.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\IndexSet.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Infrastructure.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\InputDevice.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\IRenderer.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\ISet.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\IVertex.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\MemoryException.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Property.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\RAMBuffer.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Time.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\TimeStep.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\VertexBuffer.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\VertexDeclaration.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\VertexElement.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\VertexSet.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="TestApplication.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TestVertex.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Application.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DXKeyboard.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DXManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DXMouse.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Geometry.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GLKeyboard.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GLManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GLMouse.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IAttribute.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IDisplay.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IGXManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IKeyboard.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IMouse.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IndexBuffer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\InputDevice.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IRenderer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RAMBuffer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Time.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TimeStep.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\VertexBuffer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\VertexDeclaration.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Source.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

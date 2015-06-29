@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="inc\AccessException.h" />
+    <ClInclude Include="inc\Application.h" />
+    <ClInclude Include="inc\Buffer.h" />
+    <ClInclude Include="inc\Display.h" />
+    <ClInclude Include="inc\DXBufferHandle.h" />
+    <ClInclude Include="inc\DXKeyboard.h" />
+    <ClInclude Include="inc\DXManager.h" />
+    <ClInclude Include="inc\DXMouse.h" />
+    <ClInclude Include="inc\Engine.h" />
+    <ClInclude Include="inc\Geometry.h" />
+    <ClInclude Include="inc\GeometryHandle.h" />
+    <ClInclude Include="inc\GLHandle.h" />
+    <ClInclude Include="inc\GLKeyboard.h" />
+    <ClInclude Include="inc\GLManager.h" />
+    <ClInclude Include="inc\GLMouse.h" />
+    <ClInclude Include="inc\GlobalDefinitions.h" />
+    <ClInclude Include="inc\GPUException.h" />
+    <ClInclude Include="inc\GPUResource.h" />
+    <ClInclude Include="inc\GXWrapper.h" />
+    <ClInclude Include="inc\IAttribute.h" />
+    <ClInclude Include="inc\IDisplay.h" />
+    <ClInclude Include="inc\IGPUHandle.h" />
+    <ClInclude Include="inc\IGXManager.h" />
+    <ClInclude Include="inc\IKeyboard.h" />
+    <ClInclude Include="inc\IMouse.h" />
+    <ClInclude Include="inc\IndexBuffer.h" />
+    <ClInclude Include="inc\IndexSet.h" />
+    <ClInclude Include="inc\Infrastructure.h" />
+    <ClInclude Include="inc\InputDevice.h" />
+    <ClInclude Include="inc\IRenderer.h" />
+    <ClInclude Include="inc\ISet.h" />
+    <ClInclude Include="inc\IVertex.h" />
+    <ClInclude Include="inc\MemoryException.h" />
+    <ClInclude Include="inc\Property.h" />
+    <ClInclude Include="inc\RAMBuffer.h" />
+    <ClInclude Include="inc\Time.h" />
+    <ClInclude Include="inc\TimeStep.h" />
+    <ClInclude Include="inc\VertexBuffer.h" />
+    <ClInclude Include="inc\VertexDeclaration.h" />
+    <ClInclude Include="inc\VertexElement.h" />
+    <ClInclude Include="inc\VertexSet.h" />
+    <ClInclude Include="TestApplication.h" />
+    <ClInclude Include="TestVertex.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source.cpp" />
+    <ClCompile Include="src\Application.cpp" />
+    <ClCompile Include="src\DXKeyboard.cpp" />
+    <ClCompile Include="src\DXManager.cpp" />
+    <ClCompile Include="src\DXMouse.cpp" />
+    <ClCompile Include="src\Engine.cpp" />
+    <ClCompile Include="src\Geometry.cpp" />
+    <ClCompile Include="src\GLKeyboard.cpp" />
+    <ClCompile Include="src\GLManager.cpp" />
+    <ClCompile Include="src\GLMouse.cpp" />
+    <ClCompile Include="src\IAttribute.cpp" />
+    <ClCompile Include="src\IDisplay.cpp" />
+    <ClCompile Include="src\IGXManager.cpp" />
+    <ClCompile Include="src\IKeyboard.cpp" />
+    <ClCompile Include="src\IMouse.cpp" />
+    <ClCompile Include="src\IndexBuffer.cpp" />
+    <ClCompile Include="src\InputDevice.cpp" />
+    <ClCompile Include="src\IRenderer.cpp" />
+    <ClCompile Include="src\RAMBuffer.cpp" />
+    <ClCompile Include="src\Time.cpp" />
+    <ClCompile Include="src\TimeStep.cpp" />
+    <ClCompile Include="src\VertexBuffer.cpp" />
+    <ClCompile Include="src\VertexDeclaration.cpp" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{A8B6DA04-04B1-4B12-B882-CED2A20DF5CF}</ProjectGuid>
+    <RootNamespace>Break</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)\bin\$(Configuration)\</OutDir>
+    <IncludePath>$(ProjectDir)\inc;$(ProjectDir)\libs\glm\include;$(DXSDK_DIR)Include;$(ProjectDir)\libs\glew-1.10.0\include;$(ProjectDir)\libs\glfw-3.1.bin.WIN32\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(DXSDK_DIR)Lib\x86;$(ProjectDir)\libs\glew-1.10.0\lib\Release\Win32;$(ProjectDir)\libs\glfw-3.1.bin.WIN32\lib-vc2012;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>$(DXSDK_DIR)Include;$(ProjectDir)\libs\glfw-3.1.bin.WIN32\include;$(ProjectDir)\libs\glew-1.10.0\include;$(ProjectDir)\inc;$(ProjectDir)\libs\glm\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(DXSDK_DIR)Lib\x86;$(ProjectDir)\libs\glew-1.10.0\lib\Release\Win32;$(ProjectDir)\libs\glfw-3.1.bin.WIN32\lib-vc2012;$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)\bin\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
