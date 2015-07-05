@@ -10,7 +10,7 @@ Geometry::Geometry(ISet* vertices, ISet* indices){
 
 	if(vertices){
 		_declaration = vertices->getDeclaration();
-		_handle.vertices = std::make_shared<VertexBuffer>(vertices);
+		_handle.vertices = std::make_shared<VertexBuffer>(vertices,_declaration);
 		_handle.verticesCount = vertices->count();
 		_handle.verticesOffset = 0;
 	}

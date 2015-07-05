@@ -33,9 +33,6 @@
     <ClInclude Include="inc\Display.h">
       <Filter>inc</Filter>
     </ClInclude>
-    <ClInclude Include="inc\DXBufferHandle.h">
-      <Filter>inc</Filter>
-    </ClInclude>
     <ClInclude Include="inc\DXKeyboard.h">
       <Filter>inc</Filter>
     </ClInclude>
@@ -135,12 +132,6 @@
     <ClInclude Include="inc\VertexBuffer.h">
       <Filter>inc</Filter>
     </ClInclude>
-    <ClInclude Include="inc\VertexDeclaration.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\VertexElement.h">
-      <Filter>inc</Filter>
-    </ClInclude>
     <ClInclude Include="inc\VertexSet.h">
       <Filter>inc</Filter>
     </ClInclude>
@@ -149,6 +140,24 @@
     </ClInclude>
     <ClInclude Include="TestVertex.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Shader.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\MemoryLayout.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\MemoryElement.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\DXShaderHandle.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\GLShaderHandle.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\UniformBuffer.h">
+      <Filter>inc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -215,11 +224,17 @@
     <ClCompile Include="src\VertexBuffer.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\VertexDeclaration.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="Source.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Shader.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MemoryLayout.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UniformBuffer.cpp">
+      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

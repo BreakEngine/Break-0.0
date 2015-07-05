@@ -39,7 +39,7 @@ namespace Break{
 			 *
 			 * \author Moustapha Saad
 			 */
-			virtual bool createGPUBuffer()=0;
+			virtual bool createGPUResource()=0;
 
 			/*!
 			 * \function virtual bool updateBuffer(unsigned int offset, unsigned int size)
@@ -111,7 +111,10 @@ namespace Break{
 			}
 
 			void flush(){
-				createGPUBuffer();
+				if(!_handle)
+					createGPUResource();
+				else
+					updateBuffer(0,_buffer->getSize());
 			}
 
 			Type getType(){

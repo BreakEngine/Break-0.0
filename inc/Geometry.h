@@ -8,7 +8,7 @@ namespace Break{
 	namespace GXWrapper{
 		class Geometry{
 		private:
-			VertexDeclaration _declaration;
+			MemoryLayout _declaration;
 			GeometryHandle _handle;
 		public:
 

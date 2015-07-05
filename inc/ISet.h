@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include "RAMBuffer.h"
-#include "VertexDeclaration.h"
+#include "MemoryLayout.h"
 namespace Break{
 	namespace GXWrapper{
 		/*!
@@ -14,7 +14,7 @@ namespace Break{
 
 			virtual unsigned int count()=0;
 
-			virtual VertexDeclaration getDeclaration()=0;
+			virtual MemoryLayout getDeclaration()=0;
 
 			virtual ~ISet(){
 
@@ -48,8 +48,8 @@ namespace Break{
 				return _data[ix];
 			}
 
-			virtual VertexDeclaration getDeclaration() override {
-				return VertexDeclaration();
+			virtual MemoryLayout getDeclaration() override {
+				return MemoryLayout();
 			}
 		
 			void append(T v){

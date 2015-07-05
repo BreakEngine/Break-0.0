@@ -79,6 +79,24 @@ namespace Break{
 			virtual bool createIndexBuffer(GPUResource*)=0;
 
 			/*!
+			 * \function virtual bool useVertexBuffer(GPUResource*)
+			 *
+			 * \brief binds vertex buffer
+			 *
+			 * \author Moustapha Saad
+			 */
+			virtual bool useVertexBuffer(GPUResource*)=0;
+
+			/*!
+			 * \function virtual bool useIndexBuffer(GPUResource*)
+			 *
+			 * \brief binds index buffer
+			 *
+			 * \author Moustapha Saad
+			 */
+			virtual bool useIndexBuffer(GPUResource*)=0;
+
+			/*!
 			 * \function virtual bool updateVertexBuffer(GPUResource*)
 			 *
 			 * \brief updates the vertex buffer
@@ -104,6 +122,55 @@ namespace Break{
 			 * \author Moustapha Saad
 			 */
 			virtual bool deleteBuffer(GPUResource*)=0;
+
+			/*!
+			 * \function virtual bool createUniformBuffer(GPUResource*)
+			 *
+			 * \brief creates uniform buffer
+			 *
+			 * \author Moustapha Saad
+			 */
+			virtual bool createUniformBuffer(GPUResource*)=0;
+
+			/*!
+			 * \function virtual bool updateUniformBuffer(GPUResource*)
+			 *
+			 * \brief updates uniform buffer
+			 *
+			 * \author Moustapha Saad
+			 */
+			virtual bool updateUniformBuffer(GPUResource*,unsigned int,unsigned int)=0;
+
+			/*!
+			 * \function virtual bool useUniformBuffer(GPUResource*)
+			 *
+			 * \brief uses uniform buffer
+			 *
+			 * \author Moustapha Saad
+			 */
+			virtual bool useUniformBuffer(GPUResource*)=0;
+
+
+			/*!
+			 * \function virtual bool createShader(GPUResource*)
+			 * \brief creates a shader
+			 * \author Moustapha Saad
+			 */
+			virtual bool createShader(GPUResource*)=0;
+
+			/*!
+			 * \function virtual bool useShader(GPUResource*)
+			 * \brief uses a shader
+			 * \author Moustapha Saad
+			 */
+			virtual bool useShader(GPUResource*)=0;
+
+			/*!
+			 * \function virtual bool deleteShader(GPUResource*)
+			 * \brief deletes a shader
+			 * \author Moustapha Saad
+			 */
+			virtual bool deleteShader(GPUResource*)=0;
 		};
 		typedef std::shared_ptr<IGXManager> IGXManagerPtr;
 	}

@@ -16,28 +16,26 @@ IndexBuffer::IndexBuffer(Buffer::Type t){
 		_buffer = make_shared<RAMBuffer>(Buffer::STATIC_OPTIMAL_SIZE);
 
 	_changed = true;
-	createGPUBuffer();
 }
 
 IndexBuffer::IndexBuffer(ISet* set,Buffer::Type t){
 	_type = t;
 	_buffer = set->getData();
 	_changed = true;
-	createGPUBuffer();
+	createGPUResource();
 }
 
 IndexBuffer::IndexBuffer(RAMBufferPtr buffer,Buffer::Type t){
 	_type = t;
 	_buffer = buffer;
 	_changed = true;
-	createGPUBuffer();
+	createGPUResource();
 }
 
 IndexBuffer::IndexBuffer(unsigned int size,Buffer::Type t){
 	_type = t;
 	_buffer = RAMBufferPtr(new RAMBuffer(size));
 	_changed = true;
-	createGPUBuffer();
 }
 
 IndexBuffer::IndexBuffer(const IndexBuffer& val):Buffer(val){
@@ -52,7 +50,7 @@ bool IndexBuffer::append(ISet* set){
 	return _buffer->append(set->getData());
 }
 
-bool IndexBuffer::createGPUBuffer(){
+bool IndexBuffer::createGPUResource(){
 	bool res = Engine::Instance->GraphicsDevice->createIndexBuffer(this);
 
 	if(res)
@@ -63,4 +61,8 @@ bool IndexBuffer::createGPUBuffer(){
 
 bool IndexBuffer::updateBuffer(unsigned int offset, unsigned int size){
 	return Engine::Instance->GraphicsDevice->updateIndexBuffer(this,offset,size);
+}
+
+void IndexBuffer::use(){
+	Engine::Instance->GraphicsDevice->useIndexBuffer(this);
 }

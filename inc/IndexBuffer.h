@@ -25,9 +25,11 @@ namespace Break{
 
 			virtual bool append(ISet*) override;
 
+			virtual void use() override;
+
 		protected:
 			
-			virtual bool createGPUBuffer() override;
+			virtual bool createGPUResource() override;
 
 			virtual bool updateBuffer(unsigned int offset, unsigned int size) override;
 		};
