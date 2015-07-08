@@ -17,6 +17,8 @@ namespace Break{
 			//pointer to the handle
 			IGPUHandlePtr _handle;
 
+			virtual bool createGPUResource()=0;
+
 		public:
 
 			GPUResource(){
@@ -30,6 +32,9 @@ namespace Break{
 			virtual ~GPUResource(){
 				_handle = nullptr;
 			}
+
+			//binds the current resource
+			virtual void use()=0;
 
 		};
 		typedef std::shared_ptr<GPUResource> GPUResourcePtr;

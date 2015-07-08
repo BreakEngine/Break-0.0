@@ -15,10 +15,10 @@
     <ClInclude Include="inc\Application.h" />
     <ClInclude Include="inc\Buffer.h" />
     <ClInclude Include="inc\Display.h" />
-    <ClInclude Include="inc\DXBufferHandle.h" />
     <ClInclude Include="inc\DXKeyboard.h" />
     <ClInclude Include="inc\DXManager.h" />
     <ClInclude Include="inc\DXMouse.h" />
+    <ClInclude Include="inc\DXShaderHandle.h" />
     <ClInclude Include="inc\Engine.h" />
     <ClInclude Include="inc\Geometry.h" />
     <ClInclude Include="inc\GeometryHandle.h" />
@@ -27,6 +27,7 @@
     <ClInclude Include="inc\GLManager.h" />
     <ClInclude Include="inc\GLMouse.h" />
     <ClInclude Include="inc\GlobalDefinitions.h" />
+    <ClInclude Include="inc\GLShaderHandle.h" />
     <ClInclude Include="inc\GPUException.h" />
     <ClInclude Include="inc\GPUResource.h" />
     <ClInclude Include="inc\GXWrapper.h" />
@@ -46,11 +47,13 @@
     <ClInclude Include="inc\MemoryException.h" />
     <ClInclude Include="inc\Property.h" />
     <ClInclude Include="inc\RAMBuffer.h" />
+    <ClInclude Include="inc\Shader.h" />
     <ClInclude Include="inc\Time.h" />
     <ClInclude Include="inc\TimeStep.h" />
+    <ClInclude Include="inc\UniformBuffer.h" />
     <ClInclude Include="inc\VertexBuffer.h" />
-    <ClInclude Include="inc\VertexDeclaration.h" />
-    <ClInclude Include="inc\VertexElement.h" />
+    <ClInclude Include="inc\MemoryLayout.h" />
+    <ClInclude Include="inc\MemoryElement.h" />
     <ClInclude Include="inc\VertexSet.h" />
     <ClInclude Include="TestApplication.h" />
     <ClInclude Include="TestVertex.h" />
@@ -75,10 +78,12 @@
     <ClCompile Include="src\InputDevice.cpp" />
     <ClCompile Include="src\IRenderer.cpp" />
     <ClCompile Include="src\RAMBuffer.cpp" />
+    <ClCompile Include="src\Shader.cpp" />
     <ClCompile Include="src\Time.cpp" />
     <ClCompile Include="src\TimeStep.cpp" />
+    <ClCompile Include="src\UniformBuffer.cpp" />
     <ClCompile Include="src\VertexBuffer.cpp" />
-    <ClCompile Include="src\VertexDeclaration.cpp" />
+    <ClCompile Include="src\MemoryLayout.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{A8B6DA04-04B1-4B12-B882-CED2A20DF5CF}</ProjectGuid>

@@ -13,7 +13,9 @@
 #include "GPUResource.h"
 #include "GlobalDefinitions.h"
 #include "GPUException.h"
-
+#include "Shader.h"
+#include "GLShaderHandle.h"
+#include "UniformBuffer.h"
 using namespace std;
 using namespace Break::Renderer;
 using namespace Break::Infrastructure;
@@ -216,5 +218,148 @@ bool GLManager::updateIndexBuffer(GPUResource* buffer, unsigned int offset, unsi
 bool GLManager::deleteBuffer(GPUResource* buffer){
 	auto handle = dynamic_cast<GLHandle*>(buffer->_handle.get());
 	glDeleteBuffers(1,&handle->ID);
+	return true;
+}
+
+bool GLManager::useVertexBuffer(GPUResource* buffer){
+	auto handle = dynamic_cast<GLHandle*>(buffer->_handle.get());
+
+	glBindBuffer(GL_ARRAY_BUFFER,handle->ID);
+	return true;
+}
+
+bool GLManager::useIndexBuffer(GPUResource* buffer){
+	auto handle = dynamic_cast<GLHandle*>(buffer->_handle.get());
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,handle->ID);
+	return true;
+}
+
+bool GLManager::createShader(GPUResource* shader){
+	auto program = dynamic_cast<GXWrapper::Shader*>(shader);
+
+	auto handle = make_shared<GLShaderHandle>();
+
+	handle->vertexShader = glCreateShader(GL_VERTEX_SHADER);
+
+	char* error = new char[1024];
+	const GLchar* p[1];
+	p[0] = program->_vs.c_str();
+	GLint lengths[1];
+	lengths[0] = program->_vs.size();
+	glShaderSource(handle->vertexShader,1,p,lengths);
+	glCompileShader(handle->vertexShader);
+
+	GLint res = 0;
+	glGetShaderiv(handle->vertexShader,GL_COMPILE_STATUS,&res);
+
+	if(res == GL_FALSE){
+		glGetShaderInfoLog(handle->vertexShader,1024,NULL,error);
+		std::cout<<error<<std::endl;
+		return false;
+	}
+
+	handle->pixelShader = glCreateShader(GL_FRAGMENT_SHADER);
+
+	p[0] = program->_ps.c_str();
+	lengths[0] = program->_ps.size();
+
+	glShaderSource(handle->pixelShader,1,p,lengths);
+	glCompileShader(handle->pixelShader);
+
+	glGetShaderiv(handle->pixelShader,GL_COMPILE_STATUS,&res);
+
+	if(res == GL_FALSE){
+		glGetShaderInfoLog(handle->pixelShader,1024,NULL,error);
+		std::cout<<error<<std::endl;
+		return false;
+	}
+
+	handle->program = glCreateProgram();
+
+	glAttachShader(handle->program,handle->vertexShader);
+	glAttachShader(handle->program,handle->pixelShader);
+
+	glLinkProgram(handle->program);
+	glGetProgramiv(handle->program,GL_LINK_STATUS,&res);
+
+	if(res == GL_FALSE){
+		glGetProgramInfoLog(handle->program,1024,NULL,error);
+		std::cout<<error<<std::endl;
+		return false;
+	}
+	glValidateProgram(handle->program);
+	glGetProgramiv(handle->program,GL_VALIDATE_STATUS,&res);
+
+	if(res == GL_FALSE){
+		glGetProgramInfoLog(handle->program,1024,NULL,error);
+		std::cout<<error<<std::endl;
+		return false;
+	}
+
+	program->_handle = handle;
+	return true;
+}
+
+bool GLManager::deleteShader(GPUResource* shader){
+	auto handle = dynamic_cast<GLShaderHandle*>(shader->_handle.get());
+
+	if(handle->vertexShader)
+		glDeleteShader(handle->vertexShader);
+	if(handle->pixelShader)
+		glDeleteShader(handle->pixelShader);
+	if(handle->program)
+		glDeleteProgram(handle->program);
+
+	return true;
+}
+
+bool GLManager::useShader(GPUResource* shader){
+	auto handle = dynamic_cast<GLShaderHandle*>(shader->_handle.get());
+
+	glUseProgram(handle->program);
+
+	return true;
+}
+
+bool GLManager::createUniformBuffer(GPUResource* buffer){
+	auto UBuffer = dynamic_cast<GXWrapper::UniformBuffer*>(buffer);
+
+	auto handle = make_shared<GLHandle>();
+
+	glGenBuffers(1,&handle->ID);
+	glBindBuffer(GL_UNIFORM_BUFFER,handle->ID);
+	glBufferData(GL_UNIFORM_BUFFER,UBuffer->getSize(),UBuffer->getData(),GL_DYNAMIC_DRAW);
+
+	glBindBufferBase(GL_UNIFORM_BUFFER,UBuffer->_slot,handle->ID);
+
+	glBindBuffer(GL_UNIFORM_BUFFER,handle->ID);
+
+	buffer->_handle = handle;
+	return true;
+}
+
+bool GLManager::updateUniformBuffer(GPUResource* buffer,unsigned int offset,unsigned int size){
+	auto UBuffer = dynamic_cast<GXWrapper::UniformBuffer*>(buffer);
+
+
+	auto handle = dynamic_cast<GLHandle*>(UBuffer->_handle.get());
+
+	glBindBuffer(GL_UNIFORM_BUFFER,handle->ID);
+	void* GPUPtr = NULL;
+	GPUPtr = glMapBufferRange(GL_UNIFORM_BUFFER,offset,size,GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_RANGE_BIT);
+
+	if(GPUPtr == NULL)
+		throw GXWrapper::GPUException("Cannot Map Index Buffer: Failed to get buffer pointer");
+
+	memcpy(GPUPtr,UBuffer->getData(offset),size);
+	glUnmapBuffer(GL_UNIFORM_BUFFER);
+
+	glBindBuffer(GL_UNIFORM_BUFFER,0);
+	return true;
+}
+
+bool GLManager::useUniformBuffer(GPUResource* buffer){
+	auto handle = dynamic_cast<GLHandle*>(buffer->_handle.get());
+	glBindBuffer(GL_UNIFORM_BUFFER,handle->ID);
 	return true;
 }

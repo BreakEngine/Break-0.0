@@ -1,7 +1,7 @@
 #pragma once
 #include "ISet.h"
 #include "IVertex.h"
-#include "VertexDeclaration.h"
+#include "MemoryLayout.h"
 #include <memory>
 #include <exception>
 
@@ -26,9 +26,9 @@ namespace Break{
 			}
 
 			//holds a declaration of the contained vertices
-			VertexDeclaration declaration;
+			MemoryLayout declaration;
 			
-			VertexSet(VertexDeclaration _decelaration){
+			VertexSet(MemoryLayout _decelaration){
 				declaration = _decelaration;
 			}
 
@@ -40,7 +40,7 @@ namespace Break{
 				_data.clear();
 			}
 
-			virtual VertexDeclaration getDeclaration() override {
+			virtual MemoryLayout getDeclaration() override {
 				return declaration;
 			}
 

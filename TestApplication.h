@@ -3,6 +3,7 @@
 #include "GXWrapper.h"
 #include "TestVertex.h"
 #include "VertexSet.h"
+#include "Shader.h"
 #include <iostream>
 
 using namespace std;
@@ -42,26 +43,80 @@ public:
 
 		moka = Geometry(&veve,&soso);
 
+		std::string glVertex = "#version 330\n"
+			"layout(location = 0) in vec3 position;\n"
+			"layout(location = 1) in vec4 color;\n"
+			"uniform MatrixBuffer{\n"
+			"mat4 worldMatrix;\n"
+			"mat4 viewMatrix;\n"
+			"mat4 projectionMatrix;\n"
+			"};\n"
+			"void main(){\n"
+			"gl_Position = vec4(position,1.0);\n"
+			"}\n"
+			;
+		std::string glPixel = "#version 330\n"
+			"out vec4 COLOR;\n"
+			"void main(){\n"
+			"COLOR = vec4(1.0,0.0,0.0,1.0);\n"
+			"}\n"
+			;
+		std::string dxVertex = "struct VertexInputType\n"
+		"{\n"
+			"float4 position : POSITION;\n"
+			"float4 color : COLOR;\n"
+		"};\n"
 
+		"struct PixelInputType\n"
+		"{\n"
+			"float4 position : SV_POSITION;\n"
+			"float4 color : COLOR;\n"
+		"};\n"
+		"cbuffer MatrixBuffer\n"
+		"{\n"
+			"matrix worldMatrix;\n"
+			"matrix viewMatrix;\n"
+			"matrix projectionMatrix;\n"
+		"};\n"
+		"PixelInputType main(VertexInputType input)\n"
+		"{\n"
+			"PixelInputType output;\n"
+
+
+			// Change the position vector to be 4 units for proper matrix calculations.
+			"input.position.w = 1.0f;\n"
+
+			// Calculate the position of the vertex against the world, view, and projection matrices.
+			"output.position = mul(input.position, worldMatrix);\n"
+			"output.position = mul(output.position, viewMatrix);\n"
+			"output.position = mul(output.position, projectionMatrix);\n"
+
+			// Store the input color for the pixel shader to use.
+			"output.color = input.color;\n"
+
+			"return output;\n"
+		"}\n";
+
+		std::string dxPixel = "struct PixelInputType\n"
+		"{\n"
+			"float4 position : SV_POSITION;\n"
+			"float4 color : COLOR;\n"
+		"};\n"
+		"float4 main(PixelInputType input) : SV_TARGET\n"
+		"{\n"
+			"return input.color;\n"
+		"}\n";
+
+		Shader sh(dxVertex,dxPixel,tv::getDeclaration());
+		sh.registerUniformBlock("MatrixBuffer",3*64,0,Shader::VERTEX);
+		sh.registerUniform("worldMatrix","MatrixBuffer",0,64);
+		unsigned char world[64] = {'H'};
+		sh.setUniform("worldMatrix",world);
+		cout<<"HONE"<<endl;
+		sh.use();
 	}
 	void cleanUp(){
 
-	}
-
-	void checkUp(){
-		tv* head = moka.getVertices<tv>();
-		int tvc = moka.getVerticesCount();
-
-		cout<<"Vertices"<<endl;
-		for(int i=0;i<tvc;i++)
-			cout<<head[i]._a<<endl;
-
-		unsigned int* ihead = moka.getIndices();
-		int itvc = moka.getIndicesCount();
-
-		cout<<"Indices"<<endl;
-		for(int i=0;i<itvc;i++)
-			cout<<ihead[i]<<endl;
 	}
 	void input(){
 		//getting mouse position
@@ -70,7 +125,6 @@ public:
 		//A test
 		if(IKeyboard::getKey(IKeyboard::A) == IKeyboard::State_Down){
 			cout<<"A Pressed"<<endl;
-			checkUp();
 		}
 		if(IKeyboard::getKey(IKeyboard::A) == IKeyboard::State_Up){
 			cout<<"A Released"<<endl;

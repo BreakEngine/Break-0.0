@@ -1,23 +1,23 @@
 #pragma  once
 
 #include "IVertex.h"
-#include "VertexDeclaration.h"
+#include "MemoryLayout.h"
 
 using namespace Break::GXWrapper;
 using namespace glm;
 
 class tv:public IVertex{
 public:
-	float _a;
-	glm::vec2 _b;
+	glm::vec3 _a;
+	glm::vec4 _b;
 	tv(float a){
-		_a = a;
-		_b = vec2(a);
+		_a = vec3(a);
+		_b = vec4(a);
 	}
-	static VertexDeclaration getDeclaration() {
-		VertexDeclaration ret;
-		ret.append(VertexElement(VertexElement::FLOAT));
-		ret.append(VertexElement(VertexElement::VEC2));
+	static MemoryLayout getDeclaration() {
+		MemoryLayout ret;
+		ret.append(MemoryElement(MemoryElement::VEC3,"POSITION"));
+		ret.append(MemoryElement(MemoryElement::VEC4,"COLOR"));
 		return ret;
 	}
 
