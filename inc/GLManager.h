@@ -1,6 +1,7 @@
 #pragma once
 #include "IGXManager.h"
 #include "Application.h"
+#include "GeometryHandle.h"
 
 namespace Break{
 	namespace Renderer{
@@ -8,25 +9,38 @@ namespace Break{
 		private:
 		public:
 			GLManager();
-			~GLManager();
+			virtual ~GLManager();
 
 			//inits graphics manager
-			bool init(Infrastructure::ApplicationPtr app) override;
+			virtual bool init(Infrastructure::ApplicationPtr app) override;
 			//start window loop
-			void start() override;
+			virtual void start() override;
 			//clears all the buffers
-			void clearBuffer() override;
+			virtual void clearBuffer() override;
 			//swaps the buffer
-			void swapBuffer() override;
+			virtual void swapBuffer() override;
 			//sets cursor position to specific point
-			void setCursorPostion(glm::uvec2 val) override;
+			virtual void setCursorPostion(glm::uvec2 val) override;
 
 			//buffers functions
-			bool createVertexBuffer(Infrastructure::GPUResource* buffer) override;
-			bool createIndexBuffer(Infrastructure::GPUResource* buffer) override;
-			bool updateVertexBuffer(Infrastructure::GPUResource* buffer, unsigned int offset, unsigned int size) override;
-			bool updateIndexBuffer(Infrastructure::GPUResource* buffer, uint offset, uint size) override;
-			bool deleteBuffer(Infrastructure::GPUResource*) override;
+			virtual bool createVertexBuffer(Infrastructure::GPUResource* buffer) override;
+			virtual bool createIndexBuffer(Infrastructure::GPUResource* buffer) override;
+			virtual bool updateVertexBuffer(Infrastructure::GPUResource* buffer, unsigned int offset, unsigned int size) override;
+			virtual bool updateIndexBuffer(Infrastructure::GPUResource* buffer, uint offset, uint size) override;
+			virtual bool deleteBuffer(Infrastructure::GPUResource*) override;
+			virtual bool useIndexBuffer(Infrastructure::GPUResource*) override;
+			virtual bool useVertexBuffer(Infrastructure::GPUResource*)override;
+			virtual bool createUniformBuffer(Infrastructure::GPUResource* buffer)override;
+			virtual bool updateUniformBuffer(Infrastructure::GPUResource*,unsigned int,unsigned int)override;
+			virtual bool useUniformBuffer(Infrastructure::GPUResource*);
+
+			//shader functions
+			virtual bool createShader(Infrastructure::GPUResource* shader) override;
+			virtual bool useShader(Infrastructure::GPUResource* shader) override;
+			virtual bool deleteShader(Infrastructure::GPUResource* shader) override;
+
+			//draw
+			virtual void Draw(Infrastructure::GPUResource* geomtry ,int _primative , int _mode) override;
 		};
 	}
 }

@@ -3,8 +3,10 @@
 #include "IGPUHandle.h"
 #include <memory>
 
-namespace Break{
-	namespace Renderer{
+namespace Break
+{
+	namespace Renderer
+	{
 		class GLManager;
 		class DXManager;
 	}
@@ -17,19 +19,27 @@ namespace Break{
 			//pointer to the handle
 			IGPUHandlePtr _handle;
 
+			virtual bool createGPUResource()=0;
+
 		public:
 
-			GPUResource(){
+			GPUResource()
+			{
 				_handle = nullptr;
 			}
 
-			GPUResource(const GPUResource& val){
+			GPUResource(const GPUResource& val)
+			{
 				_handle = val._handle;
 			}
 
-			virtual ~GPUResource(){
+			virtual ~GPUResource()
+			{
 				_handle = nullptr;
 			}
+
+			//binds the current resource
+			virtual void use()=0;
 
 		};
 		typedef std::shared_ptr<GPUResource> GPUResourcePtr;

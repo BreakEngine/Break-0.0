@@ -8,6 +8,10 @@
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
 #include "GPUException.h"
+#include "DXShaderHandle.h"
+#include "Shader.h"
+#include "UniformBuffer.h"
+#include <D3Dcompiler.h>
 //testing purpose headers
 #include <iostream>
 using namespace std;
@@ -408,7 +412,6 @@ bool DXManager::initD3D(HWND hWnd, int Width, int Height, bool vsync, bool fulls
 	// Now set the rasterizer state.
 	_deviceContext->RSSetState(_rasterState);
 
-
 	// Setup the viewport for rendering.
 	viewport.Width = (float)Width;
 	viewport.Height = (float)Height;
@@ -668,9 +671,10 @@ bool DXManager::updateVertexBuffer(GPUResource* buffer,unsigned int offset,unsig
 	DXBufferHandle* handle = dynamic_cast<DXBufferHandle*>(VBuffer->_handle.get());
 
 	D3D11_MAPPED_SUBRESOURCE mappedData;
-	_deviceContext->Map(handle->DXBuffer, 0, D3D11_MAP_WRITE, 0, &mappedData);
+	_deviceContext->Map(handle->DXBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedData);
 
-	memcpy(mappedData.pData,VBuffer->getData(offset),size);
+	//memcpy(mappedData.pData,VBuffer->getData(offset),size);
+	memcpy(mappedData.pData,VBuffer->getData(),VBuffer->getSize());
 
 	_deviceContext->Unmap(handle->DXBuffer,0);
 
@@ -685,9 +689,10 @@ bool DXManager::updateIndexBuffer(GPUResource* buffer, unsigned int offset, unsi
 	DXBufferHandle* handle = dynamic_cast<DXBufferHandle*>(IBuffer->_handle.get());
 
 	D3D11_MAPPED_SUBRESOURCE mappedData;
-	_deviceContext->Map(handle->DXBuffer, 0, D3D11_MAP_WRITE, 0, &mappedData);
+	_deviceContext->Map(handle->DXBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedData);
 
-	memcpy(mappedData.pData,IBuffer->getData(offset),size);
+	//memcpy(mappedData.pData,IBuffer->getData(offset),size);
+	memcpy(mappedData.pData,IBuffer->getData(),IBuffer->getSize());
 
 	_deviceContext->Unmap(handle->DXBuffer,0);
 }
@@ -697,4 +702,230 @@ bool DXManager::deleteBuffer(GPUResource* buffer){
 
 	handle->DXBuffer->Release();
 	return true;
+}
+
+bool DXManager::useVertexBuffer(GPUResource* buffer){
+	auto VBuffer = dynamic_cast<VertexBuffer*>(buffer);
+	auto handle = dynamic_cast<DXBufferHandle*>(buffer->_handle.get());
+
+	unsigned int stride = VBuffer->getLayout().getSize();
+	_deviceContext->IAGetVertexBuffers(0,1,&handle->DXBuffer,&stride,0);
+
+	return true;
+}
+
+bool DXManager::useIndexBuffer(GPUResource* buffer){
+	auto handle = dynamic_cast<DXBufferHandle*>(buffer->_handle.get());
+	_deviceContext->IASetIndexBuffer(handle->DXBuffer,DXGI_FORMAT_R32_UINT,0);
+	return true;
+}
+
+DXGI_FORMAT DXManager::getFormat(MemoryElement& element){
+	switch (element.type)
+	{
+	case MemoryElement::BOOL:
+		return DXGI_FORMAT_R32_UINT;
+		break;
+	case  MemoryElement::FLOAT:
+		return DXGI_FORMAT_R32_FLOAT;
+		break;
+	case MemoryElement::INT:
+		return DXGI_FORMAT_R32_SINT;
+		break;
+	case MemoryElement::VEC2:
+		return DXGI_FORMAT_R32G32_FLOAT;
+		break;
+	case MemoryElement::VEC3:
+		return DXGI_FORMAT_R32G32B32_FLOAT;
+		break;
+	case MemoryElement::VEC4:
+		return DXGI_FORMAT_R32G32B32A32_FLOAT;
+		break;
+	case MemoryElement::MAT3:
+		return DXGI_FORMAT_UNKNOWN;
+		break;
+	case MemoryElement::MAT4:
+		return DXGI_FORMAT_UNKNOWN;
+		break;
+	default:
+		break;
+	}
+}
+bool DXManager::createShader(GPUResource* shader){
+	auto program = dynamic_cast<GXWrapper::Shader*>(shader);
+	
+	auto handle = make_shared<DXShaderHandle>();
+
+	HRESULT res;
+	ID3D10Blob* errorMessage;
+	ID3D10Blob* vertexShaderBuffer;
+	ID3D10Blob* pixelShaderBuffer;
+	D3D11_INPUT_ELEMENT_DESC* layout;
+	unsigned int nElements;
+
+	errorMessage = 0;
+	vertexShaderBuffer = 0;
+	pixelShaderBuffer = 0;
+
+	res = D3DCompile(program->_vs.c_str(),program->_vs.size(),"VS",NULL,NULL,"main",
+			"vs_4_0",D3DCOMPILE_ENABLE_BACKWARDS_COMPATIBILITY,NULL,&vertexShaderBuffer,&errorMessage);
+
+	if(FAILED(res)){
+		if(errorMessage){
+			cout<<(char*)errorMessage->GetBufferPointer()<<endl;
+		}
+		return false;
+	}
+
+	res = D3DCompile(program->_ps.c_str(),program->_ps.size(),"PS",NULL,NULL,"main",
+		"ps_4_0",D3DCOMPILE_ENABLE_BACKWARDS_COMPATIBILITY,NULL,&pixelShaderBuffer,&errorMessage);
+
+	if(FAILED(res)){
+		if(errorMessage){
+			cout<<(char*)errorMessage->GetBufferPointer()<<endl;
+		}
+		return false;
+	}
+
+	res = _device->CreateVertexShader(vertexShaderBuffer->GetBufferPointer(),vertexShaderBuffer->GetBufferSize(),
+		NULL, &handle->vertexShader);
+
+	if(FAILED(res)){
+		return false;
+	}
+
+	res = _device->CreatePixelShader(pixelShaderBuffer->GetBufferPointer(),pixelShaderBuffer->GetBufferSize(),NULL,&handle->pixelShader);
+	if(FAILED(res)){
+		return false;
+	}
+
+	layout = new D3D11_INPUT_ELEMENT_DESC[program->_inputLayout.getElementCount()];
+
+	for(int i=0;i<program->_inputLayout.getElementCount();i++){
+		layout[i].SemanticName = program->_inputLayout.elements[i].semantic.c_str();
+		layout[i].SemanticIndex = 0;
+		layout[i].Format = getFormat(program->_inputLayout.elements[i]);
+		layout[i].InputSlot = 0;
+		layout[i].AlignedByteOffset = program->_inputLayout.elements[i].offset;
+		layout[i].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+		layout[i].InstanceDataStepRate = 0;
+	}
+
+	res = _device->CreateInputLayout(layout,program->_inputLayout.getElementCount(),vertexShaderBuffer->GetBufferPointer(),
+			vertexShaderBuffer->GetBufferSize(),&handle->inputLayout);
+
+	if(FAILED(res)){
+		return false;
+	}
+
+	vertexShaderBuffer->Release();
+	vertexShaderBuffer =0;
+	pixelShaderBuffer->Release();
+	pixelShaderBuffer=0;
+
+	program->_handle = handle;
+	//res = D3DX11CompileFromMemory(program->_vs,program->_vs.size(),);
+	//compile pixel shader
+	//create vertex shader
+	//create pixel shader
+	//create layout
+
+	return true;
+}
+
+bool DXManager::useShader(GPUResource* shader){
+	auto handle = dynamic_cast<DXShaderHandle*>(shader->_handle.get());
+
+	_deviceContext->IASetInputLayout(handle->inputLayout);
+	_deviceContext->VSSetShader(handle->vertexShader,NULL,0);
+	_deviceContext->PSSetShader(handle->pixelShader,NULL,0);
+
+	return true;
+}
+
+bool DXManager::deleteShader(GPUResource* shader){
+	auto handle = dynamic_cast<DXShaderHandle*>(shader->_handle.get());
+
+	if(handle->inputLayout)
+	{
+		handle->inputLayout->Release();
+		handle->inputLayout = 0;
+	}
+	if(handle->vertexShader)
+	{
+		handle->vertexShader->Release();
+		handle->vertexShader = 0;
+	}
+	if(handle->pixelShader)
+	{
+		handle->pixelShader->Release();
+		handle->pixelShader = 0;
+	}
+	return true;
+}
+
+bool DXManager::createUniformBuffer(GPUResource* buffer){
+	auto UBuffer = dynamic_cast<GXWrapper::UniformBuffer*>(buffer);
+
+	auto handle = make_shared<DXBufferHandle>();
+
+	D3D11_BUFFER_DESC desc;
+	desc.Usage = D3D11_USAGE_DYNAMIC;
+	desc.ByteWidth = UBuffer->getSize();
+	desc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+	desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+	desc.MiscFlags = 0;
+	desc.StructureByteStride = 0;
+
+
+	D3D11_SUBRESOURCE_DATA initData;
+	initData.pSysMem = UBuffer->getData();
+	initData.SysMemPitch = 0;
+	initData.SysMemSlicePitch = 0;
+
+	auto res = _device->CreateBuffer(&desc,&initData,&handle->DXBuffer);
+
+	UBuffer->_handle = handle;
+
+	if(FAILED(res))
+		return false;
+	else
+		return true;
+}
+
+bool DXManager::updateUniformBuffer(GPUResource* buffer,unsigned int offset,unsigned int size){
+	auto UBuffer = dynamic_cast<GXWrapper::UniformBuffer*>(buffer);
+
+	DXBufferHandle* handle = dynamic_cast<DXBufferHandle*>(UBuffer->_handle.get());
+
+	D3D11_MAPPED_SUBRESOURCE mappedData;
+	_deviceContext->Map(handle->DXBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedData);
+
+	if(!mappedData.pData)
+		return false;
+	//memcpy(mappedData.pData,UBuffer->getData(offset),size);
+	memcpy(mappedData.pData,UBuffer->getData(),UBuffer->getSize());
+
+	_deviceContext->Unmap(handle->DXBuffer,0);
+	return true;
+}
+
+bool DXManager::useUniformBuffer(GPUResource* buffer){
+	auto UBuffer = dynamic_cast<GXWrapper::UniformBuffer*>(buffer);
+	auto handle = dynamic_cast<DXBufferHandle*>(UBuffer->_handle.get());
+	
+	if(UBuffer->_shader == Shader::VERTEX){
+		_deviceContext->VSSetConstantBuffers(UBuffer->_slot,1,&handle->DXBuffer);
+	}else if(UBuffer->_shader == Shader::PIXEL){
+		_deviceContext->PSSetConstantBuffers(UBuffer->_slot,1,&handle->DXBuffer);
+	}else
+		return false;
+
+	return true;
+}
+
+
+void DXManager::Draw(GPUResource* geomtry ,int _primative , int _mode)
+{
+	//implmntation..
 }

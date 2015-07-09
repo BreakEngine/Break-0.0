@@ -16,6 +16,8 @@ namespace Break{
 			unsigned int indicesOffset;
 			unsigned int indicesCount;
 
+			int Instance_Count;
+
 			GeometryHandle(){
 				vertices = nullptr;
 				indices = nullptr;

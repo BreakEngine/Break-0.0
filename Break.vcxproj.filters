@@ -19,6 +19,9 @@
     <Filter Include="src">
       <UniqueIdentifier>{b407c67c-9a1a-400e-9270-ba511c07e21e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="geomtry">
+      <UniqueIdentifier>{0f7feecb-aa13-44f6-8321-a35f10341713}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inc\AccessException.h">
@@ -33,9 +36,6 @@
     <ClInclude Include="inc\Display.h">
       <Filter>inc</Filter>
     </ClInclude>
-    <ClInclude Include="inc\DXBufferHandle.h">
-      <Filter>inc</Filter>
-    </ClInclude>
     <ClInclude Include="inc\DXKeyboard.h">
       <Filter>inc</Filter>
     </ClInclude>
@@ -46,9 +46,6 @@
       <Filter>inc</Filter>
     </ClInclude>
     <ClInclude Include="inc\Engine.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\Geometry.h">
       <Filter>inc</Filter>
     </ClInclude>
     <ClInclude Include="inc\GeometryHandle.h">
@@ -135,12 +132,6 @@
     <ClInclude Include="inc\VertexBuffer.h">
       <Filter>inc</Filter>
     </ClInclude>
-    <ClInclude Include="inc\VertexDeclaration.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\VertexElement.h">
-      <Filter>inc</Filter>
-    </ClInclude>
     <ClInclude Include="inc\VertexSet.h">
       <Filter>inc</Filter>
     </ClInclude>
@@ -149,6 +140,30 @@
     </ClInclude>
     <ClInclude Include="TestVertex.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Shader.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\MemoryLayout.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\MemoryElement.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\DXShaderHandle.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\GLShaderHandle.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\UniformBuffer.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Geometry.h">
+      <Filter>geomtry</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\IDrawable.h">
+      <Filter>geomtry</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -165,9 +180,6 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Geometry.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\GLKeyboard.cpp">
@@ -215,11 +227,20 @@
     <ClCompile Include="src\VertexBuffer.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\VertexDeclaration.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="Source.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Shader.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MemoryLayout.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UniformBuffer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Geometry.cpp">
+      <Filter>geomtry</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

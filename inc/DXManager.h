@@ -5,6 +5,7 @@
 #include <d3d11.h>
 #include "IGXManager.h"
 #include "Application.h"
+#include "MemoryElement.h"
 
 namespace Break{
 	namespace Renderer{
@@ -38,6 +39,9 @@ namespace Break{
 			void cleanD3D();
 
 			static LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+
+			//takes element type and returns element DX format
+			DXGI_FORMAT getFormat(GXWrapper::MemoryElement& element);
 		public:
 			DXManager();
 			~DXManager();
@@ -47,11 +51,24 @@ namespace Break{
 			void clearBuffer();
 			void swapBuffer();
 			void setCursorPostion(glm::uvec2 val);
+
 			bool createVertexBuffer(Infrastructure::GPUResource* buffer) override;
 			bool createIndexBuffer(Infrastructure::GPUResource* buffer) override;
 			bool updateVertexBuffer(Infrastructure::GPUResource*,uint offset,uint size) override;
 			bool updateIndexBuffer(Infrastructure::GPUResource* buffer, uint offset, uint size) override;
 			bool deleteBuffer(Infrastructure::GPUResource* buffer) override;
+			bool useVertexBuffer(Infrastructure::GPUResource* buffer) override;
+			bool useIndexBuffer(Infrastructure::GPUResource* buffer) override;
+			bool createUniformBuffer(Infrastructure::GPUResource* buffer) override;
+			bool useUniformBuffer(Infrastructure::GPUResource* buffer) override;
+			bool updateUniformBuffer(Infrastructure::GPUResource* buffer,uint offset,uint size) override;
+
+			bool createShader(Infrastructure::GPUResource* shader) override;
+			bool useShader(Infrastructure::GPUResource* shader) override;
+			bool deleteShader(Infrastructure::GPUResource* shader) override;
+
+			//draw
+			void Draw(Infrastructure::GPUResource* geomtry ,int _primative , int _mode) override;
 		};
 	}
 }
