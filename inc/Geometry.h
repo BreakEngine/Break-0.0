@@ -43,7 +43,7 @@ namespace Break{
 
 			void setInstance_Count(int _count);
 
-			void Draw(IDrawable::Type _primative , IDrawable::Mode _mode);
+			void Draw(Primative::Type _primative , Primative::Mode _mode);
 
 		};
 		typedef std::shared_ptr<Geometry> GeometryPtr;

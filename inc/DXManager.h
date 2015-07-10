@@ -6,6 +6,7 @@
 #include "IGXManager.h"
 #include "Application.h"
 #include "MemoryElement.h"
+#include "GeometryHandle.h"
 
 namespace Break{
 	namespace Renderer{

@@ -64,7 +64,7 @@ unsigned int Geometry::getVerticesCount()
 }
 
 
-void Geometry::Draw(IDrawable::Type _primative , IDrawable::Mode _mode)
+void Geometry::Draw(Primative::Type _primative , Primative::Mode _mode)
 {
 	Break::Infrastructure::Engine::Instance->GraphicsDevice->Draw(this,_primative,_mode);
 }

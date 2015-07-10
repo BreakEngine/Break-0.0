@@ -2,13 +2,8 @@
 namespace Break{
 	namespace GXWrapper{
 
-		//interface to Draw Everything
-		class IDrawable
-		{
-		public:
-			/*
-			everything will draw throw this ..
-			*/
+		struct Primative{
+
 			enum Type
 			{
 				POINTS = 0,
@@ -27,8 +22,19 @@ namespace Break{
 				Normal_Instanced = 2,
 				Index_Instanced
 			};
-			
-			virtual void Draw(IDrawable::Type _primative , IDrawable::Mode _mode) = 0;
+
+		};
+
+		//interface to Draw Everything
+		class IDrawable
+		{
+		public:
+			/*
+			everything will draw throw this ..
+			*/
+
+
+			virtual void Draw(Primative::Type _primative , Primative::Mode _mode) = 0;
 		};
 
 	}

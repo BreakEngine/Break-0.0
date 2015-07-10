@@ -553,25 +553,25 @@ LRESULT CALLBACK DXManager::WindowProc(HWND hWnd, UINT message, WPARAM wParam, L
 		Input::DXKeyboard::keyboardUp(wParam);
 		break;
 	case WM_LBUTTONDOWN:
-			Input::DXMouse::mouseButton(0,0);
+		Input::DXMouse::mouseButton(0,0);
 		break;
 	case WM_LBUTTONUP:
-			Input::DXMouse::mouseButton(0,1);
+		Input::DXMouse::mouseButton(0,1);
 		break;
 	case WM_RBUTTONDOWN:
-			Input::DXMouse::mouseButton(2,0);
+		Input::DXMouse::mouseButton(2,0);
 		break;
 	case WM_RBUTTONUP:
-			Input::DXMouse::mouseButton(2,1);
+		Input::DXMouse::mouseButton(2,1);
 		break;
 	case WM_MBUTTONDOWN:
-			Input::DXMouse::mouseButton(1,0);
+		Input::DXMouse::mouseButton(1,0);
 		break;
 	case WM_MBUTTONUP:
-			Input::DXMouse::mouseButton(1,1);
+		Input::DXMouse::mouseButton(1,1);
 		break;
 	case WM_MOUSEMOVE:
-			Input::DXMouse::mouseMove(GET_X_LPARAM(lParam),GET_Y_LPARAM(lParam));
+		Input::DXMouse::mouseMove(GET_X_LPARAM(lParam),GET_Y_LPARAM(lParam));
 		break;
 	}
 
@@ -591,12 +591,12 @@ bool DXManager::createVertexBuffer(GPUResource* buffer){
 
 	switch (VBuffer->getType())
 	{
-	//dynamic
+		//dynamic
 	case 0:
 		bufferDESC.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 		bufferDESC.Usage = D3D11_USAGE_DYNAMIC;
 		break;
-	//static
+		//static
 	case 1:
 		bufferDESC.CPUAccessFlags = 0;
 		bufferDESC.Usage = D3D11_USAGE_IMMUTABLE;
@@ -621,7 +621,7 @@ bool DXManager::createVertexBuffer(GPUResource* buffer){
 }
 
 bool DXManager::createIndexBuffer(GPUResource* buffer){
-	
+
 	GXWrapper::IndexBuffer* IBuffer = dynamic_cast<GXWrapper::IndexBuffer*>(buffer);
 
 	auto handle = make_shared<DXBufferHandle>();
@@ -753,7 +753,7 @@ DXGI_FORMAT DXManager::getFormat(MemoryElement& element){
 }
 bool DXManager::createShader(GPUResource* shader){
 	auto program = dynamic_cast<GXWrapper::Shader*>(shader);
-	
+
 	auto handle = make_shared<DXShaderHandle>();
 
 	HRESULT res;
@@ -768,7 +768,7 @@ bool DXManager::createShader(GPUResource* shader){
 	pixelShaderBuffer = 0;
 
 	res = D3DCompile(program->_vs.c_str(),program->_vs.size(),"VS",NULL,NULL,"main",
-			"vs_4_0",D3DCOMPILE_ENABLE_BACKWARDS_COMPATIBILITY,NULL,&vertexShaderBuffer,&errorMessage);
+		"vs_4_0",D3DCOMPILE_ENABLE_BACKWARDS_COMPATIBILITY,NULL,&vertexShaderBuffer,&errorMessage);
 
 	if(FAILED(res)){
 		if(errorMessage){
@@ -812,7 +812,7 @@ bool DXManager::createShader(GPUResource* shader){
 	}
 
 	res = _device->CreateInputLayout(layout,program->_inputLayout.getElementCount(),vertexShaderBuffer->GetBufferPointer(),
-			vertexShaderBuffer->GetBufferSize(),&handle->inputLayout);
+		vertexShaderBuffer->GetBufferSize(),&handle->inputLayout);
 
 	if(FAILED(res)){
 		return false;
@@ -913,7 +913,7 @@ bool DXManager::updateUniformBuffer(GPUResource* buffer,unsigned int offset,unsi
 bool DXManager::useUniformBuffer(GPUResource* buffer){
 	auto UBuffer = dynamic_cast<GXWrapper::UniformBuffer*>(buffer);
 	auto handle = dynamic_cast<DXBufferHandle*>(UBuffer->_handle.get());
-	
+
 	if(UBuffer->_shader == Shader::VERTEX){
 		_deviceContext->VSSetConstantBuffers(UBuffer->_slot,1,&handle->DXBuffer);
 	}else if(UBuffer->_shader == Shader::PIXEL){
@@ -928,4 +928,63 @@ bool DXManager::useUniformBuffer(GPUResource* buffer){
 void DXManager::Draw(GPUResource* geomtry ,int _primative , int _mode)
 {
 	//implmntation..
+	auto handle = dynamic_cast<GeometryHandle*>(geomtry->_handle.get());
+
+
+
+	if(_primative == 0)
+		_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_POINTLIST);
+
+	if(_primative == 1)
+		_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
+
+	if(_primative == 2)
+		_deviceContext->IASetPrimitiveTopology( D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
+
+	if(_primative == 3)
+		_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
+
+	if(_primative == 4)
+		_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+	if(_primative == 5)
+		_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
+
+	if(_primative == 6)
+		_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
+
+
+
+
+	switch (_mode)
+	{
+	case 0:     /*normal drawing*/
+
+		_deviceContext->Draw(handle->verticesCount,0);
+		break;
+
+
+	case 1:     /*indexed drawing*/
+
+		/*   third paramater in this function ,,,
+		This is the offset from the start of the vertex buffer to start drawing.
+		You might have two index buffers, one describing a sphere, and one describing a box.
+		But maybe you have both in a single vertex buffer, where the sphere is the first set of vertices in the vertex buffer,
+		and the box is the second set.
+		So to draw the box, you would need to set this third parameter to the number of vertices in your sphere,
+		so that the box would be the first thing to start drawing.*/
+
+		_deviceContext->DrawIndexed(handle->indicesCount,0,0);
+		break;
+
+	case 2:     /*normal instanced drawing*/
+
+		_deviceContext->DrawInstanced(handle->verticesCount,handle->Instance_Count,0,0);
+		break;
+
+	case 3:     /*indexed instanced drawing*/
+
+		_deviceContext->DrawIndexedInstanced(handle->indicesCount,handle->Instance_Count,0,0,0);
+		break;
+	}
 }
