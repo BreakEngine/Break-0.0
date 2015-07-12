@@ -171,6 +171,12 @@ namespace Break{
 			 * \author Moustapha Saad
 			 */
 			virtual bool deleteShader(GPUResource*)=0;
+
+			virtual bool createTexture2D(GPUResource*)=0;
+
+			virtual bool deleteTexture2D(GPUResource*)=0;
+
+			virtual bool useTexture2D(GPUResource*)=0;
 		};
 		typedef std::shared_ptr<IGXManager> IGXManagerPtr;
 	}

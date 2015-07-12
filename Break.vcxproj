@@ -19,6 +19,7 @@
     <ClInclude Include="inc\DXManager.h" />
     <ClInclude Include="inc\DXMouse.h" />
     <ClInclude Include="inc\DXShaderHandle.h" />
+    <ClInclude Include="inc\DXTextureHandle.h" />
     <ClInclude Include="inc\Engine.h" />
     <ClInclude Include="inc\Geometry.h" />
     <ClInclude Include="inc\GeometryHandle.h" />
@@ -28,6 +29,7 @@
     <ClInclude Include="inc\GLMouse.h" />
     <ClInclude Include="inc\GlobalDefinitions.h" />
     <ClInclude Include="inc\GLShaderHandle.h" />
+    <ClInclude Include="inc\GLTextureHandle.h" />
     <ClInclude Include="inc\GPUException.h" />
     <ClInclude Include="inc\GPUResource.h" />
     <ClInclude Include="inc\GXWrapper.h" />
@@ -48,6 +50,7 @@
     <ClInclude Include="inc\Property.h" />
     <ClInclude Include="inc\RAMBuffer.h" />
     <ClInclude Include="inc\Shader.h" />
+    <ClInclude Include="inc\Texture2D.h" />
     <ClInclude Include="inc\Time.h" />
     <ClInclude Include="inc\TimeStep.h" />
     <ClInclude Include="inc\UniformBuffer.h" />
@@ -79,6 +82,7 @@
     <ClCompile Include="src\IRenderer.cpp" />
     <ClCompile Include="src\RAMBuffer.cpp" />
     <ClCompile Include="src\Shader.cpp" />
+    <ClCompile Include="src\Texture2D.cpp" />
     <ClCompile Include="src\Time.cpp" />
     <ClCompile Include="src\TimeStep.cpp" />
     <ClCompile Include="src\UniformBuffer.cpp" />
@@ -115,8 +119,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)\bin\$(Configuration)\</OutDir>
-    <IncludePath>$(ProjectDir)\inc;$(ProjectDir)\libs\glm\include;$(DXSDK_DIR)Include;$(ProjectDir)\libs\glew-1.10.0\include;$(ProjectDir)\libs\glfw-3.1.bin.WIN32\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(DXSDK_DIR)Lib\x86;$(ProjectDir)\libs\glew-1.10.0\lib\Release\Win32;$(ProjectDir)\libs\glfw-3.1.bin.WIN32\lib-vc2012;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)\inc;$(ProjectDir)\libs\glm\include;$(DXSDK_DIR)Include;$(ProjectDir)\libs\glew-1.10.0\include;$(ProjectDir)\libs\glfw-3.1.bin.WIN32\include;$(ProjectDir)\libs\FreeImage\Dist\x32;$(IncludePath)</IncludePath>
+    <LibraryPath>$(DXSDK_DIR)Lib\x86;$(ProjectDir)\libs\glew-1.10.0\lib\Release\Win32;$(ProjectDir)\libs\glfw-3.1.bin.WIN32\lib-vc2012;$(ProjectDir)\libs\FreeImage\Dist\x32;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>$(DXSDK_DIR)Include;$(ProjectDir)\libs\glfw-3.1.bin.WIN32\include;$(ProjectDir)\libs\glew-1.10.0\include;$(ProjectDir)\inc;$(ProjectDir)\libs\glm\include;$(IncludePath)</IncludePath>

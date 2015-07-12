@@ -12,6 +12,8 @@
 #include "Shader.h"
 #include "UniformBuffer.h"
 #include <D3Dcompiler.h>
+#include "DXTextureHandle.h"
+#include "Texture2D.h"
 //testing purpose headers
 #include <iostream>
 using namespace std;
@@ -923,4 +925,48 @@ bool DXManager::useUniformBuffer(GPUResource* buffer){
 		return false;
 
 	return true;
+}
+
+bool DXManager::createTexture2D(Infrastructure::GPUResource* texture)
+{
+	auto tex = dynamic_cast<Texture2D*>(texture);
+	auto handle = make_shared<DXTextureHandle>();
+
+	D3D11_TEXTURE2D_DESC tdesc;
+	D3D11_SUBRESOURCE_DATA tbsd;
+	int w = tex->getWidth();
+	int h = tex->getHeight();
+	tbsd.pSysMem = tex->getData();
+	tbsd.SysMemPitch = w;
+	tbsd.SysMemSlicePitch = w*h;
+
+	tdesc.Width = w;
+	tdesc.Height = h;
+	tdesc.MipLevels = 1;
+	tdesc.ArraySize = 1;
+
+	tdesc.SampleDesc.Count = 1;
+	tdesc.SampleDesc.Quality = 0;
+	tdesc.Usage = D3D11_USAGE_DEFAULT;
+	tdesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+	tdesc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
+
+	tdesc.CPUAccessFlags = 0;
+	tdesc.MiscFlags = 0;
+
+	if(FAILED(myDevice->CreateTexture2D(&tdesc,&tbsd,&handle->_textureHandle)))
+		return(0);
+	tex->_handle = handle;
+
+	return true;
+}
+
+bool DXManager::deleteTexture2D(Infrastructure::GPUResource* texture)
+{
+
+}
+
+bool DXManager::useTexture2D(Infrastructure::GPUResource* texture)
+{
+
 }

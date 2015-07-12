@@ -16,6 +16,8 @@
 #include "Shader.h"
 #include "GLShaderHandle.h"
 #include "UniformBuffer.h"
+#include "GLTextureHandle.h"
+#include "Texture2D.h"
 using namespace std;
 using namespace Break::Renderer;
 using namespace Break::Infrastructure;
@@ -361,5 +363,43 @@ bool GLManager::updateUniformBuffer(GPUResource* buffer,unsigned int offset,unsi
 bool GLManager::useUniformBuffer(GPUResource* buffer){
 	auto handle = dynamic_cast<GLHandle*>(buffer->_handle.get());
 	glBindBuffer(GL_UNIFORM_BUFFER,handle->ID);
+	return true;
+}
+
+bool GLManager::createTexture2D(Infrastructure::GPUResource* texture)
+{
+	auto tex = dynamic_cast<Texture2D*>(texture);
+	auto handle = make_shared<GLTextureHandle>();
+	int texid = tex->getTexID();
+	GLuint textureHandle;
+	glActiveTexture(texid);
+	glGenTextures(1, &textureHandle);
+	glBindTexture(GL_TEXTURE_2D, textureHandle); 
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, tex->getWidth(), tex->getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, tex->getData());
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);       
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	handle->_textureHandle = textureHandle;
+	tex->_handle = handle;
+
+	return true;
+}
+
+bool GLManager::deleteTexture2D(Infrastructure::GPUResource* texture)
+{
+	auto handle = make_shared<GLTextureHandle>(texture->_handle.get());
+	glDeleteTextures(1,&handle->_textureHandle);
+	return true;
+}
+
+bool Break::Renderer::GLManager::useTexture2D(Infrastructure::GPUResource* texture)
+{
+	auto tex = dynamic_cast<Texture2D*>(texture);
+	auto handle = dynamic_cast<GLTextureHandle*>(texture->_handle.get());
+	glActiveTexture(tex->getTexID());
+	glBindTexture(GL_TEXTURE_2D, handle->_textureHandle);
 	return true;
 }

@@ -159,6 +159,15 @@
     <ClInclude Include="inc\UniformBuffer.h">
       <Filter>inc</Filter>
     </ClInclude>
+    <ClInclude Include="inc\GLTextureHandle.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\DXTextureHandle.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Texture2D.h">
+      <Filter>inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp">
@@ -234,6 +243,9 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\UniformBuffer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Texture2D.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

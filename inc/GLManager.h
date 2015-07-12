@@ -37,6 +37,12 @@ namespace Break{
 			virtual bool createShader(Infrastructure::GPUResource* shader) override;
 			virtual bool useShader(Infrastructure::GPUResource* shader) override;
 			virtual bool deleteShader(Infrastructure::GPUResource* shader) override;
+
+			//texture functions
+			virtual bool createTexture2D(Infrastructure::GPUResource* texture)override;
+			virtual bool deleteTexture2D(Infrastructure::GPUResource* texture)override;
+			virtual bool useTexture2D(Infrastructure::GPUResource* texture)override;
+
 		};
 	}
 }
