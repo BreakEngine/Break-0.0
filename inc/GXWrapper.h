@@ -9,3 +9,7 @@
 #include "VertexSet.h"
 #include "VertexBuffer.h"
 #include "Geometry.h"
+#include "Texture.h"
+#include "Texture2D.h"
+#include "Image.h"
+#include "ResourceManager.h"

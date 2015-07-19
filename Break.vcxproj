@@ -19,9 +19,10 @@
     <ClInclude Include="inc\DXManager.h" />
     <ClInclude Include="inc\DXMouse.h" />
     <ClInclude Include="inc\DXShaderHandle.h" />
+    <ClInclude Include="inc\DXTexture2DHandle.h" />
     <ClInclude Include="inc\Engine.h" />
     <ClInclude Include="inc\Geometry.h" />
-    <ClInclude Include="inc\GeometryHandle.h" />
+    <ClInclude Include="inc\GeometryData.h" />
     <ClInclude Include="inc\GLHandle.h" />
     <ClInclude Include="inc\GLKeyboard.h" />
     <ClInclude Include="inc\GLManager.h" />
@@ -31,23 +32,30 @@
     <ClInclude Include="inc\GPUException.h" />
     <ClInclude Include="inc\GPUResource.h" />
     <ClInclude Include="inc\GXWrapper.h" />
+    <ClInclude Include="inc\IDrawable.h" />
+    <ClInclude Include="inc\Texture.h" />
     <ClInclude Include="inc\IAttribute.h" />
     <ClInclude Include="inc\IDisplay.h" />
     <ClInclude Include="inc\IGPUHandle.h" />
     <ClInclude Include="inc\IGXManager.h" />
     <ClInclude Include="inc\IKeyboard.h" />
+    <ClInclude Include="inc\Image.h" />
     <ClInclude Include="inc\IMouse.h" />
     <ClInclude Include="inc\IndexBuffer.h" />
     <ClInclude Include="inc\IndexSet.h" />
     <ClInclude Include="inc\Infrastructure.h" />
     <ClInclude Include="inc\InputDevice.h" />
     <ClInclude Include="inc\IRenderer.h" />
+    <ClInclude Include="inc\IResource.h" />
     <ClInclude Include="inc\ISet.h" />
     <ClInclude Include="inc\IVertex.h" />
     <ClInclude Include="inc\MemoryException.h" />
+    <ClInclude Include="inc\Pixels.h" />
     <ClInclude Include="inc\Property.h" />
     <ClInclude Include="inc\RAMBuffer.h" />
+    <ClInclude Include="inc\ResourceManager.h" />
     <ClInclude Include="inc\Shader.h" />
+    <ClInclude Include="inc\Texture2D.h" />
     <ClInclude Include="inc\Time.h" />
     <ClInclude Include="inc\TimeStep.h" />
     <ClInclude Include="inc\UniformBuffer.h" />
@@ -73,12 +81,16 @@
     <ClCompile Include="src\IDisplay.cpp" />
     <ClCompile Include="src\IGXManager.cpp" />
     <ClCompile Include="src\IKeyboard.cpp" />
+    <ClCompile Include="src\Image.cpp" />
     <ClCompile Include="src\IMouse.cpp" />
     <ClCompile Include="src\IndexBuffer.cpp" />
     <ClCompile Include="src\InputDevice.cpp" />
     <ClCompile Include="src\IRenderer.cpp" />
     <ClCompile Include="src\RAMBuffer.cpp" />
+    <ClCompile Include="src\ResourceManager.cpp" />
     <ClCompile Include="src\Shader.cpp" />
+    <ClCompile Include="src\Texture.cpp" />
+    <ClCompile Include="src\Texture2D.cpp" />
     <ClCompile Include="src\Time.cpp" />
     <ClCompile Include="src\TimeStep.cpp" />
     <ClCompile Include="src\UniformBuffer.cpp" />
@@ -115,12 +127,12 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)\bin\$(Configuration)\</OutDir>
-    <IncludePath>$(ProjectDir)\inc;$(ProjectDir)\libs\glm\include;$(DXSDK_DIR)Include;$(ProjectDir)\libs\glew-1.10.0\include;$(ProjectDir)\libs\glfw-3.1.bin.WIN32\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(DXSDK_DIR)Lib\x86;$(ProjectDir)\libs\glew-1.10.0\lib\Release\Win32;$(ProjectDir)\libs\glfw-3.1.bin.WIN32\lib-vc2012;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)\libs\freeimage;$(ProjectDir)\inc;$(ProjectDir)\libs\glm\include;$(DXSDK_DIR)Include;$(ProjectDir)\libs\glew-1.10.0\include;$(ProjectDir)\libs\glfw-3.1.bin.WIN32\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)\libs\freeimage;$(DXSDK_DIR)Lib\x86;$(ProjectDir)\libs\glew-1.10.0\lib\Release\Win32;$(ProjectDir)\libs\glfw-3.1.bin.WIN32\lib-vc2012;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(DXSDK_DIR)Include;$(ProjectDir)\libs\glfw-3.1.bin.WIN32\include;$(ProjectDir)\libs\glew-1.10.0\include;$(ProjectDir)\inc;$(ProjectDir)\libs\glm\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(DXSDK_DIR)Lib\x86;$(ProjectDir)\libs\glew-1.10.0\lib\Release\Win32;$(ProjectDir)\libs\glfw-3.1.bin.WIN32\lib-vc2012;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)\libs\freeimage;$(DXSDK_DIR)Include;$(ProjectDir)\libs\glfw-3.1.bin.WIN32\include;$(ProjectDir)\libs\glew-1.10.0\include;$(ProjectDir)\inc;$(ProjectDir)\libs\glm\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)\libs\freeimage;$(DXSDK_DIR)Lib\x86;$(ProjectDir)\libs\glew-1.10.0\lib\Release\Win32;$(ProjectDir)\libs\glfw-3.1.bin.WIN32\lib-vc2012;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)\bin\$(Configuration)\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

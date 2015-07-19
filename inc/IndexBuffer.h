@@ -25,7 +25,7 @@ namespace Break{
 
 			virtual bool append(ISet*) override;
 
-			virtual void use() override;
+			virtual void use();
 
 		protected:
 			

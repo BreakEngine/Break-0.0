@@ -1,9 +1,11 @@
-﻿Build started 05/07/2015 05:31:05 ص.
+﻿Build started 19/07/2015 04:39:19 ص.
      1>Project "E:\Projects\Break\Break.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Source.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Source.cpp src\Geometry.cpp
+         Geometry.cpp
          Source.cpp
-     1>e:\projects\break\testapplication.h(40): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>e:\projects\break\inc\indexset.h(25): warning C4018: '<' : signed/unsigned mismatch
+         Generating Code...
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\Projects\Break\\bin\Debug\Break.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:\Projects\Break\\bin\Debug\Break.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\Projects\Break\\bin\Debug\Break.lib" /MACHINE:X86 Debug\Source.obj
          Debug\Application.obj
@@ -19,12 +21,16 @@
          Debug\IDisplay.obj
          Debug\IGXManager.obj
          Debug\IKeyboard.obj
+         Debug\Image.obj
          Debug\IMouse.obj
          Debug\IndexBuffer.obj
          Debug\InputDevice.obj
          Debug\IRenderer.obj
          Debug\RAMBuffer.obj
+         Debug\ResourceManager.obj
          Debug\Shader.obj
+         Debug\Texture.obj
+         Debug\Texture2D.obj
          Debug\Time.obj
          Debug\TimeStep.obj
          Debug\UniformBuffer.obj
@@ -35,4 +41,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.93
+Time Elapsed 00:00:03.52

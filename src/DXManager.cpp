@@ -12,6 +12,8 @@
 #include "Shader.h"
 #include "UniformBuffer.h"
 #include <D3Dcompiler.h>
+#include "Texture2D.h"
+#include "DXTexture2DHandle.h"
 //testing purpose headers
 #include <iostream>
 using namespace std;
@@ -710,7 +712,8 @@ bool DXManager::useVertexBuffer(GPUResource* buffer){
 	auto handle = dynamic_cast<DXBufferHandle*>(buffer->_handle.get());
 
 	unsigned int stride = VBuffer->getLayout().getSize();
-	_deviceContext->IAGetVertexBuffers(0,1,&handle->DXBuffer,&stride,0);
+	unsigned int offset = 0;
+	_deviceContext->IASetVertexBuffers(0,1,&handle->DXBuffer,&stride,&offset);
 
 	return true;
 }
@@ -923,4 +926,185 @@ bool DXManager::useUniformBuffer(GPUResource* buffer){
 		return false;
 
 	return true;
+}
+
+bool DXManager::createTexture2D(GPUResource* texture,Image& img){
+	auto tex = dynamic_cast<Texture2D*>(texture);
+
+	auto handle = make_shared<DXTexture2DHandle>();
+
+	D3D11_TEXTURE2D_DESC desc;
+	desc.ArraySize = 1;
+	desc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
+	desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+	desc.MipLevels = 1;
+	desc.MiscFlags = 0;
+	desc.SampleDesc.Count = 1;
+    desc.SampleDesc.Quality = 0;
+	desc.Usage = D3D11_USAGE_DYNAMIC;
+	desc.Width = img.getWidth();
+	desc.Height = img.getHeight();
+	desc.Format = DXGI_FORMAT_R8G8B8A8_UINT;
+
+	D3D11_SUBRESOURCE_DATA descData;
+	//ZeroMemory(&descData,sizeof(D3D11_SUBRESOURCE_DATA));
+	descData.pSysMem = img.getPixels();
+	descData.SysMemPitch = img.getWidth()*sizeof(Pixel);
+	descData.SysMemSlicePitch = img.getSize();
+	auto res = _device->CreateTexture2D(&desc,&descData,&handle->texture); 
+	if(FAILED(res)){
+		cout<<res<<endl;
+		return false;
+	}
+	D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc;
+	srvDesc.Format = desc.Format;
+	srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+	srvDesc.Texture2D.MipLevels = 1;
+	srvDesc.Texture2D.MostDetailedMip = 0;
+	res = _device->CreateShaderResourceView(handle->texture,&srvDesc,&handle->resourceView);
+	if(FAILED(res)){
+		cout<<res<<endl;
+		return false;
+	}
+	_deviceContext->GenerateMips(handle->resourceView);
+
+	tex->_handle = handle;
+	return true;
+}
+
+bool DXManager::updateTexture2D(GPUResource* texture, Image& img)
+{
+	auto handle = dynamic_cast<DXTexture2DHandle*>(texture->_handle.get());
+
+	D3D11_MAPPED_SUBRESOURCE mappedData;
+	_deviceContext->Map(handle->texture, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedData);
+
+	if(!mappedData.pData)
+		return false;
+	//memcpy(mappedData.pData,UBuffer->getData(offset),size);
+	memcpy(mappedData.pData,img.getPixels(),img.getSize());
+
+	_deviceContext->Unmap(handle->texture,0);
+	return true;
+
+}
+
+bool DXManager::deleteTexture2D(GPUResource* texture)
+{
+	auto handle = dynamic_cast<DXTexture2DHandle*>(texture->_handle.get());
+
+	if(handle->texture)
+	{
+		handle->texture->Release();
+		handle->texture = 0;
+	}
+
+	if(handle->resourceView)
+	{
+		handle->resourceView->Release();
+		handle->resourceView = 0;
+	}
+	return true;
+}
+
+bool DXManager::useTexture2D(GPUResource* texture, unsigned unit, Shader::Type type)
+{
+	auto handle = dynamic_cast<DXTexture2DHandle*>(texture->_handle.get());
+
+	switch(type)
+	{
+	case Shader::NONE:
+		return false;
+		break;
+	case Shader::VERTEX:
+		_deviceContext->VSSetShaderResources(unit,1,&handle->resourceView);
+		return true;
+		break;
+	case Shader::PIXEL:
+		_deviceContext->PSSetShaderResources(unit,1,&handle->resourceView);
+		return true;
+		break;
+	default:
+		return false;
+		break;
+	}
+}
+
+bool DXManager::createGeometry(Geometry*)
+{
+	return true;
+}
+
+bool DXManager::drawGeometry(Geometry* geometry, Primitive::Mode mode)
+{
+	auto geo = geometry;
+
+	auto geoData = geo->_geometryData;
+
+	if(geoData.primitive == 0)
+		_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_POINTLIST);
+
+	if(geoData.primitive == 1)
+		_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
+
+	if(geoData.primitive == 2)
+		_deviceContext->IASetPrimitiveTopology( D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
+
+	if(geoData.primitive == 3)
+		_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
+
+	if(geoData.primitive == 4)
+		_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+	if(geoData.primitive == 5)
+		_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
+
+	if(geoData.primitive == 6)
+		_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
+
+
+
+
+	switch (mode)
+	{
+	case 0:     /*normal drawing*/
+
+		geoData.vertices->use();
+		_deviceContext->Draw(geoData.verticesCount,0);
+		break;
+
+
+	case 1:     /*indexed drawing*/
+
+		/*   third paramater in this function ,,,
+		This is the offset from the start of the vertex buffer to start drawing.
+		You might have two index buffers, one describing a sphere, and one describing a box.
+		But maybe you have both in a single vertex buffer, where the sphere is the first set of vertices in the vertex buffer,
+		and the box is the second set.
+		So to draw the box, you would need to set this third parameter to the number of vertices in your sphere,
+		so that the box would be the first thing to start drawing.*/
+
+		geoData.vertices->use();
+		geoData.indices->use();
+		_deviceContext->DrawIndexed(geoData.indicesCount,0,0);
+		break;
+
+	case 2:     /*normal instanced drawing*/
+		geoData.vertices->use();
+		geoData.indices->use();
+		_deviceContext->DrawInstanced(geoData.verticesCount,geoData.instanceCount,0,0);
+		break;
+
+	case 3:     /*indexed instanced drawing*/
+		geoData.vertices->use();
+		geoData.indices->use();
+		_deviceContext->DrawIndexedInstanced(geoData.indicesCount,geoData.instanceCount,0,0,0);
+		break;
+	}
+	return true;
+}
+
+bool DXManager::deleteGeometry(GPUResource*)
+{
+	return true; 
 }

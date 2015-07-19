@@ -1,46 +1,65 @@
 #include "Geometry.h"
+#include <Engine.h>
 
 using namespace Break::GXWrapper;
 
-Geometry::Geometry(){
-
+bool Geometry::createGPUResource()
+{
+	return Infrastructure::Engine::Instance->GraphicsDevice->createGeometry(this);
 }
 
-Geometry::Geometry(ISet* vertices, ISet* indices){
-
+Geometry::Geometry(ISet* vertices, ISet* indices,Primitive::Type type){
+	_geometryData.primitive = type;
 	if(vertices){
 		_declaration = vertices->getDeclaration();
-		_handle.vertices = std::make_shared<VertexBuffer>(vertices,_declaration);
-		_handle.verticesCount = vertices->count();
-		_handle.verticesOffset = 0;
+		_geometryData.vertices = std::make_shared<VertexBuffer>(vertices,_declaration);
+		_geometryData.verticesCount = vertices->count();
+		_geometryData.verticesOffset = 0;
 	}
 
 	if(indices){
-		_handle.indices = std::make_shared<IndexBuffer>(indices);
-		_handle.indicesCount = indices->count();
-		_handle.indicesOffset = 0;
+		if(Infrastructure::Engine::Instance->getAPI() == Infrastructure::API::DIRECTX)
+			indices->mirror();
+		_geometryData.indices = std::make_shared<IndexBuffer>(indices);
+		_geometryData.indicesCount = indices->count();
+		_geometryData.indicesOffset = 0;
 	}
-
+	createGPUResource();
 }
 
 Geometry::Geometry(const Geometry& val){
 		_declaration = val._declaration;
-		_handle = val._handle;
+		_geometryData = val._geometryData;
 }
 
 Geometry::~Geometry(){
-
+	Break::Infrastructure::Engine::Instance->GraphicsDevice->deleteGeometry(this);
 }
 
 unsigned int* Geometry::getIndices(){
-	unsigned int* head = reinterpret_cast<unsigned int*>(_handle.indices->getData(_handle.indicesOffset));
+	unsigned int* head = reinterpret_cast<unsigned int*>(_geometryData.indices->getData(_geometryData.indicesOffset));
 	return head;
 }
 
 unsigned int Geometry::getIndicesCount(){
-	return _handle.indicesCount;
+	return _geometryData.indicesCount;
+}
+
+MemoryLayout Geometry::getMemoryLayout()
+{
+	return _declaration;
+}
+
+GeometryData Geometry::getGeometryData()
+{
+	return _geometryData;
+}
+
+void Geometry::draw(Primitive::Mode mode)
+{
+	Break::Infrastructure::Engine::Instance->GraphicsDevice->drawGeometry(this,mode);
 }
 
 unsigned int Geometry::getVerticesCount(){
-	return _handle.verticesCount;
+	return _geometryData.verticesCount;
 }

@@ -42,5 +42,6 @@ namespace Break{
 			std::string getPixelShader();
 			MemoryLayout getInputLayout();
 		};
+		typedef std::shared_ptr<Shader> ShaderPtr;
 	}
 }

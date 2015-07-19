@@ -26,6 +26,8 @@ namespace Break{
 
 			uint getElementCount();
 
+			bool equals(const MemoryLayout& val);
+
 			~MemoryLayout();
 
 		};

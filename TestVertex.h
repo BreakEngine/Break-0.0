@@ -8,15 +8,15 @@ using namespace glm;
 
 class tv:public IVertex{
 public:
-	glm::vec3 _a;
+	glm::vec4 _a;
 	glm::vec4 _b;
-	tv(float a){
-		_a = vec3(a);
-		_b = vec4(a);
+	tv(vec4 a,vec4 b){
+		_a = a;
+		_b = b;
 	}
 	static MemoryLayout getDeclaration() {
 		MemoryLayout ret;
-		ret.append(MemoryElement(MemoryElement::VEC3,"POSITION"));
+		ret.append(MemoryElement(MemoryElement::VEC4,"POSITION"));
 		ret.append(MemoryElement(MemoryElement::VEC4,"COLOR"));
 		return ret;
 	}

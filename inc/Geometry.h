@@ -1,19 +1,21 @@
 #pragma once
 
 #include "ISet.h"
-#include "GeometryHandle.h"
+#include "GeometryData.h"
 #include <memory>
 
 namespace Break{
 	namespace GXWrapper{
-		class Geometry{
+		class Geometry: public IDrawable, Infrastructure::GPUResource{
+			friend class Renderer::GLManager;
+			friend class Renderer::DXManager;
 		private:
 			MemoryLayout _declaration;
-			GeometryHandle _handle;
+			GeometryData _geometryData;
+		protected:
+			virtual bool createGPUResource()override;
 		public:
-
-			Geometry();
-			Geometry(ISet* vertices, ISet* indices);
+			Geometry(ISet* vertices, ISet* indices,Primitive::Type type);
 
 			Geometry(const Geometry& val);
 
@@ -21,7 +23,7 @@ namespace Break{
 
 			template<class T>
 			T* getVertices(){
-				T* head = reinterpret_cast<T*>(_handle.vertices->getData(_handle.verticesOffset));
+				T* head = reinterpret_cast<T*>(_geometryData.vertices->getData(_geometryData.verticesOffset));
 				return head;
 			}
 
@@ -30,6 +32,12 @@ namespace Break{
 			unsigned int getVerticesCount();
 
 			unsigned int getIndicesCount();
+
+			MemoryLayout getMemoryLayout();
+
+			GeometryData getGeometryData();
+
+			virtual void draw(Primitive::Mode mode)override;
 		};
 		typedef std::shared_ptr<Geometry> GeometryPtr;
 	}

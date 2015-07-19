@@ -32,7 +32,7 @@ namespace Break{
 
 			void clear();
 
-			void use() override;
+			void use();
 
 			void reallocate(unsigned int size);
 

@@ -31,12 +31,23 @@ namespace Break{
 			virtual bool useVertexBuffer(Infrastructure::GPUResource*)override;
 			virtual bool createUniformBuffer(Infrastructure::GPUResource* buffer)override;
 			virtual bool updateUniformBuffer(Infrastructure::GPUResource*,unsigned int,unsigned int)override;
-			virtual bool useUniformBuffer(Infrastructure::GPUResource*);
+			virtual bool useUniformBuffer(Infrastructure::GPUResource*)override;
 
 			//shader functions
 			virtual bool createShader(Infrastructure::GPUResource* shader) override;
 			virtual bool useShader(Infrastructure::GPUResource* shader) override;
 			virtual bool deleteShader(Infrastructure::GPUResource* shader) override;
+
+			//Texture Functions
+			virtual bool createTexture2D(Infrastructure::GPUResource* texture,GXWrapper::Image& img) override;
+			virtual bool updateTexture2D(Infrastructure::GPUResource* texture,GXWrapper::Image& img) override;
+			virtual bool deleteTexture2D(Infrastructure::GPUResource* texture) override;
+			virtual bool useTexture2D(Infrastructure::GPUResource* texture, unsigned int unit, GXWrapper::Shader::Type) override;
+
+			//geometry functions
+			virtual bool createGeometry(GXWrapper::Geometry* geometry) override;
+			virtual bool drawGeometry(GXWrapper::Geometry*, GXWrapper::Primitive::Mode mode)override;
+			virtual bool deleteGeometry(Infrastructure::GPUResource*)override;
 		};
 	}
 }

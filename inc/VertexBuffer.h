@@ -34,7 +34,7 @@ namespace Break{
 
 			virtual bool append(ISet* set) override;
 
-			virtual void use() override;
+			virtual void use();
 
 			void setLayout(MemoryLayout& layout);
 

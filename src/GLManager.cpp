@@ -16,6 +16,7 @@
 #include "Shader.h"
 #include "GLShaderHandle.h"
 #include "UniformBuffer.h"
+#include "Texture2D.h"
 using namespace std;
 using namespace Break::Renderer;
 using namespace Break::Infrastructure;
@@ -361,5 +362,202 @@ bool GLManager::updateUniformBuffer(GPUResource* buffer,unsigned int offset,unsi
 bool GLManager::useUniformBuffer(GPUResource* buffer){
 	auto handle = dynamic_cast<GLHandle*>(buffer->_handle.get());
 	glBindBuffer(GL_UNIFORM_BUFFER,handle->ID);
+	return true;
+}
+
+bool GLManager::createTexture2D(GPUResource* texture,Image& img){
+	auto tex = dynamic_cast<Texture2D*>(texture);
+
+	auto handle = make_shared<GLHandle>();
+
+	glGenTextures(1,&handle->ID);
+	glBindTexture(GL_TEXTURE_2D,handle->ID);
+
+		glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,img.getWidth(),img.getHeight(),0,GL_RGBA,GL_UNSIGNED_BYTE,img.getPixels());
+		glGenerateMipmap(GL_TEXTURE_2D);
+
+	glBindTexture(GL_TEXTURE_2D,0);
+	tex->_handle = handle;
+	return true;
+}
+
+bool GLManager::updateTexture2D(GPUResource* texture,Image& img){
+	auto handle = dynamic_cast<GLHandle*>(texture->_handle.get());
+
+	glBindTexture(GL_TEXTURE_2D,handle->ID);
+	glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,img.getWidth(),img.getHeight(),0,GL_RGBA,GL_UNSIGNED_BYTE,img.getPixels());
+	glBindTexture(GL_TEXTURE_2D,0);
+	return true;
+}
+
+bool GLManager::deleteTexture2D(GPUResource* texture){
+	auto handle = dynamic_cast<GLHandle*>(texture->_handle.get());
+
+	glDeleteTextures(1,&handle->ID);
+
+	return true;
+}
+
+bool GLManager::useTexture2D(GPUResource* texture, unsigned int unit, Shader::Type)
+{
+	auto handle = dynamic_cast<GLHandle*>(texture->_handle.get());
+
+	glActiveTexture(GL_TEXTURE0+unit);
+	glBindTexture(GL_TEXTURE_2D,handle->ID);
+
+	return true;
+}
+
+bool GLManager::createGeometry(Geometry* geometry)
+{
+	auto geo = geometry;
+
+	auto handle = make_shared<GLHandle>();
+
+	glGenVertexArrays(1,&handle->ID);
+	glBindVertexArray(handle->ID);
+
+	geo->_geometryData.vertices->use();
+	
+	MemoryLayout layout = geo->getMemoryLayout();
+
+	for(int i=0;i<layout.getElementCount();i++)
+	{
+		glEnableVertexAttribArray(i);
+		glVertexAttribPointer(i,layout.elements[i].components,GL_FLOAT,GL_FALSE,layout.getSize(),reinterpret_cast<void*>(layout.elements[i].offset));
+	}
+	if(geo->_geometryData.indices)
+		geo->_geometryData.indices->use();
+
+	glBindVertexArray(0);
+
+	geo->_handle = handle;
+	return true;
+}
+
+bool GLManager::drawGeometry(Geometry* geometry, Primitive::Mode mode)
+{
+	auto geo = (geometry);
+
+	auto handle = dynamic_cast<GLHandle*>(geo->_handle.get());
+
+	glBindVertexArray(handle->ID);
+
+	auto geoData = geo->_geometryData;
+		
+	geoData.primitive;
+
+	switch (mode)
+	{
+	case Primitive::NORMAL:       /*normal drawing*/
+		geoData.vertices->use();
+		if(geoData.primitive == 0)
+			glDrawArrays(GL_POINTS,0,geoData.verticesCount);
+
+		if(geoData.primitive == 1)
+			glDrawArrays(GL_LINE,0,geoData.verticesCount);
+
+		if(geoData.primitive == 2)
+			glDrawArrays(GL_LINE_STRIP,0,geoData.verticesCount);
+
+		if(geoData.primitive == 3)
+			glDrawArrays(GL_LINE_LOOP,0,geoData.verticesCount);
+
+		if(geoData.primitive == 4)
+			glDrawArrays(GL_TRIANGLES,0,geoData.verticesCount);
+
+		if(geoData.primitive == 5)
+			glDrawArrays(GL_TRIANGLE_STRIP,0,geoData.verticesCount);
+
+		if(geoData.primitive == 6)
+			glDrawArrays(GL_TRIANGLE_FAN,0,geoData.verticesCount);
+
+		break;
+
+
+	case 1:       /*indexed drawing*/
+
+		geoData.vertices->use();
+		geoData.indices->use();
+		if(geoData.primitive == 0)
+			glDrawElements(GL_POINTS , geoData.indicesCount , GL_UNSIGNED_INT ,(void*)0);
+
+		if(geoData.primitive == 1)
+			glDrawElements(GL_LINE , geoData.indicesCount , GL_UNSIGNED_INT ,(void*)0);
+
+		if(geoData.primitive == 2)
+			glDrawElements(GL_LINE_STRIP , geoData.indicesCount , GL_UNSIGNED_INT ,(void*)0);
+
+		if(geoData.primitive == 3)
+			glDrawElements(GL_LINE_LOOP , geoData.indicesCount , GL_UNSIGNED_INT ,(void*)0);
+
+		if(geoData.primitive == 4)
+			glDrawElements(GL_TRIANGLES , geoData.indicesCount , GL_UNSIGNED_INT ,(void*)0);
+
+		if(geoData.primitive == 5)
+			glDrawElements(GL_TRIANGLE_STRIP , geoData.indicesCount , GL_UNSIGNED_INT ,(void*)0);
+
+		if(geoData.primitive == 6)
+			glDrawElements(GL_TRIANGLE_FAN , geoData.indicesCount , GL_UNSIGNED_INT ,(void*)0);
+
+		break;
+
+	case 2:      /*normal instanced drawing*/
+		if(geoData.primitive == 0)
+			glDrawArraysInstanced(GL_POINTS ,0, geoData.verticesCount ,geoData.instanceCount);
+
+		if(geoData.primitive == 1)
+			glDrawArraysInstanced(GL_LINE ,0, geoData.verticesCount ,geoData.instanceCount);
+
+		if(geoData.primitive == 2)
+			glDrawArraysInstanced(GL_LINE_STRIP ,0, geoData.verticesCount ,geoData.instanceCount);
+
+		if(geoData.primitive == 3)
+			glDrawArraysInstanced(GL_LINE_LOOP ,0, geoData.verticesCount ,geoData.instanceCount);
+
+		if(geoData.primitive == 4)
+			glDrawArraysInstanced(GL_TRIANGLES ,0, geoData.verticesCount ,geoData.instanceCount);
+
+		if(geoData.primitive == 5)
+			glDrawArraysInstanced(GL_TRIANGLE_STRIP ,0, geoData.verticesCount ,geoData.instanceCount);
+
+		if(geoData.primitive == 6)
+			glDrawArraysInstanced(GL_TRIANGLE_FAN ,0, geoData.verticesCount ,geoData.instanceCount);
+
+		break;
+
+	case 3:      /*index instanced drawing*/
+		if(geoData.primitive == 0)
+			glDrawElementsInstanced(GL_POINTS , geoData.indicesCount, GL_UNSIGNED_INT ,(void*)0 ,geoData.instanceCount);
+
+		if(geoData.primitive == 1)
+			glDrawElementsInstanced(GL_LINE , geoData.indicesCount, GL_UNSIGNED_INT ,(void*)0 ,geoData.instanceCount);
+
+		if(geoData.primitive == 2)
+			glDrawElementsInstanced(GL_LINE_STRIP , geoData.indicesCount, GL_UNSIGNED_INT ,(void*)0 ,geoData.instanceCount);
+
+		if(geoData.primitive == 3)
+			glDrawElementsInstanced(GL_LINE_LOOP , geoData.indicesCount, GL_UNSIGNED_INT ,(void*)0 ,geoData.instanceCount);
+
+		if(geoData.primitive == 4)
+			glDrawElementsInstanced(GL_TRIANGLES , geoData.indicesCount, GL_UNSIGNED_INT ,(void*)0 ,geoData.instanceCount);
+
+		if(geoData.primitive == 5)
+			glDrawElementsInstanced(GL_TRIANGLE_STRIP , geoData.indicesCount , GL_UNSIGNED_INT ,(void*)0 ,geoData.instanceCount);
+
+		if(geoData.primitive == 6)
+			glDrawElementsInstanced(GL_TRIANGLE_FAN , geoData.indicesCount, GL_UNSIGNED_INT ,(void*)0 ,geoData.instanceCount);
+
+		break;
+	}
+	return true;
+}
+
+bool GLManager::deleteGeometry(GPUResource* geometry)
+{
+	auto handle = dynamic_cast<GLHandle*>(geometry->_handle.get());
+
+	glDeleteVertexArrays(1,&handle->ID);
+
 	return true;
 }

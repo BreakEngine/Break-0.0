@@ -49,3 +49,18 @@ MemoryLayout::~MemoryLayout(){
 uint MemoryLayout::getElementCount(){
 	return elements.size();
 }
+
+bool MemoryLayout::equals(const MemoryLayout& val)
+{
+	if(_size != val._size)
+		return false;
+
+	if(val.elements.size() != elements.size())
+		return false;
+
+	for(int i=0;i<elements.size();i++)
+		if(!elements[i].equals(val.elements[i])){
+			return false;
+		}
+	return true;
+}

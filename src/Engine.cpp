@@ -104,6 +104,11 @@ void Engine::cleanUp(){
 	}
 }
 
+API Engine::getAPI()
+{
+	return _api;
+}
+
 void Engine::start(){
 	if(_graphicsManager!=nullptr)
 		_mainThread = new thread(&Engine::init,this);

@@ -4,6 +4,9 @@
 #include "Application.h"
 #include "GPUResource.h"
 #include "GlobalDefinitions.h"
+#include "Image.h"
+#include "Shader.h"
+#include "Geometry.h"
 
 namespace Break{
 	namespace Infrastructure{
@@ -171,6 +174,18 @@ namespace Break{
 			 * \author Moustapha Saad
 			 */
 			virtual bool deleteShader(GPUResource*)=0;
+
+
+			//texture functions
+			virtual bool createTexture2D(GPUResource*, GXWrapper::Image&)=0;
+			virtual bool updateTexture2D(GPUResource*, GXWrapper::Image&)=0;
+			virtual bool deleteTexture2D(GPUResource*)=0;
+			virtual bool useTexture2D(GPUResource*, unsigned int unit, GXWrapper::Shader::Type)=0;
+
+			//geometry functions
+			virtual bool createGeometry(GXWrapper::Geometry*)=0;
+			virtual bool drawGeometry(GXWrapper::Geometry*, GXWrapper::Primitive::Mode mode)=0;
+			virtual bool deleteGeometry(GPUResource*)=0;
 		};
 		typedef std::shared_ptr<IGXManager> IGXManagerPtr;
 	}

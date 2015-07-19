@@ -48,9 +48,6 @@
     <ClInclude Include="inc\Geometry.h">
       <Filter>inc</Filter>
     </ClInclude>
-    <ClInclude Include="inc\GeometryHandle.h">
-      <Filter>inc</Filter>
-    </ClInclude>
     <ClInclude Include="inc\GLHandle.h">
       <Filter>inc</Filter>
     </ClInclude>
@@ -159,6 +156,33 @@
     <ClInclude Include="inc\UniformBuffer.h">
       <Filter>inc</Filter>
     </ClInclude>
+    <ClInclude Include="inc\IResource.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\ResourceManager.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Pixels.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Image.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Texture.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Texture2D.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\DXTexture2DHandle.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\IDrawable.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\GeometryData.h">
+      <Filter>inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp">
@@ -234,6 +258,18 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\UniformBuffer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ResourceManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Image.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Texture.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Texture2D.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

@@ -66,6 +66,16 @@ namespace Break{
 			bool createShader(Infrastructure::GPUResource* shader) override;
 			bool useShader(Infrastructure::GPUResource* shader) override;
 			bool deleteShader(Infrastructure::GPUResource* shader) override;
+
+			virtual bool createTexture2D(Infrastructure::GPUResource* texture,GXWrapper::Image& img) override;
+			virtual bool updateTexture2D(Infrastructure::GPUResource* texture,GXWrapper::Image& img) override;
+			virtual bool deleteTexture2D(Infrastructure::GPUResource* texture) override;
+			virtual bool useTexture2D(Infrastructure::GPUResource* texture,unsigned int unit, GXWrapper::Shader::Type type) override;
+
+			//geometry functions
+			virtual bool createGeometry(GXWrapper::Geometry*);
+			virtual bool drawGeometry(GXWrapper::Geometry*, GXWrapper::Primitive::Mode mode);
+			virtual bool deleteGeometry(Infrastructure::GPUResource*);
 		};
 	}
 }

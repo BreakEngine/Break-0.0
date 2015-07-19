@@ -78,6 +78,23 @@ namespace Break{
 				}
 			}
 
+			bool equals(const MemoryElement& val)
+			{
+				bool res = false;
+
+				if(	offset == val.offset &&
+					size == val.size	 &&
+					components == val.components &&
+					type == val.type &&
+					semantic == val.semantic
+				  )
+				{
+					res = true;
+				}
+
+				return res;
+
+			}
 			//copy constructor
 			MemoryElement(const MemoryElement& val){
 				offset = val.offset;
