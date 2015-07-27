@@ -10,13 +10,19 @@ namespace Break{
 				TEXTURE2D
 			};
 
-			Texture();
+			Texture(bool mipmaps=false);
 			virtual ~Texture();
 
 			Type getType();
+
+			bool usingMipMaps()
+			{
+				return _mipmaps;
+			}
 		protected:
 			Type _type;
 			ImagePtr _image;
+			bool _mipmaps;
 
 			virtual bool createGPUResource()=0;
 

@@ -16,6 +16,7 @@
 #include "DXTexture2DHandle.h"
 //testing purpose headers
 #include <iostream>
+#include <DXSamplerHandle.h>
 using namespace std;
 //
 using namespace Break::Renderer;
@@ -755,6 +756,60 @@ DXGI_FORMAT DXManager::getFormat(MemoryElement& element){
 		break;
 	}
 }
+
+D3D11_TEXTURE_ADDRESS_MODE DXManager::getAddressMode(TextureAddressMode address)
+{
+	switch(address)
+	{
+	case TextureAddressMode::WRAP:
+		return D3D11_TEXTURE_ADDRESS_WRAP;
+		break;
+	case TextureAddressMode::CLAMP:
+		return D3D11_TEXTURE_ADDRESS_CLAMP;
+		break;
+	case TextureAddressMode::MIRROR:
+		return D3D11_TEXTURE_ADDRESS_MIRROR;
+		break;
+	case TextureAddressMode::BORDER:
+		return D3D11_TEXTURE_ADDRESS_BORDER;
+		break;
+	default: break;
+	}
+}
+
+D3D11_COMPARISON_FUNC DXManager::getCompareFunc(CompareFunction func)
+{
+	switch (func)
+	{
+	case CompareFunction::ALWAYS:
+		return D3D11_COMPARISON_ALWAYS;
+		break;
+	case CompareFunction::NEVER:
+		return D3D11_COMPARISON_NEVER;
+		break;
+	case CompareFunction::LESS:
+		return D3D11_COMPARISON_LESS;
+		break;
+	case CompareFunction::LESS_EQUAL:
+		return D3D11_COMPARISON_LESS_EQUAL;
+		break;
+	case CompareFunction::EQUAL: 
+		return D3D11_COMPARISON_EQUAL;
+		break;
+	case CompareFunction::GREATER_EQUAL:
+		return D3D11_COMPARISON_GREATER_EQUAL;
+		break;
+	case CompareFunction::GREATER:
+		return D3D11_COMPARISON_GREATER;
+		break;
+	case CompareFunction::NOT_EQUAL:
+		return D3D11_COMPARISON_NOT_EQUAL;
+		break;
+	default: break;
+	}
+}
+
+
 bool DXManager::createShader(GPUResource* shader){
 	auto program = dynamic_cast<GXWrapper::Shader*>(shader);
 	
@@ -944,7 +999,7 @@ bool DXManager::createTexture2D(GPUResource* texture,Image& img){
 	desc.Usage = D3D11_USAGE_DYNAMIC;
 	desc.Width = img.getWidth();
 	desc.Height = img.getHeight();
-	desc.Format = DXGI_FORMAT_R8G8B8A8_UINT;
+	desc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
 
 	D3D11_SUBRESOURCE_DATA descData;
 	//ZeroMemory(&descData,sizeof(D3D11_SUBRESOURCE_DATA));
@@ -966,7 +1021,8 @@ bool DXManager::createTexture2D(GPUResource* texture,Image& img){
 		cout<<res<<endl;
 		return false;
 	}
-	_deviceContext->GenerateMips(handle->resourceView);
+	if(tex->usingMipMaps())
+		_deviceContext->GenerateMips(handle->resourceView);
 
 	tex->_handle = handle;
 	return true;
@@ -1060,7 +1116,7 @@ bool DXManager::drawGeometry(Geometry* geometry, Primitive::Mode mode)
 		_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 
 	if(geoData.primitive == 6)
-		_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
+		_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP_ADJ);
 
 
 
@@ -1107,4 +1163,58 @@ bool DXManager::drawGeometry(Geometry* geometry, Primitive::Mode mode)
 bool DXManager::deleteGeometry(GPUResource*)
 {
 	return true; 
+}
+
+bool DXManager::createSamplerState(GPUResource* gpSampler)
+{
+
+	auto sampler = dynamic_cast<SamplerState*>(gpSampler);
+	D3D11_SAMPLER_DESC samplerDesc;
+	samplerDesc.AddressU = getAddressMode(sampler->addressU);
+	samplerDesc.AddressV = getAddressMode(sampler->addressV);
+	samplerDesc.AddressW = getAddressMode(sampler->addressW);
+	samplerDesc.ComparisonFunc = getCompareFunc(sampler->compareFunction);
+	samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+	samplerDesc.MipLODBias = 0.0f;
+	samplerDesc.MaxAnisotropy = 1;
+	samplerDesc.BorderColor[0] = sampler->borderColor.R;
+	samplerDesc.BorderColor[1] = sampler->borderColor.G;
+	samplerDesc.BorderColor[2] = sampler->borderColor.B;
+	samplerDesc.BorderColor[3] = sampler->borderColor.A;
+	samplerDesc.ComparisonFunc = D3D11_COMPARISON_ALWAYS;
+	samplerDesc.MinLOD = 0;
+	samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
+
+	auto handle = make_shared<DXSamplerHandle>();
+
+	auto result = _device->CreateSamplerState(&samplerDesc,&handle->sampler);
+	if(FAILED(result))
+		return false;
+	gpSampler->_handle = handle;
+	return true;
+}
+
+bool DXManager::useSamplerState(GPUResource* gpSampler, unsigned slot, Shader::Type type)
+{
+	auto handle = dynamic_cast<DXSamplerHandle*>(gpSampler->_handle.get());
+
+	if(type == Shader::VERTEX)
+		_deviceContext->VSSetSamplers(slot,1,&handle->sampler);
+	else if(type == Shader::PIXEL)
+		_deviceContext->PSSetSamplers(slot,1,&handle->sampler);
+
+	return true;
+}
+
+bool DXManager::deleteSamplerState(GPUResource* gpSampler)
+{
+	auto handle = dynamic_cast<DXSamplerHandle*>(gpSampler->_handle.get());
+	handle->sampler->Release();
+	handle->sampler = 0;
+	return true;
+}
+
+bool DXManager::applySamplerStateToTexture2D(GPUResource* sampler, GPUResource* texture)
+{
+	return true;
 }

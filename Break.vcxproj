@@ -18,6 +18,7 @@
     <ClInclude Include="inc\DXKeyboard.h" />
     <ClInclude Include="inc\DXManager.h" />
     <ClInclude Include="inc\DXMouse.h" />
+    <ClInclude Include="inc\DXSamplerHandle.h" />
     <ClInclude Include="inc\DXShaderHandle.h" />
     <ClInclude Include="inc\DXTexture2DHandle.h" />
     <ClInclude Include="inc\Engine.h" />
@@ -33,6 +34,7 @@
     <ClInclude Include="inc\GPUResource.h" />
     <ClInclude Include="inc\GXWrapper.h" />
     <ClInclude Include="inc\IDrawable.h" />
+    <ClInclude Include="inc\SamplerState.h" />
     <ClInclude Include="inc\Texture.h" />
     <ClInclude Include="inc\IAttribute.h" />
     <ClInclude Include="inc\IDisplay.h" />
@@ -88,6 +90,7 @@
     <ClCompile Include="src\IRenderer.cpp" />
     <ClCompile Include="src\RAMBuffer.cpp" />
     <ClCompile Include="src\ResourceManager.cpp" />
+    <ClCompile Include="src\SamplerState.cpp" />
     <ClCompile Include="src\Shader.cpp" />
     <ClCompile Include="src\Texture.cpp" />
     <ClCompile Include="src\Texture2D.cpp" />

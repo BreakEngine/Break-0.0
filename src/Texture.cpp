@@ -2,7 +2,7 @@
 
 using namespace Break::GXWrapper;
 
-Texture::Texture(){
+Texture::Texture(bool mipmaps):_mipmaps(mipmaps){
 	_image = nullptr;
 }
 

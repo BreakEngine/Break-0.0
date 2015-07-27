@@ -12,6 +12,7 @@ namespace Break{
 	namespace Infrastructure{
 		//graphics manager abstract class that will handle APIs
 		class IGXManager{
+		protected:
 		public:
 			//default constructor
 			IGXManager();
@@ -186,6 +187,12 @@ namespace Break{
 			virtual bool createGeometry(GXWrapper::Geometry*)=0;
 			virtual bool drawGeometry(GXWrapper::Geometry*, GXWrapper::Primitive::Mode mode)=0;
 			virtual bool deleteGeometry(GPUResource*)=0;
+
+			//sampler functions
+			virtual bool createSamplerState(GPUResource*)=0;
+			virtual bool useSamplerState(GPUResource*,unsigned int slot, GXWrapper::Shader::Type)=0;
+			virtual bool deleteSamplerState(GPUResource*)=0;
+			virtual bool applySamplerStateToTexture2D(GPUResource* sampler,GPUResource* texture)=0;
 		};
 		typedef std::shared_ptr<IGXManager> IGXManagerPtr;
 	}

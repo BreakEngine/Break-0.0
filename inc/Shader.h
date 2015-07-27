@@ -4,12 +4,31 @@
 #include <string>
 #include <memory>
 #include <map>
+#include "SamplerState.h"
 
 namespace Break{
 	namespace GXWrapper{
+		class Texture;
+
 		struct uniformRow{
 			std::string _blockName;
 			unsigned int _offset,_size;
+		};
+		struct samplersRow
+		{
+			unsigned int _slot;
+			unsigned int _shader;
+			std::shared_ptr<SamplerState> _state;
+
+			samplersRow()
+			{
+				_state = nullptr;
+			}
+
+			~samplersRow()
+			{
+				_state = nullptr;
+			}
 		};
 		class UniformBuffer;
 		class Shader:public Infrastructure::GPUResource{
@@ -22,6 +41,7 @@ namespace Break{
 			//will hold the uniform blocks id for assigning later
 			std::map<std::string, std::shared_ptr<UniformBuffer> > _uniformBlocks;
 			std::map<std::string, uniformRow> _uniformsTable;
+			std::map<std::string, samplersRow> _samplersTable;
 
 			std::string _vs,_ps;
 			MemoryLayout _inputLayout;
@@ -34,9 +54,11 @@ namespace Break{
 			void use();
 
 			void setUniform(std::string name,void* ptr);
+			void setTexture(std::string sampler,Texture* tex);
 
 			void registerUniformBlock(std::string name,unsigned int size, unsigned int slot,Shader::Type shader);
 			void registerUniform(std::string name,std::string blockName,unsigned int offset, unsigned int size);
+			void registerSampler(std::string name,unsigned int slot, SamplerStatePtr state,Shader::Type shader);
 			
 			std::string getVertexShader();
 			std::string getPixelShader();

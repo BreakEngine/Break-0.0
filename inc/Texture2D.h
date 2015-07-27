@@ -8,7 +8,7 @@ namespace Break{
 	namespace GXWrapper{
 		class Texture2D:public Texture{
 		public:
-			Texture2D(ImagePtr src);
+			Texture2D(ImagePtr src,bool mipmaps=false);
 			~Texture2D();
 
 			void update(ImagePtr src);

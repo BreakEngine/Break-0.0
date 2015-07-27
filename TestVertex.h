@@ -10,14 +10,17 @@ class tv:public IVertex{
 public:
 	glm::vec4 _a;
 	glm::vec4 _b;
-	tv(vec4 a,vec4 b){
+	glm::vec2 _c;
+	tv(vec4 a,vec4 b,vec2 t){
 		_a = a;
 		_b = b;
+		_c = t;
 	}
 	static MemoryLayout getDeclaration() {
 		MemoryLayout ret;
 		ret.append(MemoryElement(MemoryElement::VEC4,"POSITION"));
 		ret.append(MemoryElement(MemoryElement::VEC4,"COLOR"));
+		ret.append(MemoryElement(MemoryElement::VEC2,"TEXCOORD"));
 		return ret;
 	}
 

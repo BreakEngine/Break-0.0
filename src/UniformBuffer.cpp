@@ -8,15 +8,18 @@ using namespace std;
 UniformBuffer::UniformBuffer(){
 	_buffer = nullptr;
 	_slot = 0;
+	needUpdate = false;
 }
 UniformBuffer::UniformBuffer(const UniformBuffer& val):GPUResource(val){
 	_buffer = val._buffer;
+	needUpdate = false;
 }
 
 UniformBuffer::UniformBuffer(unsigned int size,unsigned int slot,Shader::Type shader){
 	_buffer = make_shared<RAMBuffer>(size);
 	_slot = slot;
 	_shader = shader;
+	needUpdate = false;
 	createGPUResource();
 }
 
@@ -28,7 +31,7 @@ UniformBuffer::~UniformBuffer(){
 
 void UniformBuffer::clear(){
 	_buffer->clear();
-	Engine::Instance->GraphicsDevice->updateUniformBuffer(this,0,_buffer->getSize());
+	needUpdate = true;
 }
 
 void UniformBuffer::reallocate(unsigned int size){
@@ -38,7 +41,16 @@ void UniformBuffer::reallocate(unsigned int size){
 
 void UniformBuffer::map(void* data,unsigned int size, unsigned int start){
 	_buffer->map(data,size,start);
-	Engine::Instance->GraphicsDevice->updateUniformBuffer(this,start,size);
+	//Engine::Instance->GraphicsDevice->updateUniformBuffer(this,start,size);
+	needUpdate = true;
+}
+
+void UniformBuffer::invokeUpdate()
+{
+	if(needUpdate){
+		Engine::Instance->GraphicsDevice->updateUniformBuffer(this,0,getSize());
+		needUpdate = false;
+	}
 }
 
 bool UniformBuffer::appendBuffer(void* data,unsigned int size){

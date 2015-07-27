@@ -42,6 +42,8 @@ namespace Break{
 
 			//takes element type and returns element DX format
 			DXGI_FORMAT getFormat(GXWrapper::MemoryElement& element);
+			D3D11_TEXTURE_ADDRESS_MODE getAddressMode(GXWrapper::TextureAddressMode address);
+			D3D11_COMPARISON_FUNC getCompareFunc(GXWrapper::CompareFunction func);
 		public:
 			DXManager();
 			~DXManager();
@@ -76,6 +78,13 @@ namespace Break{
 			virtual bool createGeometry(GXWrapper::Geometry*);
 			virtual bool drawGeometry(GXWrapper::Geometry*, GXWrapper::Primitive::Mode mode);
 			virtual bool deleteGeometry(Infrastructure::GPUResource*);
+
+			//sampler functions
+			virtual bool createSamplerState(Infrastructure::GPUResource*) override;
+			virtual bool useSamplerState(Infrastructure::GPUResource*,unsigned int slot, GXWrapper::Shader::Type) override;
+			virtual bool deleteSamplerState(Infrastructure::GPUResource*)override;
+
+			virtual bool applySamplerStateToTexture2D(Infrastructure::GPUResource* sampler, Infrastructure::GPUResource* texture)override;
 		};
 	}
 }

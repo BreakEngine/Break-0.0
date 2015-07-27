@@ -3,7 +3,7 @@
 #include "Image.h"
 using namespace Break::GXWrapper;
 
-Texture2D::Texture2D(ImagePtr src){
+Texture2D::Texture2D(ImagePtr src,bool mipmaps):Texture(mipmaps){
 	_type = TEXTURE2D;
 	_image = src;
 	createGPUResource();

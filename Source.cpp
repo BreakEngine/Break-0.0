@@ -12,6 +12,9 @@ int main(){
 	Engine::Instance->join(true);
 	Engine::Instance->start();
 	
+	//note: jjiji
+	//TODO: this needs cleaning up
+	// FEATURE: Need to add support for XYZ
 	//system("pause");
 	return 0;
 }

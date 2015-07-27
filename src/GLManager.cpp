@@ -26,6 +26,129 @@ using namespace Break::GXWrapper;
 #pragma comment(lib,"glfw3.lib")
 #pragma comment(lib,"glew32.lib")
 
+void GLManager::applyFilter2D(TextureFilter filter, bool mipmap,GLHandle* tex)
+{
+	switch (filter)
+	{
+	case TextureFilter::POINT:
+		if(mipmap)
+			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST_MIPMAP_NEAREST);
+		else
+			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+		break;
+	case TextureFilter::LINEAR:
+		if(mipmap)
+			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR_MIPMAP_LINEAR);
+		else
+			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+		break;
+	case TextureFilter::ANISOTROPIC:
+		if(mipmap)
+			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR_MIPMAP_LINEAR);
+		else
+			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+		break;
+	case TextureFilter::LINEAR_MIP_POINT:
+		if(mipmap)
+			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR_MIPMAP_NEAREST);
+		else
+			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+		break;
+	case TextureFilter::POINT_MIP_LINEAR:
+		if(mipmap)
+			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST_MIPMAP_LINEAR);
+		else
+			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+		break;
+	case TextureFilter::MIN_LINEAR_MAG_POINT_MIP_LINEAR:
+		if(mipmap)
+			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR_MIPMAP_LINEAR);
+		else
+			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+		break;
+	case TextureFilter::MIN_LINEAR_MAG_POINT_MIP_POINT:
+		if(mipmap)
+			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR_MIPMAP_NEAREST);
+		else
+			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+		break;
+	case TextureFilter::MIN_POINT_MAG_LINEAR_MIP_LINEAR:
+		if(mipmap)
+			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST_MIPMAP_LINEAR);
+		else
+			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+		break;
+	case TextureFilter::MIN_POINT_MAG_LINEAR_MIP_POINT:
+		if(mipmap)
+			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST_MIPMAP_NEAREST);
+		else
+			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+		break;
+	default: break;
+	}
+}
+
+int GLManager::getAddressMode(TextureAddressMode mode)
+{
+	switch (mode)
+	{
+	case TextureAddressMode::WRAP:
+		return GL_REPEAT;
+		break;
+	case TextureAddressMode::CLAMP:
+		return GL_CLAMP_TO_EDGE;
+		break;
+	case TextureAddressMode::MIRROR:
+		return GL_MIRRORED_REPEAT;
+		break;
+	case TextureAddressMode::BORDER:
+		return GL_CLAMP_TO_BORDER;
+		break;
+	default: break;
+	}
+}
+
+int GLManager::getCompareFunc(CompareFunction func)
+{
+	switch (func)
+	{
+	case CompareFunction::ALWAYS:
+		return GL_ALWAYS;
+		break;
+	case CompareFunction::NEVER:
+		return GL_NEVER;
+		break;
+	case CompareFunction::LESS:
+		return GL_LESS;
+		break;
+	case CompareFunction::LESS_EQUAL:
+		return GL_LEQUAL;
+		break;
+	case CompareFunction::EQUAL:
+		return GL_EQUAL;
+		break;
+	case CompareFunction::GREATER_EQUAL:
+		return GL_GEQUAL;
+		break;
+	case CompareFunction::GREATER:
+		return GL_GREATER;
+		break;
+	case CompareFunction::NOT_EQUAL:
+		return GL_NOTEQUAL;
+		break;
+	default: break;
+	}
+}
+
 GLManager::GLManager(){
 
 }
@@ -333,7 +456,7 @@ bool GLManager::createUniformBuffer(GPUResource* buffer){
 
 	glBindBufferBase(GL_UNIFORM_BUFFER,UBuffer->_slot,handle->ID);
 
-	glBindBuffer(GL_UNIFORM_BUFFER,handle->ID);
+	glBindBuffer(GL_UNIFORM_BUFFER,0);
 
 	buffer->_handle = handle;
 	return true;
@@ -373,8 +496,9 @@ bool GLManager::createTexture2D(GPUResource* texture,Image& img){
 	glGenTextures(1,&handle->ID);
 	glBindTexture(GL_TEXTURE_2D,handle->ID);
 
-		glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,img.getWidth(),img.getHeight(),0,GL_RGBA,GL_UNSIGNED_BYTE,img.getPixels());
-		glGenerateMipmap(GL_TEXTURE_2D);
+		glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,img.getWidth(),img.getHeight(),0,GL_BGRA,GL_UNSIGNED_BYTE,img.getPixels());
+		if(tex->usingMipMaps())
+			glGenerateMipmap(GL_TEXTURE_2D);
 
 	glBindTexture(GL_TEXTURE_2D,0);
 	tex->_handle = handle;
@@ -385,7 +509,7 @@ bool GLManager::updateTexture2D(GPUResource* texture,Image& img){
 	auto handle = dynamic_cast<GLHandle*>(texture->_handle.get());
 
 	glBindTexture(GL_TEXTURE_2D,handle->ID);
-	glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,img.getWidth(),img.getHeight(),0,GL_RGBA,GL_UNSIGNED_BYTE,img.getPixels());
+	glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,img.getWidth(),img.getHeight(),0,GL_BGRA,GL_UNSIGNED_BYTE,img.getPixels());
 	glBindTexture(GL_TEXTURE_2D,0);
 	return true;
 }
@@ -455,7 +579,7 @@ bool GLManager::drawGeometry(Geometry* geometry, Primitive::Mode mode)
 			glDrawArrays(GL_POINTS,0,geoData.verticesCount);
 
 		if(geoData.primitive == 1)
-			glDrawArrays(GL_LINE,0,geoData.verticesCount);
+			glDrawArrays(GL_LINES,0,geoData.verticesCount);
 
 		if(geoData.primitive == 2)
 			glDrawArrays(GL_LINE_STRIP,0,geoData.verticesCount);
@@ -483,7 +607,7 @@ bool GLManager::drawGeometry(Geometry* geometry, Primitive::Mode mode)
 			glDrawElements(GL_POINTS , geoData.indicesCount , GL_UNSIGNED_INT ,(void*)0);
 
 		if(geoData.primitive == 1)
-			glDrawElements(GL_LINE , geoData.indicesCount , GL_UNSIGNED_INT ,(void*)0);
+			glDrawElements(GL_LINES , geoData.indicesCount , GL_UNSIGNED_INT ,(void*)0);
 
 		if(geoData.primitive == 2)
 			glDrawElements(GL_LINE_STRIP , geoData.indicesCount , GL_UNSIGNED_INT ,(void*)0);
@@ -507,7 +631,7 @@ bool GLManager::drawGeometry(Geometry* geometry, Primitive::Mode mode)
 			glDrawArraysInstanced(GL_POINTS ,0, geoData.verticesCount ,geoData.instanceCount);
 
 		if(geoData.primitive == 1)
-			glDrawArraysInstanced(GL_LINE ,0, geoData.verticesCount ,geoData.instanceCount);
+			glDrawArraysInstanced(GL_LINES ,0, geoData.verticesCount ,geoData.instanceCount);
 
 		if(geoData.primitive == 2)
 			glDrawArraysInstanced(GL_LINE_STRIP ,0, geoData.verticesCount ,geoData.instanceCount);
@@ -531,7 +655,7 @@ bool GLManager::drawGeometry(Geometry* geometry, Primitive::Mode mode)
 			glDrawElementsInstanced(GL_POINTS , geoData.indicesCount, GL_UNSIGNED_INT ,(void*)0 ,geoData.instanceCount);
 
 		if(geoData.primitive == 1)
-			glDrawElementsInstanced(GL_LINE , geoData.indicesCount, GL_UNSIGNED_INT ,(void*)0 ,geoData.instanceCount);
+			glDrawElementsInstanced(GL_LINES , geoData.indicesCount, GL_UNSIGNED_INT ,(void*)0 ,geoData.instanceCount);
 
 		if(geoData.primitive == 2)
 			glDrawElementsInstanced(GL_LINE_STRIP , geoData.indicesCount, GL_UNSIGNED_INT ,(void*)0 ,geoData.instanceCount);
@@ -560,4 +684,44 @@ bool GLManager::deleteGeometry(GPUResource* geometry)
 	glDeleteVertexArrays(1,&handle->ID);
 
 	return true;
+}
+
+bool GLManager::createSamplerState(GPUResource*)
+{
+	return true;
+}
+
+bool GLManager::useSamplerState(GPUResource*, unsigned slot, Shader::Type type)
+{
+	return true;
+}
+
+bool GLManager::deleteSamplerState(GPUResource*)
+{
+	return true;
+}
+
+bool GLManager::applySamplerStateToTexture2D(GPUResource* gpSampler, GPUResource* texture)
+{
+	auto texHandle = dynamic_cast<GLHandle*>(texture->_handle.get());
+	auto tex = dynamic_cast<Texture*>(texture);
+	auto sampler = dynamic_cast<SamplerState*>(gpSampler);
+
+
+	if(tex->getType() == Texture::TEXTURE2D){
+		glBindTexture(GL_TEXTURE_2D,texHandle->ID);
+		applyFilter2D(sampler->filter,tex->usingMipMaps(),texHandle);
+		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,getAddressMode(sampler->addressU));
+		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,getAddressMode(sampler->addressV));
+		float border[4] = {sampler->borderColor.R,sampler->borderColor.G,sampler->borderColor.B,sampler->borderColor.A};
+		glTexParameterfv(GL_TEXTURE_2D,GL_TEXTURE_BORDER_COLOR,border);
+		if(sampler->compareFunction != GXWrapper::CompareFunction::NEVER)
+			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_COMPARE_FUNC,getCompareFunc(sampler->compareFunction));
+		glBindTexture(GL_TEXTURE_2D,0);
+	}
+	else
+		return false;
+
+	return true;
+
 }

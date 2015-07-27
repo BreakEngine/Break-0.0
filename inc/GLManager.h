@@ -4,8 +4,13 @@
 
 namespace Break{
 	namespace Renderer{
+		class GLHandle;
+
 		class GLManager:public Infrastructure::IGXManager{
 		private:
+			void applyFilter2D(GXWrapper::TextureFilter filter,bool mipmap,GLHandle* tex);
+			int getAddressMode(GXWrapper::TextureAddressMode mode);
+			int getCompareFunc(GXWrapper::CompareFunction func);
 		public:
 			GLManager();
 			virtual ~GLManager();
@@ -48,6 +53,13 @@ namespace Break{
 			virtual bool createGeometry(GXWrapper::Geometry* geometry) override;
 			virtual bool drawGeometry(GXWrapper::Geometry*, GXWrapper::Primitive::Mode mode)override;
 			virtual bool deleteGeometry(Infrastructure::GPUResource*)override;
+
+			//sampler functions
+			virtual bool createSamplerState(Infrastructure::GPUResource*)override;
+			virtual bool useSamplerState(Infrastructure::GPUResource*,unsigned int slot, GXWrapper::Shader::Type)override;
+			virtual bool deleteSamplerState(Infrastructure::GPUResource*)override;
+			virtual bool applySamplerStateToTexture2D(Infrastructure::GPUResource* sampler, Infrastructure::GPUResource* texture)override;
+
 		};
 	}
 }

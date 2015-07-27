@@ -20,6 +20,7 @@ namespace Break{
 			Infrastructure::RAMBufferPtr _buffer;
 			unsigned int _slot;
 			Shader::Type _shader;
+			bool needUpdate;
 			virtual bool createGPUResource() override;
 		public:
 			UniformBuffer();
@@ -37,6 +38,8 @@ namespace Break{
 			void reallocate(unsigned int size);
 
 			void map(void* data,unsigned int size, unsigned int start);
+
+			void invokeUpdate();
 
 			bool appendBuffer(void* data,unsigned int size);
 
