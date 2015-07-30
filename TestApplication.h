@@ -5,6 +5,8 @@
 #include "VertexSet.h"
 #include "Shader.h"
 #include <iostream>
+#include "ContentLoader.h"
+#include "inc/Shape2D.h"
 
 using namespace std;
 using namespace Break::Infrastructure;
@@ -17,22 +19,30 @@ public:
 	Texture2DPtr tex;
 	ShaderPtr shader;
 	vec4 globalColor;
+
+	Break::Renderer::Shape2D wrect;
 	TestApp(){
-		_display = IDisplayPtr(new IDisplay());
+		_display = IDisplayPtr(new IDisplay(640,480,"Test Application"));
 		scounter = 0;
 	}
 	~TestApp(){
 
 	}
 	void init(){
-		//Time::setFrameLimit(41);
+		Time::setFrameLimit(60);
 		Time::setType(Time::Type::UNLIMITED);
 
 		
 	}
 	void setupScene(){
 
-		
+		wrect.append(0.75,-0.75);
+		wrect.append(0.75,0.75);
+		wrect.append(-0.75,-0.75);
+		wrect.append(-0.75,0.75);
+		wrect.append(-0.9,0);
+		wrect.append(0,0.9);
+		wrect.setFillColor(Color(255,255,0,255));
 	}
 	void loadResources(){
 
@@ -146,7 +156,7 @@ public:
 		globalColor = vec4(1,1,1,1);
 		shader->setUniform("ucolor",&globalColor);
 		cout<<"HONE"<<endl;
-		//shader->use();
+		shader->use();
 
 		ImagePtr img = make_shared<Image>(512,512);
 		Pixel white = Pixel(255,255,255,255);
@@ -157,9 +167,9 @@ public:
 				img->getPixel(i,j) = red;
 			}
 
-		ImagePtr loaded = ResourceManager::load<Image>("res\\textures\\grass.jpg");
+		ImagePtr loaded = ContentLoader::load<Image>("res\\textures\\grass.jpg");
 		tex = make_shared<Texture2D>(loaded);
-		shader->setTexture("diffuseS",tex.get());
+		shader->setTexture("diffuseS",tex);
 		//tex->update(img);
 		//tex->use(Shader::PIXEL,0);
 		cout<<"moka moka"<<endl;
@@ -167,14 +177,27 @@ public:
 	void cleanUp(){
 
 	}
+	void randomizeTexture()
+	{
+		ImagePtr image = make_shared<Image>(512,512);
+		for(int i=0;i<image->getWidth();i++)
+		{
+			for(int j=0;j<image->getHeight();j++)
+			{
+				image->getPixel(i,j) = Pixel(rand()%255,rand()%255,rand()%255,rand()%255);
+				//image->getPixel(i,j) = Pixel(255,255,255,255);
+			}
+		}
+		tex->update(image);
+	}
 	void input(){
+		bool pressed = false;
 		//getting mouse position
 		auto mpos = IMouse::getPosition();
 		//cout<<mpos.x<<" "<<mpos.y<<endl;
 		//A test
 		if(IKeyboard::getKey(IKeyboard::A) == IKeyboard::State_Down){
 			cout<<"A Pressed"<<endl;
-			cout<<tex->readImage().getWidth()<<endl;
 		}
 		if(IKeyboard::getKey(IKeyboard::A) == IKeyboard::State_Up){
 			cout<<"A Released"<<endl;
@@ -192,13 +215,12 @@ public:
 		if(IMouse::getButton(IMouse::Right_Button) == IMouse::State_Up)
 			cout<<"Right Button Released"<<endl;
 		//mouse Left Button
-		if(IMouse::getButton(IMouse::Left_Button) == IMouse::State_Down)
+		if(IMouse::getButton(IMouse::Left_Button) == IMouse::State_Down){
 			cout<<"Left Button Pressed"<<endl;
-		if(IMouse::getButton(IMouse::Left_Button) == IMouse::State_Up)
+		}
+		if((IMouse::getButton(IMouse::Left_Button) == IMouse::State_Up)){
 			cout<<"Left Button Released"<<endl;
-
-		if(mpos.y>100)
-			IMouse::setPosition(glm::uvec2(0,0));
+		}
 
 		//closes when user press ESC
 		if(IKeyboard::getKey(IKeyboard::Esc) == IKeyboard::State_Down)
@@ -215,7 +237,11 @@ public:
 		}
 	}
 	void render(){
+		//Engine::Instance->GraphicsDevice->setCullMode(CullMode::NONE);
+		wrect.draw();
+		//Engine::Instance->GraphicsDevice->setCullMode(CullMode::BACK);
 		shader->use();
+		shader->setTexture("diffuseS",tex);
 		//tex->use(Shader::PIXEL,0);
 		moka->draw(Primitive::INDEXED);
 	}

@@ -8,6 +8,7 @@
 #include "DXKeyboard.h"
 #include "GLMouse.h"
 #include "DXMouse.h"
+#include "AssetManager.h"
 using namespace std;
 using namespace Break::Infrastructure;
 using namespace Break::Renderer;
@@ -70,6 +71,7 @@ bool Engine::init(){
 	try{
 		//init graphics device manager
 		_initFinished = _graphicsManager->init(_application);
+		Assets::AssetManager::addDefaultAssets();
 		if(_application){
 			_application->init();
 			_application->loadResources();
@@ -90,6 +92,7 @@ void Engine::cleanUp(){
 	_cleaningUp = true;
 	if(_mainThread && !_joinable)
 		_mainThread->detach();
+	Assets::AssetManager::cleanUp();
 	if(_renderer)
 		_renderer = nullptr;
 	if(_application)

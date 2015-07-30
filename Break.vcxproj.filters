@@ -156,12 +156,6 @@
     <ClInclude Include="inc\UniformBuffer.h">
       <Filter>inc</Filter>
     </ClInclude>
-    <ClInclude Include="inc\IResource.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\ResourceManager.h">
-      <Filter>inc</Filter>
-    </ClInclude>
     <ClInclude Include="inc\Pixels.h">
       <Filter>inc</Filter>
     </ClInclude>
@@ -187,6 +181,27 @@
       <Filter>inc</Filter>
     </ClInclude>
     <ClInclude Include="inc\DXSamplerHandle.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Shape2D.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Vertex2DPos.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Vertex2DPosColor.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\IAsset.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\ContentLoader.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\AssetManager.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\MathUtils.h">
       <Filter>inc</Filter>
     </ClInclude>
   </ItemGroup>
@@ -266,9 +281,6 @@
     <ClCompile Include="src\UniformBuffer.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\ResourceManager.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="src\Image.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -279,6 +291,15 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\SamplerState.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Shape2D.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ContentLoader.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AssetManager.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

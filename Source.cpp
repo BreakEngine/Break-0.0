@@ -1,6 +1,6 @@
+//#include <vld.h>
 #include "Infrastructure.h"
 #include "TestApplication.h"
-
 
 using namespace std;
 using namespace Break::Infrastructure;

@@ -7,13 +7,21 @@ using namespace Break::GXWrapper;
 using namespace std;
 
 Shader::Shader(string vs,string ps,MemoryLayout& inputLayout):_vs(vs),_ps(ps),_inputLayout(inputLayout){
+	_type = Assets::IAsset::SHADER;
 	createGPUResource();
 	_vs.clear();
 	_ps.clear();
 }
 
 Shader::Shader(const Shader& val):GPUResource(val){
+	_type = Assets::IAsset::SHADER;
+	_inputLayout=val._inputLayout;
+	_uniformBlocks = val._uniformBlocks;
+	_uniformsTable = val._uniformsTable;
+	_samplersTable = val._samplersTable;
 
+	_vs = val._vs;
+	_ps = val._ps;
 }
 
 Shader::~Shader(){
@@ -32,11 +40,8 @@ Shader::~Shader(){
 
 void Shader::use(){
 	//engine->graphicsDevice->use();
-	for(auto& buffer : _uniformBlocks){
-		buffer.second->invokeUpdate();
-		buffer.second->use();
-	}
 	Break::Infrastructure::Engine::Instance->GraphicsDevice->useShader(this);
+	flushUniforms();
 }
 
 void Shader::setUniform(string name, void* ptr){
@@ -45,17 +50,16 @@ void Shader::setUniform(string name, void* ptr){
 	_uniformBlocks[uniform._blockName]->map(ptr,uniform._size,uniform._offset);
 }
 
-void Shader::setTexture(std::string sampler, Texture* tex)
+void Shader::setTexture(std::string sampler, TexturePtr tex)
 {
-	Break::Infrastructure::Engine::Instance->GraphicsDevice->applySamplerStateToTexture2D(_samplersTable[sampler]._state.get(),tex);
-
 	auto sRow = _samplersTable[sampler];
-	Break::Infrastructure::Engine::Instance->GraphicsDevice->useSamplerState(sRow._state.get(),sRow._slot,(Shader::Type)sRow._shader);
-	if(tex->getType() == Texture::TEXTURE2D)
-	{
-		Texture2D* tex2D = dynamic_cast<Texture2D*>(tex);
-		tex2D->use((Shader::Type)sRow._shader,sRow._slot);
+	if(tex->sampler != sRow._state.get()){
+		Break::Infrastructure::Engine::Instance->GraphicsDevice->applySamplerStateToTexture2D(sRow._state.get(),tex.get());
+		tex->sampler = sRow._state.get();
 	}
+
+	Break::Infrastructure::Engine::Instance->GraphicsDevice->useSamplerState(sRow._state.get(),sRow._slot,(Shader::Type)sRow._shader);
+	tex->use((Shader::Type)sRow._shader,sRow._slot);
 }
 
 bool Shader::createGPUResource(){
@@ -79,6 +83,14 @@ void Shader::registerSampler(std::string name, unsigned slot, SamplerStatePtr st
 	var._slot = slot;
 	Break::Infrastructure::Engine::Instance->GraphicsDevice->createSamplerState(state.get());
 	_samplersTable[name] = var;
+}
+
+void Shader::flushUniforms()
+{
+	for(auto& buffer : _uniformBlocks){
+		buffer.second->invokeUpdate();
+		buffer.second->use();
+	}
 }
 
 void Shader::registerUniformBlock(std::string name,unsigned int size,unsigned int slot,Shader::Type shader){

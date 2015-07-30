@@ -3,7 +3,7 @@
 using namespace Break::GXWrapper;
 
 Image::Image(){
-	_type = IResource::IMAGE;
+	_type = IAsset::IMAGE;
 	_width = 0;
 	_height = 0;
 	_depth = 0;
@@ -17,7 +17,7 @@ Image::~Image(){
 }
 
 Image::Image(Pixel* data,unsigned int width,unsigned int height/* =1 */, unsigned int depth/* =1 */){
-	_type = IResource::IMAGE;
+	_type = IAsset::IMAGE;
 	_width = width;
 	_height = height;
 	_depth = depth;
@@ -27,7 +27,7 @@ Image::Image(Pixel* data,unsigned int width,unsigned int height/* =1 */, unsigne
 }
 
 Image::Image(unsigned int width,unsigned int height/* =1 */, unsigned int depth/* =1 */){
-	_type = IResource::IMAGE;
+	_type = IAsset::IMAGE;
 	_width = width;
 	_height = height;
 	_depth = depth;

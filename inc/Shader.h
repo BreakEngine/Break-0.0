@@ -5,6 +5,7 @@
 #include <memory>
 #include <map>
 #include "SamplerState.h"
+#include "IAsset.h"
 
 namespace Break{
 	namespace GXWrapper{
@@ -31,7 +32,7 @@ namespace Break{
 			}
 		};
 		class UniformBuffer;
-		class Shader:public Infrastructure::GPUResource{
+		class Shader:public Infrastructure::GPUResource, public Assets::IAsset{
 			friend class Renderer::GLManager;
 			friend class Renderer::DXManager;
 		protected:
@@ -54,11 +55,13 @@ namespace Break{
 			void use();
 
 			void setUniform(std::string name,void* ptr);
-			void setTexture(std::string sampler,Texture* tex);
+			void setTexture(std::string sampler,std::shared_ptr<Texture> tex);
 
 			void registerUniformBlock(std::string name,unsigned int size, unsigned int slot,Shader::Type shader);
 			void registerUniform(std::string name,std::string blockName,unsigned int offset, unsigned int size);
 			void registerSampler(std::string name,unsigned int slot, SamplerStatePtr state,Shader::Type shader);
+
+			void flushUniforms();
 			
 			std::string getVertexShader();
 			std::string getPixelShader();

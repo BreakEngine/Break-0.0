@@ -17,9 +17,7 @@ Geometry::Geometry(ISet* vertices, ISet* indices,Primitive::Type type){
 		_geometryData.verticesOffset = 0;
 	}
 
-	if(indices){
-		if(Infrastructure::Engine::Instance->getAPI() == Infrastructure::API::DIRECTX)
-			indices->mirror();
+	if(indices && indices->count()>0){
 		_geometryData.indices = std::make_shared<IndexBuffer>(indices);
 		_geometryData.indicesCount = indices->count();
 		_geometryData.indicesOffset = 0;

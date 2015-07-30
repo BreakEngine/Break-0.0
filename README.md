@@ -2,6 +2,10 @@
 
 Break is a little game engine for small to medium games, Break philosophy is to allow the programmer to do whatever he wants to even if he wanted to Break the whole engine components and provide his own components, simply it empowers the programmer to do what he wants even if he does it the wrong way, he is responsible for his apps.
 
+
+## Notes ##
+  If you are interseted in dev. Notes and TODOs you can find it [HERE](NOTES.md)
+
 ## Current Phase ##
 
 - Cross Platform

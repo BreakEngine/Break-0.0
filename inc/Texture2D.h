@@ -11,11 +11,11 @@ namespace Break{
 			Texture2D(ImagePtr src,bool mipmaps=false);
 			~Texture2D();
 
-			void update(ImagePtr src);
+			void update(ImagePtr src)override;
 
-			Image& readImage();
+			ImagePtr readImage();
 
-			void use(Shader::Type,unsigned int unit=0);
+			void use(Shader::Type,unsigned int unit=0) override;
 		protected:
 			virtual bool createGPUResource() override;
 		};

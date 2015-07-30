@@ -11,9 +11,20 @@
 namespace Break{
 	namespace Infrastructure{
 		//graphics manager abstract class that will handle APIs
+
+		enum class RasterMode
+		{
+			FILL=0, WIREFRAME
+		};
+
+		enum class CullMode
+		{
+			NONE=0, FRONT, BACK
+		};
 		class IGXManager{
 		protected:
 		public:
+			
 			//default constructor
 			IGXManager();
 			//virtual destructor
@@ -36,6 +47,10 @@ namespace Break{
 			 * \author Moustapha Saad
 			 */
 			virtual void start();
+
+			virtual void setRasterMode(RasterMode)=0;
+
+			virtual void setCullMode(CullMode)=0;
 
 			/*!
 			 * \function void clearBuffer()

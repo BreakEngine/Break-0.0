@@ -108,7 +108,6 @@ bool DXManager::initD3D(HWND hWnd, int Width, int Height, bool vsync, bool fulls
 	D3D11_TEXTURE2D_DESC depthBufferDesc;
 	D3D11_DEPTH_STENCIL_DESC depthStencilDesc;
 	D3D11_DEPTH_STENCIL_VIEW_DESC depthStencilViewDesc;
-	D3D11_RASTERIZER_DESC rasterDesc;
 	D3D11_VIEWPORT viewport;
 	float fieldOfView, screenAspect;
 
@@ -394,19 +393,19 @@ bool DXManager::initD3D(HWND hWnd, int Width, int Height, bool vsync, bool fulls
 	_deviceContext->OMSetRenderTargets(1, &_renderTargetView, _depthStencilView);
 
 	// Setup the raster description which will determine how and what polygons will be drawn.
-	rasterDesc.AntialiasedLineEnable = false;
-	rasterDesc.CullMode = D3D11_CULL_BACK;
-	rasterDesc.DepthBias = 0;
-	rasterDesc.DepthBiasClamp = 0.0f;
-	rasterDesc.DepthClipEnable = true;
-	rasterDesc.FillMode = D3D11_FILL_SOLID;
-	rasterDesc.FrontCounterClockwise = false;
-	rasterDesc.MultisampleEnable = false;
-	rasterDesc.ScissorEnable = false;
-	rasterDesc.SlopeScaledDepthBias = 0.0f;
+	_rasterStateDesc.AntialiasedLineEnable = false;
+	_rasterStateDesc.CullMode = D3D11_CULL_BACK;
+	_rasterStateDesc.DepthBias = 0;
+	_rasterStateDesc.DepthBiasClamp = 0.0f;
+	_rasterStateDesc.DepthClipEnable = true;
+	_rasterStateDesc.FillMode = D3D11_FILL_SOLID;
+	_rasterStateDesc.FrontCounterClockwise = true;
+	_rasterStateDesc.MultisampleEnable = true;
+	_rasterStateDesc.ScissorEnable = false;
+	_rasterStateDesc.SlopeScaledDepthBias = 0.0f;
 
 	// Create the rasterizer state from the description we just filled out.
-	result = _device->CreateRasterizerState(&rasterDesc, &_rasterState);
+	result = _device->CreateRasterizerState(&_rasterStateDesc, &_rasterState);
 	if(FAILED(result))
 	{
 		return false;
@@ -466,6 +465,53 @@ void DXManager::clearBuffer(){
 	_deviceContext->ClearRenderTargetView(_renderTargetView,c);
 	_deviceContext->ClearDepthStencilView(_depthStencilView,D3D11_CLEAR_DEPTH,1.0f,0);
 }
+
+void DXManager::setRasterMode(RasterMode mode)
+{
+	switch(mode)
+	{
+	case RasterMode::FILL:
+		_rasterStateDesc.FillMode = D3D11_FILL_SOLID;
+		_rasterState->Release();
+		_device->CreateRasterizerState(&_rasterStateDesc,&_rasterState);
+		_deviceContext->RSSetState(_rasterState);
+		break;
+	case RasterMode::WIREFRAME:
+		_rasterStateDesc.FillMode = D3D11_FILL_WIREFRAME;
+		_rasterState->Release();
+		_device->CreateRasterizerState(&_rasterStateDesc,&_rasterState);
+		_deviceContext->RSSetState(_rasterState);
+		break;
+	default: break;
+	}
+}
+
+void DXManager::setCullMode(CullMode mode)
+{
+	switch(mode)
+	{
+	case CullMode::NONE:
+		_rasterStateDesc.CullMode = D3D11_CULL_NONE;
+		_rasterState->Release();
+		_device->CreateRasterizerState(&_rasterStateDesc,&_rasterState);
+		_deviceContext->RSSetState(_rasterState);
+		break;
+	case CullMode::FRONT:
+		_rasterStateDesc.CullMode = D3D11_CULL_FRONT;
+		_rasterState->Release();
+		_device->CreateRasterizerState(&_rasterStateDesc,&_rasterState);
+		_deviceContext->RSSetState(_rasterState);
+		break;
+	case CullMode::BACK:
+		_rasterStateDesc.CullMode = D3D11_CULL_BACK;
+		_rasterState->Release();
+		_device->CreateRasterizerState(&_rasterStateDesc,&_rasterState);
+		_deviceContext->RSSetState(_rasterState);
+		break;
+	default: break;
+	}
+}
+
 void DXManager::swapBuffer(){
 	if(_vsync){
 		_swapChain->Present(1,0);
@@ -809,6 +855,42 @@ D3D11_COMPARISON_FUNC DXManager::getCompareFunc(CompareFunction func)
 	}
 }
 
+D3D11_FILTER DXManager::getFilter(TextureFilter filter)
+{
+	switch(filter)
+	{
+	case TextureFilter::LINEAR: 
+		return D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+		break;
+	case TextureFilter::POINT: 
+		return D3D11_FILTER_MIN_MAG_MIP_POINT;
+		break;
+	case TextureFilter::ANISOTROPIC: 
+		return D3D11_FILTER_ANISOTROPIC;
+		break;
+	case TextureFilter::LINEAR_MIP_POINT: 
+		return D3D11_FILTER_MIN_POINT_MAG_MIP_LINEAR;
+		break;
+	case TextureFilter::POINT_MIP_LINEAR:
+		return D3D11_FILTER_MIN_MAG_POINT_MIP_LINEAR;
+		break;
+	case TextureFilter::MIN_LINEAR_MAG_POINT_MIP_LINEAR:
+		return D3D11_FILTER_MIN_LINEAR_MAG_POINT_MIP_LINEAR;
+		break;
+	case TextureFilter::MIN_LINEAR_MAG_POINT_MIP_POINT: 
+		return D3D11_FILTER_MIN_LINEAR_MAG_MIP_POINT;
+		break;
+	case TextureFilter::MIN_POINT_MAG_LINEAR_MIP_LINEAR:
+		return D3D11_FILTER_MIN_POINT_MAG_MIP_LINEAR;
+		break;
+	case TextureFilter::MIN_POINT_MAG_LINEAR_MIP_POINT:
+		return D3D11_FILTER_MIN_POINT_MAG_LINEAR_MIP_POINT;
+		break;
+	default:
+		return D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+		break;
+	}
+}
 
 bool DXManager::createShader(GPUResource* shader){
 	auto program = dynamic_cast<GXWrapper::Shader*>(shader);
@@ -1174,7 +1256,7 @@ bool DXManager::createSamplerState(GPUResource* gpSampler)
 	samplerDesc.AddressV = getAddressMode(sampler->addressV);
 	samplerDesc.AddressW = getAddressMode(sampler->addressW);
 	samplerDesc.ComparisonFunc = getCompareFunc(sampler->compareFunction);
-	samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+	samplerDesc.Filter = getFilter(sampler->filter);
 	samplerDesc.MipLODBias = 0.0f;
 	samplerDesc.MaxAnisotropy = 1;
 	samplerDesc.BorderColor[0] = sampler->borderColor.R;

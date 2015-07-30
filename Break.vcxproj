@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClInclude Include="inc\AccessException.h" />
     <ClInclude Include="inc\Application.h" />
+    <ClInclude Include="inc\AssetManager.h" />
     <ClInclude Include="inc\Buffer.h" />
     <ClInclude Include="inc\Display.h" />
     <ClInclude Include="inc\DXKeyboard.h" />
@@ -34,7 +35,9 @@
     <ClInclude Include="inc\GPUResource.h" />
     <ClInclude Include="inc\GXWrapper.h" />
     <ClInclude Include="inc\IDrawable.h" />
+    <ClInclude Include="inc\MathUtils.h" />
     <ClInclude Include="inc\SamplerState.h" />
+    <ClInclude Include="inc\Shape2D.h" />
     <ClInclude Include="inc\Texture.h" />
     <ClInclude Include="inc\IAttribute.h" />
     <ClInclude Include="inc\IDisplay.h" />
@@ -48,19 +51,21 @@
     <ClInclude Include="inc\Infrastructure.h" />
     <ClInclude Include="inc\InputDevice.h" />
     <ClInclude Include="inc\IRenderer.h" />
-    <ClInclude Include="inc\IResource.h" />
+    <ClInclude Include="inc\IAsset.h" />
     <ClInclude Include="inc\ISet.h" />
     <ClInclude Include="inc\IVertex.h" />
     <ClInclude Include="inc\MemoryException.h" />
     <ClInclude Include="inc\Pixels.h" />
     <ClInclude Include="inc\Property.h" />
     <ClInclude Include="inc\RAMBuffer.h" />
-    <ClInclude Include="inc\ResourceManager.h" />
+    <ClInclude Include="inc\ContentLoader.h" />
     <ClInclude Include="inc\Shader.h" />
     <ClInclude Include="inc\Texture2D.h" />
     <ClInclude Include="inc\Time.h" />
     <ClInclude Include="inc\TimeStep.h" />
     <ClInclude Include="inc\UniformBuffer.h" />
+    <ClInclude Include="inc\Vertex2DPos.h" />
+    <ClInclude Include="inc\Vertex2DPosColor.h" />
     <ClInclude Include="inc\VertexBuffer.h" />
     <ClInclude Include="inc\MemoryLayout.h" />
     <ClInclude Include="inc\MemoryElement.h" />
@@ -71,6 +76,7 @@
   <ItemGroup>
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="src\Application.cpp" />
+    <ClCompile Include="src\AssetManager.cpp" />
     <ClCompile Include="src\DXKeyboard.cpp" />
     <ClCompile Include="src\DXManager.cpp" />
     <ClCompile Include="src\DXMouse.cpp" />
@@ -89,9 +95,10 @@
     <ClCompile Include="src\InputDevice.cpp" />
     <ClCompile Include="src\IRenderer.cpp" />
     <ClCompile Include="src\RAMBuffer.cpp" />
-    <ClCompile Include="src\ResourceManager.cpp" />
+    <ClCompile Include="src\ContentLoader.cpp" />
     <ClCompile Include="src\SamplerState.cpp" />
     <ClCompile Include="src\Shader.cpp" />
+    <ClCompile Include="src\Shape2D.cpp" />
     <ClCompile Include="src\Texture.cpp" />
     <ClCompile Include="src\Texture2D.cpp" />
     <ClCompile Include="src\Time.cpp" />

@@ -20,8 +20,8 @@ void Texture2D::update(ImagePtr src){
 	Infrastructure::Engine::Instance->GraphicsDevice->updateTexture2D(this,*_image);
 }
 
-Image& Texture2D::readImage(){
-	return *_image;
+ImagePtr Texture2D::readImage(){
+	return _image;
 }
 
 void Texture2D::use(Shader::Type type,unsigned int unit){

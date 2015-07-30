@@ -16,7 +16,6 @@ namespace Break{
 
 			virtual MemoryLayout getDeclaration()=0;
 
-			virtual void mirror()=0;
 			virtual ~ISet(){
 
 			}
@@ -52,8 +51,6 @@ namespace Break{
 			virtual MemoryLayout getDeclaration() override {
 				return MemoryLayout();
 			}
-
-			virtual void mirror()override{}
 		
 			void append(T v){
 				_data.push_back(v);

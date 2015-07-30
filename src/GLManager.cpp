@@ -1,5 +1,4 @@
 #include "GLManager.h"
-#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include "Display.h"
 #include "Engine.h"
@@ -26,72 +25,72 @@ using namespace Break::GXWrapper;
 #pragma comment(lib,"glfw3.lib")
 #pragma comment(lib,"glew32.lib")
 
-void GLManager::applyFilter2D(TextureFilter filter, bool mipmap,GLHandle* tex)
+void GLManager::applyFilter2D(TextureFilter filter, bool mipmap,GLenum target)
 {
 	switch (filter)
 	{
 	case TextureFilter::POINT:
 		if(mipmap)
-			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST_MIPMAP_NEAREST);
+			glTexParameteri(target,GL_TEXTURE_MIN_FILTER,GL_NEAREST_MIPMAP_NEAREST);
 		else
-			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+			glTexParameteri(target,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+		glTexParameteri(target,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
 		break;
 	case TextureFilter::LINEAR:
 		if(mipmap)
-			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR_MIPMAP_LINEAR);
+			glTexParameteri(target,GL_TEXTURE_MIN_FILTER,GL_LINEAR_MIPMAP_LINEAR);
 		else
-			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+			glTexParameteri(target,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
+		glTexParameteri(target,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
 		break;
 	case TextureFilter::ANISOTROPIC:
 		if(mipmap)
-			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR_MIPMAP_LINEAR);
+			glTexParameteri(target,GL_TEXTURE_MIN_FILTER,GL_LINEAR_MIPMAP_LINEAR);
 		else
-			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+			glTexParameteri(target,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
+		glTexParameteri(target,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
 		break;
 	case TextureFilter::LINEAR_MIP_POINT:
 		if(mipmap)
-			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR_MIPMAP_NEAREST);
+			glTexParameteri(target,GL_TEXTURE_MIN_FILTER,GL_LINEAR_MIPMAP_NEAREST);
 		else
-			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+			glTexParameteri(target,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
+		glTexParameteri(target,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
 		break;
 	case TextureFilter::POINT_MIP_LINEAR:
 		if(mipmap)
-			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST_MIPMAP_LINEAR);
+			glTexParameteri(target,GL_TEXTURE_MIN_FILTER,GL_NEAREST_MIPMAP_LINEAR);
 		else
-			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+			glTexParameteri(target,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+		glTexParameteri(target,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
 		break;
 	case TextureFilter::MIN_LINEAR_MAG_POINT_MIP_LINEAR:
 		if(mipmap)
-			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR_MIPMAP_LINEAR);
+			glTexParameteri(target,GL_TEXTURE_MIN_FILTER,GL_LINEAR_MIPMAP_LINEAR);
 		else
-			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+			glTexParameteri(target,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
+		glTexParameteri(target,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
 		break;
 	case TextureFilter::MIN_LINEAR_MAG_POINT_MIP_POINT:
 		if(mipmap)
-			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR_MIPMAP_NEAREST);
+			glTexParameteri(target,GL_TEXTURE_MIN_FILTER,GL_LINEAR_MIPMAP_NEAREST);
 		else
-			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+			glTexParameteri(target,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
+		glTexParameteri(target,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
 		break;
 	case TextureFilter::MIN_POINT_MAG_LINEAR_MIP_LINEAR:
 		if(mipmap)
-			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST_MIPMAP_LINEAR);
+			glTexParameteri(target,GL_TEXTURE_MIN_FILTER,GL_NEAREST_MIPMAP_LINEAR);
 		else
-			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+			glTexParameteri(target,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+		glTexParameteri(target,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
 		break;
 	case TextureFilter::MIN_POINT_MAG_LINEAR_MIP_POINT:
 		if(mipmap)
-			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST_MIPMAP_NEAREST);
+			glTexParameteri(target,GL_TEXTURE_MIN_FILTER,GL_NEAREST_MIPMAP_NEAREST);
 		else
-			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+			glTexParameteri(target,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+		glTexParameteri(target,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
 		break;
 	default: break;
 	}
@@ -113,7 +112,9 @@ int GLManager::getAddressMode(TextureAddressMode mode)
 	case TextureAddressMode::BORDER:
 		return GL_CLAMP_TO_BORDER;
 		break;
-	default: break;
+	default:
+		return -1;
+		break;
 	}
 }
 
@@ -170,6 +171,7 @@ bool GLManager::init(ApplicationPtr app){
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3); //OpenGL version 3.
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3); // 3.3
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); //If requesting an OpenGL version below 3.2, GLFW_OPENGL_ANY_PROFILE
+	
 
 	// Open a window and create its OpenGL context
 
@@ -185,6 +187,15 @@ bool GLManager::init(ApplicationPtr app){
 		fprintf(stderr, "Failed to initialize GLEW\n");
 		return false;
 	}
+
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_DEPTH);
+	glEnable(GL_RGBA);
+	glEnable(GL_DOUBLE);
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+	glEnable(GL_MULTISAMPLE);
+
 	Display<GLFWwindow*>* d = new Display<GLFWwindow*>(*app->_display);
 	d->setHandle(window);
 	app->_display = IDisplayPtr(d);
@@ -206,6 +217,39 @@ void GLManager::start(){
 	}
 	d = NULL;
 	return;
+}
+
+void GLManager::setRasterMode(RasterMode mode)
+{
+	switch (mode)
+	{
+	case RasterMode::FILL: 
+		glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
+		break;
+	case RasterMode::WIREFRAME:
+		glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
+		break;
+	default: break;
+	}
+}
+
+void GLManager::setCullMode(CullMode mode)
+{
+	switch (mode)
+	{
+	case CullMode::NONE: 
+		glDisable(GL_CULL_FACE);
+		break;
+	case CullMode::FRONT:
+		glEnable(GL_CULL_FACE);
+		glCullFace(GL_FRONT);
+		break;
+	case CullMode::BACK: 
+		glEnable(GL_CULL_FACE);
+		glCullFace(GL_BACK);
+		break;
+	default: break;
+	}
 }
 
 void GLManager::clearBuffer(){
@@ -421,6 +465,7 @@ bool GLManager::createShader(GPUResource* shader){
 	}
 
 	program->_handle = handle;
+	delete[] error;
 	return true;
 }
 
@@ -484,7 +529,9 @@ bool GLManager::updateUniformBuffer(GPUResource* buffer,unsigned int offset,unsi
 
 bool GLManager::useUniformBuffer(GPUResource* buffer){
 	auto handle = dynamic_cast<GLHandle*>(buffer->_handle.get());
+	auto UBuffer = dynamic_cast<GXWrapper::UniformBuffer*>(buffer);
 	glBindBuffer(GL_UNIFORM_BUFFER,handle->ID);
+	glBindBufferBase(GL_UNIFORM_BUFFER,UBuffer->_slot,handle->ID);
 	return true;
 }
 
@@ -710,7 +757,7 @@ bool GLManager::applySamplerStateToTexture2D(GPUResource* gpSampler, GPUResource
 
 	if(tex->getType() == Texture::TEXTURE2D){
 		glBindTexture(GL_TEXTURE_2D,texHandle->ID);
-		applyFilter2D(sampler->filter,tex->usingMipMaps(),texHandle);
+		applyFilter2D(sampler->filter,tex->usingMipMaps(),GL_TEXTURE_2D);
 		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,getAddressMode(sampler->addressU));
 		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,getAddressMode(sampler->addressV));
 		float border[4] = {sampler->borderColor.R,sampler->borderColor.G,sampler->borderColor.B,sampler->borderColor.A};

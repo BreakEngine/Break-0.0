@@ -1,6 +1,7 @@
 #pragma once
 #include "IGXManager.h"
 #include "Application.h"
+#include <GL/glew.h>
 
 namespace Break{
 	namespace Renderer{
@@ -8,7 +9,7 @@ namespace Break{
 
 		class GLManager:public Infrastructure::IGXManager{
 		private:
-			void applyFilter2D(GXWrapper::TextureFilter filter,bool mipmap,GLHandle* tex);
+			void applyFilter2D(GXWrapper::TextureFilter filter,bool mipmap,GLenum target);
 			int getAddressMode(GXWrapper::TextureAddressMode mode);
 			int getCompareFunc(GXWrapper::CompareFunction func);
 		public:
@@ -19,6 +20,10 @@ namespace Break{
 			virtual bool init(Infrastructure::ApplicationPtr app) override;
 			//start window loop
 			virtual void start() override;
+
+			virtual void setRasterMode(Infrastructure::RasterMode);
+			
+			virtual void setCullMode(Infrastructure::CullMode);
 			//clears all the buffers
 			virtual void clearBuffer() override;
 			//swaps the buffer

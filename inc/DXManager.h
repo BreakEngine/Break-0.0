@@ -26,6 +26,7 @@ namespace Break{
 			ID3D11DepthStencilView* _depthStencilView;
 			//get description for rasterizer state that you used to create raster-state object
 			ID3D11RasterizerState* _rasterState;
+			D3D11_RASTERIZER_DESC _rasterStateDesc;
 			//GPU Info
 			bool _vsync;
 			unsigned int _videoCardMemory;
@@ -44,6 +45,7 @@ namespace Break{
 			DXGI_FORMAT getFormat(GXWrapper::MemoryElement& element);
 			D3D11_TEXTURE_ADDRESS_MODE getAddressMode(GXWrapper::TextureAddressMode address);
 			D3D11_COMPARISON_FUNC getCompareFunc(GXWrapper::CompareFunction func);
+			D3D11_FILTER getFilter(GXWrapper::TextureFilter filter);
 		public:
 			DXManager();
 			~DXManager();
@@ -51,6 +53,8 @@ namespace Break{
 			bool init(Infrastructure::ApplicationPtr app);
 			void start();
 			void clearBuffer();
+			virtual void setRasterMode(Infrastructure::RasterMode) override;
+			virtual void setCullMode(Infrastructure::CullMode)override;
 			void swapBuffer();
 			void setCursorPostion(glm::uvec2 val);
 
