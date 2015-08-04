@@ -40,6 +40,10 @@ namespace Break{
 			unsigned int getSize();
 			//returns used size
 			unsigned int getUsedSize();
+			//transforms the current buffer to a handle to existing block of memory
+			void handleToExistingBuffer(void* data,unsigned int size);
+			//deletes the current buffer
+			void deleteBuffer();
 			//returns a deep copy of the buffer
 			std::shared_ptr<RAMBuffer> clone();
 

@@ -89,17 +89,23 @@ namespace Break{
 				_changed = true;
 			}
 
-			void map(void* data,unsigned int size, unsigned int start){
+			void map(void* data,unsigned int size, unsigned int start, bool flush = true){
 				_changed = true;
 				if(_buffer->map(data,size,start)){
 					//Engine::Instance->GraphicsDevice->updateVertexBuffer(this,start,size);
-					updateBuffer(start,size);
+					if(flush)
+						updateBuffer(start,size);
 				}
 			}
 
 			bool appendBuffer(void* data,unsigned int size){
 				_changed = true;
 				return _buffer->append(data,size);
+			}
+			//creates buffer from a handle to existing area of memory
+			void fromHandle(void* data,unsigned int size)
+			{
+				_buffer->handleToExistingBuffer(data,size);
 			}
 
 			unsigned int getSize(){

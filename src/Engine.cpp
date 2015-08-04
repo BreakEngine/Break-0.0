@@ -9,6 +9,7 @@
 #include "GLMouse.h"
 #include "DXMouse.h"
 #include "AssetManager.h"
+#include <glm/gtc/matrix_transform.inl>
 using namespace std;
 using namespace Break::Infrastructure;
 using namespace Break::Renderer;
@@ -73,6 +74,7 @@ bool Engine::init(){
 		_initFinished = _graphicsManager->init(_application);
 		Assets::AssetManager::addDefaultAssets();
 		if(_application){
+			_2DOrthographic = glm::ortho(0.0f,(float)_application->getDisplay()->getWidth(),(float)_application->getDisplay()->getHeight(),0.0f,-10.0f,10.0f);
 			_application->init();
 			_application->loadResources();
 			_application->setupScene();
@@ -107,9 +109,19 @@ void Engine::cleanUp(){
 	}
 }
 
+IRenderer* Engine::getRenderer()
+{
+	return this->_renderer.get();
+}
+
 API Engine::getAPI()
 {
 	return _api;
+}
+
+glm::mat4 Engine::get2DOrthogonal()
+{
+	return _2DOrthographic;
 }
 
 void Engine::start(){

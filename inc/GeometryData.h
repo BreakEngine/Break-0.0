@@ -42,8 +42,10 @@ namespace Break{
 			}
 
 			~GeometryData(){
-				vertices = nullptr;
-				indices = nullptr;
+				if(vertices)
+					vertices = nullptr;
+				if(indices)
+					indices = nullptr;
 			}
 		};
 	}

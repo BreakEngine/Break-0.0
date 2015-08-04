@@ -18,9 +18,9 @@ namespace Break
 			static void addDefaultAssets();
 			static void cleanUp();
 		public:
-			static IAssetPtr find(std::string);
-			static void add(IAsset*);
-			static void add(std::string name,IAsset* res);
+			static IAsset* find(std::string);
+			static void add(IAssetPtr);
+			static void add(std::string name,IAssetPtr res);
 		};
 	}
 }

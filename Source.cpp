@@ -8,7 +8,7 @@ using namespace Break::GXWrapper;
 using namespace glm;
 
 int main(){	
-	Engine::Instance->setup(make_shared<TestApp>(),API::DIRECTX);
+	Engine::Instance->setup(make_shared<TestApp>(),API::OPENGL);
 	Engine::Instance->join(true);
 	Engine::Instance->start();
 	

@@ -41,8 +41,8 @@ ImagePtr ContentLoader::load<Image>(std::string file){
 		return nullptr;
 	//FreeImage_ConvertToRGBAF()
 	dib = FreeImage_ConvertTo32Bits(dib);
+	FreeImage_FlipVertical(dib);
 	bits = FreeImage_GetBits(dib);
-
 	width = FreeImage_GetWidth(dib);
 	height = FreeImage_GetHeight(dib);
 

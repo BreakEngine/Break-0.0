@@ -17,6 +17,7 @@ VertexBuffer::VertexBuffer(Buffer::Type t,MemoryLayout& layout){
 		_buffer = make_shared<RAMBuffer>(Buffer::STATIC_OPTIMAL_SIZE);
 
 	_changed = true;
+	createGPUResource();
 }
 
 VertexBuffer::VertexBuffer(ISet* set,MemoryLayout& layout,Buffer::Type t){
@@ -39,6 +40,7 @@ VertexBuffer::VertexBuffer(unsigned int size,Buffer::Type t){
 	_type = t;
 	_buffer = RAMBufferPtr(new RAMBuffer(size));
 	_changed = true;
+	createGPUResource();
 }
 
 VertexBuffer::VertexBuffer(const VertexBuffer& val):Buffer(val){

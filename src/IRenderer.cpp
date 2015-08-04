@@ -1,13 +1,12 @@
 #include"IRenderer.h"
 #include"Engine.h"
 using namespace Break::Infrastructure;
+using namespace Break::Renderer;
 
 IRenderer::IRenderer(){
-
 }
 
 IRenderer::~IRenderer(){
-
 }
 
 void IRenderer::input(){

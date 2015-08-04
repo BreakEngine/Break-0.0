@@ -63,6 +63,7 @@ namespace Break{
 
 			void cleanUp();
 
+			IRenderer* getRenderer();
 			/*!
 			 * \function API getAPI()
 			 *
@@ -71,6 +72,8 @@ namespace Break{
 			 * \author Moustapha Saad
 			 */
 			API getAPI();
+
+			glm::mat4 get2DOrthogonal();
 			
 			/*!
 			 * \Property Instance 
@@ -193,6 +196,9 @@ namespace Break{
 
 			//indicates the init process has finished
 			bool _initFinished;
+
+			//orthographics projection based on display info
+			glm::mat4 _2DOrthographic;
 
 			//constructor of the engine
 			Engine();

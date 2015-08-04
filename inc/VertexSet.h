@@ -16,9 +16,9 @@ namespace Break{
 		class VertexSet : public Set<T>{
 		public:
 
-			virtual Infrastructure::RAMBufferPtr getData() override{
+			virtual Infrastructure::RAMBufferPtr getData(bool shallow = false) override{
 				if(_data.size()>0){
-					auto ret = std::make_shared<Infrastructure::RAMBuffer>(&_data[0],_data.size()*declaration.getSize());
+					auto ret = std::make_shared<Infrastructure::RAMBuffer>(&_data[0],_data.size()*declaration.getSize(),!shallow);
 					return ret;
 				}else{
 					return nullptr;

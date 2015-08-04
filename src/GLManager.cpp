@@ -192,9 +192,16 @@ bool GLManager::init(ApplicationPtr app){
 	glEnable(GL_DEPTH);
 	glEnable(GL_RGBA);
 	glEnable(GL_DOUBLE);
+	glEnable(GL_BLEND);
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 	glEnable(GL_MULTISAMPLE);
+
+	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+
+	glPointSize(5);
+
+	//glPolygonMode(GL_FRONT_AND_BACK,GL_POINT);
 
 	Display<GLFWwindow*>* d = new Display<GLFWwindow*>(*app->_display);
 	d->setHandle(window);
@@ -224,10 +231,10 @@ void GLManager::setRasterMode(RasterMode mode)
 	switch (mode)
 	{
 	case RasterMode::FILL: 
-		glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
+		glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
 		break;
 	case RasterMode::WIREFRAME:
-		glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
+		glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
 		break;
 	default: break;
 	}
@@ -349,7 +356,7 @@ bool GLManager::updateVertexBuffer(GPUResource* buffer, unsigned int offset, uns
 
 	glBindBuffer(GL_ARRAY_BUFFER,handle->ID);
 	void* GPUPtr = NULL;
-	GPUPtr = glMapBufferRange(GL_ARRAY_BUFFER,offset,size,GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_RANGE_BIT);
+	GPUPtr = glMapBufferRange(GL_ARRAY_BUFFER,offset,size,GL_MAP_WRITE_BIT|GL_MAP_INVALIDATE_RANGE_BIT );
 
 	if(GPUPtr == NULL)
 		throw GXWrapper::GPUException("Cannot Map Vertex Buffer: Failed to get buffer pointer");
@@ -371,7 +378,7 @@ bool GLManager::updateIndexBuffer(GPUResource* buffer, unsigned int offset, unsi
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,handle->ID);
 	void* GPUPtr = NULL;
-	GPUPtr = glMapBufferRange(GL_ELEMENT_ARRAY_BUFFER,offset,size,GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_RANGE_BIT);
+	GPUPtr = glMapBufferRange(GL_ELEMENT_ARRAY_BUFFER,offset,size,GL_MAP_WRITE_BIT |GL_MAP_INVALIDATE_RANGE_BIT );
 
 	if(GPUPtr == NULL)
 		throw GXWrapper::GPUException("Cannot Map Index Buffer: Failed to get buffer pointer");
@@ -515,7 +522,7 @@ bool GLManager::updateUniformBuffer(GPUResource* buffer,unsigned int offset,unsi
 
 	glBindBuffer(GL_UNIFORM_BUFFER,handle->ID);
 	void* GPUPtr = NULL;
-	GPUPtr = glMapBufferRange(GL_UNIFORM_BUFFER,offset,size,GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_RANGE_BIT);
+	GPUPtr = glMapBufferRange(GL_UNIFORM_BUFFER,offset,size,GL_MAP_WRITE_BIT |GL_MAP_INVALIDATE_RANGE_BIT );
 
 	if(GPUPtr == NULL)
 		throw GXWrapper::GPUException("Cannot Map Index Buffer: Failed to get buffer pointer");

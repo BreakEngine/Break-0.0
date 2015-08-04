@@ -24,6 +24,11 @@ namespace Break{
 
 			operator glm::vec4()
 			{
+				return vec4();
+			}
+
+			glm::vec4 vec4()
+			{
 				return glm::vec4(R/255,G/255,B/255,A/255);
 			}
 			Pixel(unsigned char _R, unsigned char _G, unsigned char _B, unsigned char _A):R(_R), G(_G), B(_B), A(_A){}

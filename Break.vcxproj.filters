@@ -204,6 +204,21 @@
     <ClInclude Include="inc\MathUtils.h">
       <Filter>inc</Filter>
     </ClInclude>
+    <ClInclude Include="inc\Vertex2DPosColorTex.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Transform.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Transformable.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\SpriteBatch.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Rect.h">
+      <Filter>inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp">
@@ -300,6 +315,12 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\AssetManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Transform.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SpriteBatch.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

@@ -36,13 +36,14 @@ RAMBuffer::RAMBuffer(const RAMBuffer& val){
 }
 
 RAMBuffer::~RAMBuffer(){
-	clear();
+	if(_data)
+		delete[] _data;
 }
 
 void RAMBuffer::clear(){
 	if(_data)
 	{
-		delete[] _data;
+		_fillStatus = 0;
 		//_data = NULL;
 	}
 }
@@ -96,6 +97,19 @@ unsigned int RAMBuffer::getSize(){
 
 unsigned int RAMBuffer::getUsedSize(){
 	return _fillStatus;
+}
+
+void RAMBuffer::handleToExistingBuffer(void* data, unsigned size)
+{
+	_data = (byte*)data;
+	_size = size;
+	_fillStatus = size;
+}
+
+void RAMBuffer::deleteBuffer()
+{
+	if(_data)
+		delete[] _data;
 }
 
 RAMBufferPtr RAMBuffer::clone(){

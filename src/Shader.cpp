@@ -50,11 +50,11 @@ void Shader::setUniform(string name, void* ptr){
 	_uniformBlocks[uniform._blockName]->map(ptr,uniform._size,uniform._offset);
 }
 
-void Shader::setTexture(std::string sampler, TexturePtr tex)
+void Shader::setTexture(std::string sampler, Texture* tex)
 {
 	auto sRow = _samplersTable[sampler];
 	if(tex->sampler != sRow._state.get()){
-		Break::Infrastructure::Engine::Instance->GraphicsDevice->applySamplerStateToTexture2D(sRow._state.get(),tex.get());
+		Break::Infrastructure::Engine::Instance->GraphicsDevice->applySamplerStateToTexture2D(sRow._state.get(),tex);
 		tex->sampler = sRow._state.get();
 	}
 

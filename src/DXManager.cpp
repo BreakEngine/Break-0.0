@@ -429,6 +429,22 @@ bool DXManager::initD3D(HWND hWnd, int Width, int Height, bool vsync, bool fulls
 	// Setup the projection matrix.
 	fieldOfView = (float)(22/7) / 4.0f;
 	screenAspect = (float)Width / (float)Height;
+
+	D3D11_BLEND_DESC blendDesc;
+	blendDesc.AlphaToCoverageEnable = FALSE;
+	blendDesc.IndependentBlendEnable = FALSE;
+	blendDesc.RenderTarget[0].BlendEnable = TRUE;
+	blendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+	blendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+	blendDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+	blendDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ZERO;
+	blendDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
+	blendDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+	blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+	
+	ID3D11BlendState* blendState;
+	_device->CreateBlendState(&blendDesc,&blendState);
+	_deviceContext->OMSetBlendState(blendState,NULL,0xFFFFFF);
 	return true;
 }
 void DXManager::windowStart(){
@@ -724,10 +740,11 @@ bool DXManager::updateVertexBuffer(GPUResource* buffer,unsigned int offset,unsig
 	_deviceContext->Map(handle->DXBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedData);
 
 	//memcpy(mappedData.pData,VBuffer->getData(offset),size);
-	memcpy(mappedData.pData,VBuffer->getData(),VBuffer->getSize());
+	auto cpySize = VBuffer->getSize();
+	memcpy(mappedData.pData,VBuffer->getData(),cpySize);
 
 	_deviceContext->Unmap(handle->DXBuffer,0);
-
+	return true;
 }
 
 bool DXManager::updateIndexBuffer(GPUResource* buffer, unsigned int offset, unsigned int size){
@@ -742,9 +759,11 @@ bool DXManager::updateIndexBuffer(GPUResource* buffer, unsigned int offset, unsi
 	_deviceContext->Map(handle->DXBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedData);
 
 	//memcpy(mappedData.pData,IBuffer->getData(offset),size);
-	memcpy(mappedData.pData,IBuffer->getData(),IBuffer->getSize());
+	auto cpySize = IBuffer->getSize();
+	memcpy(mappedData.pData,IBuffer->getData(),cpySize);
 
 	_deviceContext->Unmap(handle->DXBuffer,0);
+	return true;
 }
 
 bool DXManager::deleteBuffer(GPUResource* buffer){
@@ -956,6 +975,7 @@ bool DXManager::createShader(GPUResource* shader){
 			vertexShaderBuffer->GetBufferSize(),&handle->inputLayout);
 
 	if(FAILED(res)){
+		std::cerr<<"Shader Cannot create input layout"<<std::endl;
 		return false;
 	}
 

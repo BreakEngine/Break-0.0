@@ -26,6 +26,10 @@ namespace Break{
 			virtual void use(Shader::Type,unsigned int unit=0)=0;
 			virtual void update(ImagePtr src)=0;
 
+			unsigned int getWidth();
+			unsigned int getHeight();
+			unsigned int getDepth();
+
 		protected:
 			Type _type;
 			ImagePtr _image;

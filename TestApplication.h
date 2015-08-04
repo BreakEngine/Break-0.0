@@ -7,6 +7,7 @@
 #include <iostream>
 #include "ContentLoader.h"
 #include "inc/Shape2D.h"
+#include "SpriteBatch.h"
 
 using namespace std;
 using namespace Break::Infrastructure;
@@ -16,11 +17,13 @@ class TestApp:public Application{
 public:
 	GeometryPtr moka;
 	double scounter;
-	Texture2DPtr tex;
+	Texture2DPtr tex,spTex;
 	ShaderPtr shader;
 	vec4 globalColor;
 
-	Break::Renderer::Shape2D wrect;
+	Break::Graphics::SpriteBatch* sp;
+	Break::Graphics::Shape2D wrect;
+	std::vector<Break::Graphics::Shape2D> triangles;
 	TestApp(){
 		_display = IDisplayPtr(new IDisplay(640,480,"Test Application"));
 		scounter = 0;
@@ -32,17 +35,25 @@ public:
 		Time::setFrameLimit(60);
 		Time::setType(Time::Type::UNLIMITED);
 
-		
+		sp = new Break::Graphics::SpriteBatch();
 	}
 	void setupScene(){
-
-		wrect.append(0.75,-0.75);
-		wrect.append(0.75,0.75);
-		wrect.append(-0.75,-0.75);
-		wrect.append(-0.75,0.75);
-		wrect.append(-0.9,0);
-		wrect.append(0,0.9);
-		wrect.setFillColor(Color(255,255,0,255));
+		triangles.resize(1000);
+		for(int i=0;i<1000;i++)
+		{
+			triangles[i].append(50,0);
+			triangles[i].append(0,100);
+			triangles[i].append(100,100);
+			triangles[i].setPosition(rand()%640,rand()%480);
+		}
+		wrect.append(0,0);
+		wrect.append(0,100);
+		wrect.append(100,0);
+		wrect.append(100,100);
+		//wrect.append(-0.9,0);
+		//wrect.append(0,0.9);
+		wrect.setPosition(640/2,480/2);
+		wrect.setFillColor(Color(255,0,0,255));
 	}
 	void loadResources(){
 
@@ -63,7 +74,7 @@ public:
 		soso.append(3);
 
 
-		moka = make_shared<Geometry>(&veve,&soso,Primitive::TRIANGLES);
+		moka = make_shared<Geometry>(veve,&soso,Primitive::TRIANGLES);
 
 		std::string glVertex = "#version 330\n"
 			"layout(location = 0) in vec4 position;\n"
@@ -146,7 +157,10 @@ public:
 		"textureColor = shaderTexture.Sample(diffuseS,input.tex);\n"
 		"return textureColor;\n"
 		"}\n";
-		shader = make_shared<Shader>(dxVertex,dxPixel,tv::getDeclaration());
+		if(Engine::Instance->getAPI()==API::OPENGL)
+			shader = make_shared<Shader>(glVertex,glPixel,tv::getDeclaration());
+		else
+			shader = make_shared<Shader>(dxVertex,dxPixel,tv::getDeclaration());
 		shader->registerUniformBlock("MatrixBuffer",(2*64)+16+48,0,Shader::VERTEX);
 		shader->registerUniform("worldMatrix","MatrixBuffer",0,36);
 		shader->registerUniform("ucolor","MatrixBuffer",1*48,16);
@@ -168,11 +182,13 @@ public:
 			}
 
 		ImagePtr loaded = ContentLoader::load<Image>("res\\textures\\grass.jpg");
+		spTex = ContentLoader::load<Texture2D>("res\\textures\\megaman.png");
 		tex = make_shared<Texture2D>(loaded);
-		shader->setTexture("diffuseS",tex);
+		shader->setTexture("diffuseS",tex.get());
 		//tex->update(img);
 		//tex->use(Shader::PIXEL,0);
 		cout<<"moka moka"<<endl;
+		
 	}
 	void cleanUp(){
 
@@ -202,6 +218,14 @@ public:
 		if(IKeyboard::getKey(IKeyboard::A) == IKeyboard::State_Up){
 			cout<<"A Released"<<endl;
 		}
+		if(IKeyboard::getKey(IKeyboard::Left) == IKeyboard::State_Down)
+		{
+			wrect.rotate(0.01);
+		}
+		if(IKeyboard::getKey(IKeyboard::Right) == IKeyboard::State_Down)
+		{
+			wrect.rotate(-0.01);
+		}
 		//Delete Test
 		if(IKeyboard::getKey(IKeyboard::Delete) == IKeyboard::State_Down){
 			cout<<"Delete Pressed"<<endl;
@@ -227,6 +251,7 @@ public:
 			this->shutdown();
 	}
 	void update(TimeStep time){
+		wrect.rotate(time.delta*100);
 		//cout<<Time::getFPS()<<endl;
 		scounter+=time.delta;
 		globalColor = vec4(sin(scounter),scounter,tan(scounter),1);
@@ -239,10 +264,27 @@ public:
 	void render(){
 		//Engine::Instance->GraphicsDevice->setCullMode(CullMode::NONE);
 		wrect.draw();
+		/*
+		for(int i=0;i<triangles.size();i++)
+		{
+			triangles[i].draw();
+		}*/
+		static float angle = 0;
+		sp->begin();
+		for(int i=0;i<20;i++)
+			sp->draw(NULL,rand()%320,rand()%240,20,20,Color(255,0,0,255));
+		for(int i=0;i<0;i++)
+			sp->draw(tex.get(),rand()%320+320,rand()%240+240,10,10,Color(0,0,255,255));
+		for(int i=0;i<0;i++)
+			sp->draw(NULL, Break::Graphics::Rect(640/2,480/2,100,100),angle,Color(255,255,255,255));
+		
+		sp->draw(spTex.get(), Break::Graphics::Rect(430,320,16,16),angle/10,Color(255,255,255,255));
+		sp->end();
 		//Engine::Instance->GraphicsDevice->setCullMode(CullMode::BACK);
 		shader->use();
-		shader->setTexture("diffuseS",tex);
+		shader->setTexture("diffuseS",tex.get());
 		//tex->use(Shader::PIXEL,0);
 		moka->draw(Primitive::INDEXED);
+		angle--;
 	}
 };

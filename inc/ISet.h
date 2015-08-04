@@ -10,11 +10,13 @@ namespace Break{
 
 		class ISet{
 		public:
-			virtual Infrastructure::RAMBufferPtr getData()=0;
+			virtual Infrastructure::RAMBufferPtr getData(bool shallow = false)=0;
 
 			virtual unsigned int count()=0;
 
 			virtual MemoryLayout getDeclaration()=0;
+
+			virtual void clear()=0;
 
 			virtual ~ISet(){
 
@@ -36,12 +38,20 @@ namespace Break{
 				_data.clear();
 			}
 
-			virtual Infrastructure::RAMBufferPtr getData() override {
+			virtual Infrastructure::RAMBufferPtr getData(bool shallow = false) override {
 				return nullptr;
 			}
 
 			unsigned int count() override {
 				return _data.size();
+			}
+			void clear()override{
+				_data.clear();
+			}
+
+			void resize(unsigned int size)
+			{
+				_data.resize(size);
 			}
 
 			T& operator[](unsigned int ix) {

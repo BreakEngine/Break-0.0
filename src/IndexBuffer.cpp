@@ -16,6 +16,7 @@ IndexBuffer::IndexBuffer(Buffer::Type t){
 		_buffer = make_shared<RAMBuffer>(Buffer::STATIC_OPTIMAL_SIZE);
 
 	_changed = true;
+	createGPUResource();
 }
 
 IndexBuffer::IndexBuffer(ISet* set,Buffer::Type t){
@@ -36,6 +37,7 @@ IndexBuffer::IndexBuffer(unsigned int size,Buffer::Type t){
 	_type = t;
 	_buffer = RAMBufferPtr(new RAMBuffer(size));
 	_changed = true;
+	createGPUResource();
 }
 
 IndexBuffer::IndexBuffer(const IndexBuffer& val):Buffer(val){

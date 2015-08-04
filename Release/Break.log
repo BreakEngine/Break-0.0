@@ -1,12 +1,13 @@
-﻿Build started 29/06/2015 10:50:51 م.
-     1>Project "H:\Break\Break\Break.vcxproj" on node 2 (Build target(s)).
+﻿Build started 04/08/2015 06:46:49 م.
+     1>Project "E:\Projects\Break\Break.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Source.cpp
-         Source.cpp
-     1>h:\break\break\TestApplication.h(39): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /Ox /Oi /Oy- /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt src\GLManager.cpp
+         GLManager.cpp
+     1>src\GLManager.cpp(602): warning C4018: '<' : signed/unsigned mismatch
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"H:\Break\Break\\bin\Release\Break.exe" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"H:\Break\Break\\bin\Release\Break.pdb" /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"H:\Break\Break\\bin\Release\Break.lib" /MACHINE:X86 /SAFESEH Release\Source.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\Projects\Break\\bin\Release\Break.exe" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:\Projects\Break\\bin\Release\Break.pdb" /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\Projects\Break\\bin\Release\Break.lib" /MACHINE:X86 /SAFESEH Release\Source.obj
          Release\Application.obj
+         Release\AssetManager.obj
          Release\DXKeyboard.obj
          Release\DXManager.obj
          Release\DXMouse.obj
@@ -19,22 +20,34 @@
          Release\IDisplay.obj
          Release\IGXManager.obj
          Release\IKeyboard.obj
+         Release\Image.obj
          Release\IMouse.obj
          Release\IndexBuffer.obj
          Release\InputDevice.obj
          Release\IRenderer.obj
          Release\RAMBuffer.obj
+         Release\ContentLoader.obj
+         Release\SamplerState.obj
+         Release\Shader.obj
+         Release\Shape2D.obj
+         Release\SpriteBatch.obj
+         Release\Texture.obj
+         Release\Texture2D.obj
          Release\Time.obj
          Release\TimeStep.obj
+         Release\Transform.obj
+         Release\UniformBuffer.obj
          Release\VertexBuffer.obj
-         Release\VertexDeclaration.obj
+         Release\MemoryLayout.obj
          Generating code
-     1>h:\break\break\src\dxmanager.cpp(677): warning C4715: 'Break::Renderer::DXManager::updateVertexBuffer' : not all control paths return a value
-     1>h:\break\break\src\dxmanager.cpp(693): warning C4715: 'Break::Renderer::DXManager::updateIndexBuffer' : not all control paths return a value
+     1>e:\projects\break\src\glmanager.cpp(151): warning C4715: 'Break::Renderer::GLManager::getCompareFunc' : not all control paths return a value
+     1>e:\projects\break\src\dxmanager.cpp(843): warning C4715: 'Break::Renderer::DXManager::getAddressMode' : not all control paths return a value
+     1>e:\projects\break\src\dxmanager.cpp(875): warning C4715: 'Break::Renderer::DXManager::getCompareFunc' : not all control paths return a value
+     1>e:\projects\break\src\dxmanager.cpp(823): warning C4715: 'Break::Renderer::DXManager::getFormat' : not all control paths return a value
          Finished generating code
-         Break.vcxproj -> H:\Break\Break\\bin\Release\Break.exe
-     1>Done Building Project "H:\Break\Break\Break.vcxproj" (Build target(s)).
+         Break.vcxproj -> E:\Projects\Break\\bin\Release\Break.exe
+     1>Done Building Project "E:\Projects\Break\Break.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:03.37
+Time Elapsed 00:00:04.72

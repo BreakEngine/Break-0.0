@@ -55,7 +55,7 @@ namespace Break{
 			void use();
 
 			void setUniform(std::string name,void* ptr);
-			void setTexture(std::string sampler,std::shared_ptr<Texture> tex);
+			void setTexture(std::string sampler,Texture* tex);
 
 			void registerUniformBlock(std::string name,unsigned int size, unsigned int slot,Shader::Type shader);
 			void registerUniform(std::string name,std::string blockName,unsigned int offset, unsigned int size);

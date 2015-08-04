@@ -5,67 +5,110 @@
 using namespace std;
 using namespace Break::GXWrapper;
 using namespace Break::Assets;
+using namespace Break::Graphics;
 
-Break::Renderer::Shape2D::Shape2D():_vertices(Vertex2DPos::getDescription())
+Shape2D::Shape2D():_vertices(Vertex2DPosColorTex::getDescription())
 {
-	_geometry = nullptr;
 	_fillColor = glm::vec4(1,1,1,1);
+	_texture = nullptr; 
 	_needUpdate = false;
+	_geometry = nullptr;
 }
 
-Break::Renderer::Shape2D::~Shape2D()
+Shape2D::~Shape2D()
 {
 	_geometry = nullptr;
-
+	_texture = nullptr;
 }
 
-void Break::Renderer::Shape2D::append(glm::vec2 v)
+void Shape2D::append(glm::vec2 v, glm::vec4 color, glm::vec2 tex)
 {
 	int count = _vertices.count();
 	if(count>=3)
 	{
-		auto v1 = _vertices[count-2];
-		auto v2 = _vertices[count-1];
-		_vertices.append(v1);
-		_vertices.append(v2);
-	}
-	_vertices.append(Vertex2DPos(v));
-	_needUpdate = true;
-}
-
-void Break::Renderer::Shape2D::append(float x, float y)
-{
-	int count = _vertices.count();
-	auto v = glm::vec2(x,y);
-	if(count>=3)
+		_indices.append(count-2);
+		_indices.append(count-1);
+		_indices.append(count);
+	}else
 	{
-		auto v1 = _vertices[count-2];
-		auto v2 = _vertices[count-1];
-		_vertices.append(v1);
-		_vertices.append(v2);
+		_indices.append(count);
 	}
-	_vertices.append(Vertex2DPos(v));
+	if(color == glm::vec4(-1,-1,-1,-1))
+		_vertices.append(Vertex2DPosColorTex(v,_fillColor,tex));
+	else
+		_vertices.append(Vertex2DPosColorTex(v,color,tex));
+
 	_needUpdate = true;
+
 }
 
-void Break::Renderer::Shape2D::setFillColor(GXWrapper::Color color)
+void Shape2D::append(float x, float y)
+{
+	append(glm::vec2(x,y),_fillColor);
+}
+
+void Shape2D::setTexture(std::shared_ptr<Texture> texture)
+{
+	_texture = texture;
+}
+
+Texture* Shape2D::getTexture()
+{
+	if(_texture)
+		return _texture.get();
+	else
+		return NULL;
+}
+
+void Shape2D::setPosition(float x, float y)
+{
+	transform.position.x = x;
+	transform.position.y = y;
+}
+
+void Shape2D::setScale(float x, float y)
+{
+	transform.scale.x = x;
+	transform.scale.y = y;
+}
+
+void Shape2D::rotate(float angle)
+{
+	transform.rotate(glm::vec3(0,0,1),angle);
+}
+
+void Shape2D::setFillColor(Color color)
 {
 	_fillColor = color;
+	for(int i=0;i<_vertices.count();i++)
+	{
+		_vertices[i].color = _fillColor;
+	}
 }
 
-void Break::Renderer::Shape2D::draw(GXWrapper::Primitive::Mode mode)
+void Shape2D::draw(Primitive::Mode mode)
 {
-	Shader* shader = static_cast<Shader*>(AssetManager::find("_shape2DShader").get());
+	Shader* shader = static_cast<Shader*>(AssetManager::find("_shape2DShader"));
 	if(_needUpdate)
 	{
-		_geometry = std::make_shared<Geometry>(&_vertices,nullptr,Primitive::TRIANGLES);
+		_geometry = std::make_shared<Geometry>(_vertices,&_indices,Primitive::TRIANGLES);
 		_needUpdate = false;
 	}
-	shader->setUniform("ucolor",&_fillColor);
+	//shader->setUniform("model",&glm::mat4(1));
+	shader->setUniform("model",&(transform.getMatrix()));
+	shader->setUniform("view",&glm::mat4(1));
+	shader->setUniform("projection",&(Infrastructure::Engine::Instance->get2DOrthogonal()));
+	glm::vec4 hasTex = glm::vec4(0,1,1,1);
+	if(_texture){
+		hasTex.x=1;
+		shader->setTexture("spTex",_texture.get());
+	}
+	shader->setUniform("hasTexture",&hasTex);
+	//shader->setUniform("projection",&glm::mat4(1));
 	shader->use();
 	if(_geometry){
 		Infrastructure::Engine::Instance->GraphicsDevice->setCullMode(Infrastructure::CullMode::NONE);
-		_geometry->draw(Primitive::NORMAL);
+		_geometry->draw(Primitive::INDEXED);
 		Infrastructure::Engine::Instance->GraphicsDevice->setCullMode(Infrastructure::CullMode::BACK);
 	}
 }
