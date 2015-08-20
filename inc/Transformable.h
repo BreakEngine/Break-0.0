@@ -5,6 +5,7 @@ namespace Break
 {
 	namespace Graphics
 	{
+		///represents a transformable object
 		class Transformable
 		{
 		public:

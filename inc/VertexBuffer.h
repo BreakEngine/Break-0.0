@@ -10,34 +10,35 @@ namespace Break{
 	namespace GXWrapper{
 
 		/*!
-		 * This class is meant to be as an abstract representation of the vertex buffer
+		 * \brief This class is meant to be as an abstract representation of the vertex buffer
+		 * \author Moustapha Saad
 		 */
 		class VertexBuffer : public Buffer<ISet>{
 		public:
 
-			//copy constructor
+			///copy constructor
 			VertexBuffer(const VertexBuffer& val);
 
-			//constructor for initializing an empty buffer based on type
-			VertexBuffer(Buffer::Type,MemoryLayout& layout);
+			///constructor for initializing an empty buffer based on type
+			VertexBuffer(Buffer::Type,MemoryLayout layout);
 
-			//constructor for initializing from a vertex set, the managed way
-			VertexBuffer(ISet*,MemoryLayout& layout,Buffer::Type = Buffer::STATIC);
+			///constructor for initializing from a vertex set, the managed way
+			VertexBuffer(ISet*,MemoryLayout layout,Buffer::Type = Buffer::STATIC);
 
-			//constructor for initializing from a RAMBuffer
-			VertexBuffer(Infrastructure::RAMBufferPtr,MemoryLayout& layout,Buffer::Type);
-
-			//configurable size constructor
-			VertexBuffer(unsigned int size = Buffer::STATIC_OPTIMAL_SIZE,Type = Buffer::STATIC);
+			///constructor for initializing from a RAMBuffer
+			VertexBuffer(Infrastructure::RAMBufferPtr,MemoryLayout layout,Buffer::Type);
 
 			virtual ~VertexBuffer();
 
+			///appends set to the buffer
 			virtual bool append(ISet* set) override;
 
+			///binds buffer to graphics context
 			virtual void use();
 
+			///layout setter
 			void setLayout(MemoryLayout& layout);
-
+			///layout getter
 			MemoryLayout getLayout();
 
 		protected:

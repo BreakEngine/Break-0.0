@@ -1,7 +1,7 @@
 #pragma once
 
 #include <memory>
-#include <glm\glm.hpp>
+#include <glm/glm.hpp>
 
 namespace Break{
 	namespace Infrastructure{

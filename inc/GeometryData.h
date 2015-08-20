@@ -6,21 +6,34 @@
 
 namespace Break{
 	namespace GXWrapper{
+		/**
+		 * \brief holds geometry data
+		 * \author Moustapha Saad
+		 */
 		class GeometryData{
 		public:
+			///vertex buffer pointer
 			std::shared_ptr<VertexBuffer> vertices;
+			///index buffer pointer
 			std::shared_ptr<IndexBuffer> indices;
 
+			///vertices offset in the buffer
 			unsigned int verticesOffset;
+			///vertices count in buffer
 			unsigned int verticesCount;
 
+			///indices offset in buffer
 			unsigned int indicesOffset;
+			///indices count in buffer
 			unsigned int indicesCount;
 
+			///primitive type of the geometry
 			Primitive::Type primitive;
 
+			///indtance count in case of instancing
 			unsigned int instanceCount;
 
+			///default constructor
 			GeometryData(){
 				instanceCount = 1;
 				vertices = nullptr;
@@ -28,6 +41,7 @@ namespace Break{
 				primitive = Primitive::TRIANGLES;
 			}
 
+			///default destructor
 			GeometryData(const GeometryData& val){
 				vertices = val.vertices;
 				indices = val.indices;
@@ -41,6 +55,7 @@ namespace Break{
 				instanceCount = val.instanceCount;
 			}
 
+			///default destructor
 			~GeometryData(){
 				if(vertices)
 					vertices = nullptr;

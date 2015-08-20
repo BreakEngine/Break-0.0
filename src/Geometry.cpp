@@ -1,11 +1,11 @@
 #include "Geometry.h"
-#include <Engine.h>
+#include "Engine.h"
 
 using namespace Break::GXWrapper;
 
 bool Geometry::createGPUResource()
 {
-	return Infrastructure::Engine::Instance->GraphicsDevice->createGeometry(this);
+	return Break::Infrastructure::Engine::Instance->GraphicsDevice->createGeometry(this);
 }
 
 Geometry::Geometry(ISet& vertices, ISet* indices,Primitive::Type type){
@@ -24,15 +24,17 @@ Geometry::Geometry(ISet& vertices, ISet* indices,Primitive::Type type){
 	createGPUResource();
 }
 
-Geometry::Geometry(VertexBuffer& vb,MemoryLayout& layout,IndexBuffer* ib,Primitive::Type type)
+Geometry::Geometry(VertexBuffer* vb,MemoryLayout layout,IndexBuffer* ib,Primitive::Type type)
 {
 	_geometryData.primitive = type;
 	
 	_declaration = layout;
-	_geometryData.vertices = std::shared_ptr<VertexBuffer>(&vb);
-	_geometryData.vertices->setLayout(layout);
-	_geometryData.verticesCount = 0;
-	_geometryData.verticesOffset = 0;
+	if(vb) {
+		_geometryData.vertices = std::shared_ptr<VertexBuffer>(vb);
+		_geometryData.vertices->setLayout(layout);
+		_geometryData.verticesCount = 0;
+		_geometryData.verticesOffset = 0;
+	}
 
 	if(ib){
 		_geometryData.indices = std::shared_ptr<IndexBuffer>(ib);
@@ -70,9 +72,12 @@ GeometryData& Geometry::getGeometryData()
 	return _geometryData;
 }
 
-void Geometry::draw(Primitive::Mode mode)
+void Geometry::draw()
 {
-	Break::Infrastructure::Engine::Instance->GraphicsDevice->drawGeometry(this,mode);
+	if(_geometryData.vertices && _geometryData.indices)
+		Break::Infrastructure::Engine::Instance->GraphicsDevice->drawGeometry(this,Primitive::Mode::INDEXED);
+	else if(_geometryData.vertices)
+		Break::Infrastructure::Engine::Instance->GraphicsDevice->drawGeometry(this,Primitive::Mode::NORMAL);
 }
 
 unsigned int Geometry::getVerticesCount(){

@@ -1,3 +1,4 @@
+#ifdef _WIN32
 #include "DXKeyboard.h"
 #include <utility>
 #include <windows.h>
@@ -475,3 +476,4 @@ void DXKeyboard::keyboardUp(unsigned int k){
 void DXKeyboard::update(){
 	IKeyboard::_data.clear();
 }
+#endif

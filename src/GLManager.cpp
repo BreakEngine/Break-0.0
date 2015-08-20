@@ -16,6 +16,7 @@
 #include "GLShaderHandle.h"
 #include "UniformBuffer.h"
 #include "Texture2D.h"
+#include <cstring>
 using namespace std;
 using namespace Break::Renderer;
 using namespace Break::Infrastructure;
@@ -174,14 +175,14 @@ bool GLManager::init(ApplicationPtr app){
 	
 
 	// Open a window and create its OpenGL context
-
-	window = glfwCreateWindow(app->_display->getWidth(), app->_display->getHeight(),app->_display->getTitle().c_str() , NULL, NULL);
+	window = glfwCreateWindow(app->display->getWidth(), app->display->getHeight(),app->display->getTitle().c_str() , NULL, NULL);
 	if( window == nullptr ){
 		fprintf( stderr, "Failed to open GLFW window. If you have an Intel GPU, they are not 3.3 compatible. Try the 2.1 version of the tutorials.\n" );
 		glfwTerminate();
 		return false;
 	}
 	glfwMakeContextCurrent(window);
+    glfwSwapInterval(0);
 	glewExperimental=true; // Needed in core profile 
 	if (glewInit() != GLEW_OK) {
 		fprintf(stderr, "Failed to initialize GLEW\n");
@@ -203,14 +204,14 @@ bool GLManager::init(ApplicationPtr app){
 
 	//glPolygonMode(GL_FRONT_AND_BACK,GL_POINT);
 
-	Display<GLFWwindow*>* d = new Display<GLFWwindow*>(*app->_display);
+	Display<GLFWwindow*>* d = new Display<GLFWwindow*>(*app->display);
 	d->setHandle(window);
-	app->_display = IDisplayPtr(d);
+	app->display = IDisplayPtr(d);
 	return true;
 }
 
 void GLManager::start(){
-	Display<GLFWwindow*>* d = dynamic_cast<Display<GLFWwindow*>*>(Engine::Instance->Application->_display.get());
+	Display<GLFWwindow*>* d = dynamic_cast<Display<GLFWwindow*>*>(Engine::Instance->Application->display.get());
 	glfwSetKeyCallback(d->getHandle(),&Input::GLKeyboard::keyboardFunc);
 	glfwSetMouseButtonCallback(d->getHandle(),&Input::GLMouse::mouseFunc);
 	glfwSetCursorPosCallback(d->getHandle(),&Input::GLMouse::mouseMotion);
@@ -264,13 +265,13 @@ void GLManager::clearBuffer(){
 }
 
 void GLManager::swapBuffer(){
-	Display<GLFWwindow*>* d = dynamic_cast<Display<GLFWwindow*>*>(Engine::Instance->Application->_display.get());
+	Display<GLFWwindow*>* d = dynamic_cast<Display<GLFWwindow*>*>(Engine::Instance->Application->display.get());
 	glfwSwapBuffers(d->getHandle());
 	d = NULL;
 }
 
 void GLManager::setCursorPostion(glm::uvec2 val){
-	Display<GLFWwindow*>* d = dynamic_cast<Display<GLFWwindow*>*>(Engine::Instance->Application->_display.get());
+	Display<GLFWwindow*>* d = dynamic_cast<Display<GLFWwindow*>*>(Engine::Instance->Application->display.get());
 	glfwSetCursorPos(d->getHandle(),(double)val.x,(double)val.y);
 	d = NULL;
 }
@@ -286,7 +287,7 @@ bool GLManager::createVertexBuffer(GPUResource* buffer){
 	glBindBuffer(GL_ARRAY_BUFFER,id);
 	
 	
-	switch (VBuffer->getType())
+	switch ((int)VBuffer->getType())
 	{
 
 	//static
@@ -320,7 +321,7 @@ bool GLManager::createIndexBuffer(GPUResource* buffer){
 	glGenBuffers(1,&id);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,id);
 
-	switch (IBuffer->getType())
+	switch ((int)IBuffer->getType())
 	{
 
 		//static
@@ -355,6 +356,7 @@ bool GLManager::updateVertexBuffer(GPUResource* buffer, unsigned int offset, uns
 	auto handle = dynamic_cast<GLHandle*>(VBuffer->_handle.get());
 
 	glBindBuffer(GL_ARRAY_BUFFER,handle->ID);
+	//glBufferData(GL_ARRAY_BUFFER,VBuffer->getSize(),NULL,GL_DYNAMIC_DRAW);
 	void* GPUPtr = NULL;
 	GPUPtr = glMapBufferRange(GL_ARRAY_BUFFER,offset,size,GL_MAP_WRITE_BIT|GL_MAP_INVALIDATE_RANGE_BIT );
 
@@ -377,6 +379,7 @@ bool GLManager::updateIndexBuffer(GPUResource* buffer, unsigned int offset, unsi
 	auto handle = dynamic_cast<GLHandle*>(IBuffer->_handle.get());
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,handle->ID);
+	//glBufferData(GL_ELEMENT_ARRAY_BUFFER,IBuffer->getSize(),NULL,GL_DYNAMIC_DRAW);
 	void* GPUPtr = NULL;
 	GPUPtr = glMapBufferRange(GL_ELEMENT_ARRAY_BUFFER,offset,size,GL_MAP_WRITE_BIT |GL_MAP_INVALIDATE_RANGE_BIT );
 
@@ -521,6 +524,7 @@ bool GLManager::updateUniformBuffer(GPUResource* buffer,unsigned int offset,unsi
 	auto handle = dynamic_cast<GLHandle*>(UBuffer->_handle.get());
 
 	glBindBuffer(GL_UNIFORM_BUFFER,handle->ID);
+	//glBufferData(GL_UNIFORM_BUFFER,UBuffer->getSize(),NULL,GL_DYNAMIC_DRAW);
 	void* GPUPtr = NULL;
 	GPUPtr = glMapBufferRange(GL_UNIFORM_BUFFER,offset,size,GL_MAP_WRITE_BIT |GL_MAP_INVALIDATE_RANGE_BIT );
 
@@ -625,7 +629,7 @@ bool GLManager::drawGeometry(Geometry* geometry, Primitive::Mode mode)
 		
 	geoData.primitive;
 
-	switch (mode)
+	switch ((int)mode)
 	{
 	case Primitive::NORMAL:       /*normal drawing*/
 		geoData.vertices->use();

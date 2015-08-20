@@ -1,4 +1,5 @@
 #include "IAttribute.h"
+#include <cstring>
 
 using namespace glm;
 using namespace Break::GXWrapper;
@@ -89,15 +90,15 @@ IAttribute::operator bool&(){
 }
 
 IAttribute::operator vec2&(){
-	return (vec2&)(*_data);
+	return (vec2&)(*this->_data);
 }
 
 IAttribute::operator vec3&(){
-	return (vec3&)(*_data);
+	return (vec3&)(*this->_data);
 }
 
 IAttribute::operator vec4&(){
-	return (vec4&)(*_data);
+	return (vec4&)(*this->_data);
 }
 
 IAttribute& IAttribute::operator=(const IAttribute& val){

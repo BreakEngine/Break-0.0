@@ -4,7 +4,7 @@ namespace Break
 {
 
 	namespace Infrastructure{
-		//template display to handle the gl and dx display handle
+		///template display to handle the gl and dx display handle
 		template<class T>
 		class Display:public IDisplay{
 		protected:

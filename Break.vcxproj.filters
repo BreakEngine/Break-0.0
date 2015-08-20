@@ -19,205 +19,250 @@
     <Filter Include="src">
       <UniqueIdentifier>{b407c67c-9a1a-400e-9270-ba511c07e21e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="inc\Infrastructure">
+      <UniqueIdentifier>{70f2e03a-e28f-42c5-bbe1-6c7b62cd399f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="inc\Assets">
+      <UniqueIdentifier>{32060fa5-26e9-499d-8154-40a0cc94a1dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="inc\GXWrapper">
+      <UniqueIdentifier>{73a212af-da6a-47ca-8c61-734cf33de7e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="inc\Input">
+      <UniqueIdentifier>{736ed294-3123-425c-8f4f-3be925dbc751}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="inc\API">
+      <UniqueIdentifier>{a836523c-cf59-4e71-a94c-8d306df58235}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="inc\Graphics">
+      <UniqueIdentifier>{c151ee69-d345-4ab5-8018-a207c554eeb2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="inc\Audio">
+      <UniqueIdentifier>{8280991d-5c5c-4c6e-82ee-ba97a8ee1e38}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="inc\AccessException.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\Application.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\Buffer.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\Display.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\DXKeyboard.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\DXManager.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\DXMouse.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\Engine.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\Geometry.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\GLHandle.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\GLKeyboard.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\GLManager.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\GLMouse.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\GlobalDefinitions.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\GPUException.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\GPUResource.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\GXWrapper.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\IAttribute.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\IDisplay.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\IGPUHandle.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\IGXManager.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\IKeyboard.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\IMouse.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\IndexBuffer.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\IndexSet.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\Infrastructure.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\InputDevice.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\IRenderer.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\ISet.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\IVertex.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\MemoryException.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\Property.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\RAMBuffer.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\Time.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\TimeStep.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\VertexBuffer.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\VertexSet.h">
-      <Filter>inc</Filter>
-    </ClInclude>
     <ClInclude Include="TestApplication.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="TestVertex.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="inc\Shader.h">
-      <Filter>inc</Filter>
+    <ClInclude Include="inc\AccessException.h">
+      <Filter>inc\Infrastructure</Filter>
     </ClInclude>
-    <ClInclude Include="inc\MemoryLayout.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\MemoryElement.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\DXShaderHandle.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\GLShaderHandle.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\UniformBuffer.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\Pixels.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\Image.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\Texture.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\Texture2D.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\DXTexture2DHandle.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\IDrawable.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\GeometryData.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\SamplerState.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\DXSamplerHandle.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\Shape2D.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\Vertex2DPos.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\Vertex2DPosColor.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\IAsset.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\ContentLoader.h">
-      <Filter>inc</Filter>
+    <ClInclude Include="inc\Application.h">
+      <Filter>inc\Infrastructure</Filter>
     </ClInclude>
     <ClInclude Include="inc\AssetManager.h">
-      <Filter>inc</Filter>
+      <Filter>inc\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Buffer.h">
+      <Filter>inc\GXWrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\ContentLoader.h">
+      <Filter>inc\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Display.h">
+      <Filter>inc\Infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\DXKeyboard.h">
+      <Filter>inc\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\DXManager.h">
+      <Filter>inc\API</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\DXMouse.h">
+      <Filter>inc\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\DXSamplerHandle.h">
+      <Filter>inc\API</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\DXShaderHandle.h">
+      <Filter>inc\API</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\DXTexture2DHandle.h">
+      <Filter>inc\API</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Engine.h">
+      <Filter>inc\Infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Geometry.h">
+      <Filter>inc\GXWrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\GeometryData.h">
+      <Filter>inc\GXWrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\GLHandle.h">
+      <Filter>inc\API</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\GLKeyboard.h">
+      <Filter>inc\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\GLManager.h">
+      <Filter>inc\API</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\GLMouse.h">
+      <Filter>inc\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\GlobalDefinitions.h">
+      <Filter>inc\Infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\GLShaderHandle.h">
+      <Filter>inc\API</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\GPUException.h">
+      <Filter>inc\Infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\GPUResource.h">
+      <Filter>inc\Infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\GXWrapper.h">
+      <Filter>inc\GXWrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\IAsset.h">
+      <Filter>inc\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\IAttribute.h">
+      <Filter>inc\GXWrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\IDisplay.h">
+      <Filter>inc\Infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\IDrawable.h">
+      <Filter>inc\GXWrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\IGPUHandle.h">
+      <Filter>inc\Infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\IGXManager.h">
+      <Filter>inc\Infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\IKeyboard.h">
+      <Filter>inc\Infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Image.h">
+      <Filter>inc\GXWrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\IMouse.h">
+      <Filter>inc\Infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\IndexBuffer.h">
+      <Filter>inc\GXWrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\IndexSet.h">
+      <Filter>inc\GXWrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Infrastructure.h">
+      <Filter>inc\Infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\InputDevice.h">
+      <Filter>inc\Infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\IRenderer.h">
+      <Filter>inc\Infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\IVertex.h">
+      <Filter>inc\GXWrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\ISet.h">
+      <Filter>inc\GXWrapper</Filter>
     </ClInclude>
     <ClInclude Include="inc\MathUtils.h">
-      <Filter>inc</Filter>
+      <Filter>inc\Infrastructure</Filter>
     </ClInclude>
-    <ClInclude Include="inc\Vertex2DPosColorTex.h">
-      <Filter>inc</Filter>
+    <ClInclude Include="inc\MemoryException.h">
+      <Filter>inc\Infrastructure</Filter>
     </ClInclude>
-    <ClInclude Include="inc\Transform.h">
-      <Filter>inc</Filter>
+    <ClInclude Include="inc\Pixels.h">
+      <Filter>inc\GXWrapper</Filter>
     </ClInclude>
-    <ClInclude Include="inc\Transformable.h">
-      <Filter>inc</Filter>
+    <ClInclude Include="inc\MemoryElement.h">
+      <Filter>inc\GXWrapper</Filter>
     </ClInclude>
-    <ClInclude Include="inc\SpriteBatch.h">
-      <Filter>inc</Filter>
+    <ClInclude Include="inc\MemoryLayout.h">
+      <Filter>inc\GXWrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Property.h">
+      <Filter>inc\Infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\SamplerState.h">
+      <Filter>inc\GXWrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\RAMBuffer.h">
+      <Filter>inc\Infrastructure</Filter>
     </ClInclude>
     <ClInclude Include="inc\Rect.h">
-      <Filter>inc</Filter>
+      <Filter>inc\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Shader.h">
+      <Filter>inc\GXWrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Shape2D.h">
+      <Filter>inc\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\SpriteBatch.h">
+      <Filter>inc\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Texture.h">
+      <Filter>inc\GXWrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Texture2D.h">
+      <Filter>inc\GXWrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Time.h">
+      <Filter>inc\Infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\TimeStep.h">
+      <Filter>inc\Infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Transformable.h">
+      <Filter>inc\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Transform.h">
+      <Filter>inc\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\UniformBuffer.h">
+      <Filter>inc\GXWrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Vertex2DPos.h">
+      <Filter>inc\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Vertex2DPosColor.h">
+      <Filter>inc\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Vertex2DPosColorTex.h">
+      <Filter>inc\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\VertexBuffer.h">
+      <Filter>inc\GXWrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\VertexSet.h">
+      <Filter>inc\GXWrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Scene.h">
+      <Filter>inc\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\IUpdateable.h">
+      <Filter>inc\GXWrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Entity.h">
+      <Filter>inc\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Sprite.h">
+      <Filter>inc\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Music.h">
+      <Filter>inc\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Sound.h">
+      <Filter>inc\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\SoundEffect.h">
+      <Filter>inc\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioTest.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -322,6 +367,15 @@
     </ClCompile>
     <ClCompile Include="src\SpriteBatch.cpp">
       <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MathUtils.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioTest.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

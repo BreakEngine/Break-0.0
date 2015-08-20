@@ -6,7 +6,7 @@
 using namespace Break::GXWrapper;
 using namespace std;
 
-Shader::Shader(string vs,string ps,MemoryLayout& inputLayout):_vs(vs),_ps(ps),_inputLayout(inputLayout){
+Shader::Shader(string vs,string ps,MemoryLayout inputLayout):_vs(vs),_ps(ps),_inputLayout(inputLayout){
 	_type = Assets::IAsset::SHADER;
 	createGPUResource();
 	_vs.clear();

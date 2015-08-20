@@ -1,3 +1,4 @@
+#define GLM_FORCE_RADIANS
 #include "Shape2D.h"
 #include <Shader.h>
 #include <AssetManager.h>
@@ -86,7 +87,7 @@ void Shape2D::setFillColor(Color color)
 	}
 }
 
-void Shape2D::draw(Primitive::Mode mode)
+void Shape2D::draw()
 {
 	Shader* shader = static_cast<Shader*>(AssetManager::find("_shape2DShader"));
 	if(_needUpdate)
@@ -95,9 +96,12 @@ void Shape2D::draw(Primitive::Mode mode)
 		_needUpdate = false;
 	}
 	//shader->setUniform("model",&glm::mat4(1));
-	shader->setUniform("model",&(transform.getMatrix()));
-	shader->setUniform("view",&glm::mat4(1));
-	shader->setUniform("projection",&(Infrastructure::Engine::Instance->get2DOrthogonal()));
+    auto tmat = transform.getMatrix();
+    auto idmat = glm::mat4(1);
+    auto proj = Infrastructure::Engine::Instance->get2DOrthogonal();
+	shader->setUniform("model",&tmat);
+	shader->setUniform("view",&idmat);
+	shader->setUniform("projection",&proj);
 	glm::vec4 hasTex = glm::vec4(0,1,1,1);
 	if(_texture){
 		hasTex.x=1;
@@ -108,7 +112,7 @@ void Shape2D::draw(Primitive::Mode mode)
 	shader->use();
 	if(_geometry){
 		Infrastructure::Engine::Instance->GraphicsDevice->setCullMode(Infrastructure::CullMode::NONE);
-		_geometry->draw(Primitive::INDEXED);
+		_geometry->draw();
 		Infrastructure::Engine::Instance->GraphicsDevice->setCullMode(Infrastructure::CullMode::BACK);
 	}
 }

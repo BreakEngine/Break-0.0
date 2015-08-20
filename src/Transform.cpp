@@ -1,7 +1,10 @@
+#define GLM_FORCE_RADIANS
 #include "Transform.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <time.h>
+#include "MathUtils.h"
 using namespace Break::Graphics;
+using namespace Break::Infrastructure;
 using namespace glm;
 
 Transform::Transform(const glm::vec3 pos, const glm::quat rot, glm::vec3 scl)
@@ -29,7 +32,8 @@ glm::mat4 Transform::getMatrix()
 
 void Transform::rotate(const glm::vec3 axis, float angle)
 {
-	rotation *= glm::angleAxis(angle,axis);
+
+	rotation *= glm::angleAxis(MathUtils::toRadians(angle),axis);
 }
 
 void Transform::move(const glm::vec3 dir, float val)

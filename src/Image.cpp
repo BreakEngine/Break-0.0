@@ -1,9 +1,12 @@
 #include "Image.h"
+#include <cstring>
 
+using namespace std;
 using namespace Break::GXWrapper;
+using namespace Break::Assets;
 
 Image::Image(){
-	_type = IAsset::IMAGE;
+	_type = Assets::IAsset::Type::IMAGE;
 	_width = 0;
 	_height = 0;
 	_depth = 0;

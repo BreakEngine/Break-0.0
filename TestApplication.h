@@ -1,3 +1,4 @@
+#ifndef LIBRARY_BUILD
 #pragma once
 #include "Infrastructure.h"
 #include "GXWrapper.h"
@@ -8,11 +9,22 @@
 #include "ContentLoader.h"
 #include "inc/Shape2D.h"
 #include "SpriteBatch.h"
+#include "inc/Sprite.h"
+#include "Music.h"
 
 using namespace std;
 using namespace Break::Infrastructure;
 using namespace Break::GXWrapper;
+using namespace Break::Assets;
 
+class spTest:public Break::Graphics::Sprite
+{
+public:
+	spTest(Break::Graphics::SpriteBatch* sp,Texture2DPtr tex):Sprite(sp,tex)
+	{
+		
+	}
+};
 class TestApp:public Application{
 public:
 	GeometryPtr moka;
@@ -20,22 +32,24 @@ public:
 	Texture2DPtr tex,spTex;
 	ShaderPtr shader;
 	vec4 globalColor;
-
-	Break::Graphics::SpriteBatch* sp;
+	Break::Graphics::SpritePtr all,mm;
 	Break::Graphics::Shape2D wrect;
 	std::vector<Break::Graphics::Shape2D> triangles;
+
+	Break::Audio::MusicPtr forest;
+
 	TestApp(){
-		_display = IDisplayPtr(new IDisplay(640,480,"Test Application"));
+		display = IDisplayPtr(new IDisplay(640,480,"Test Application"));
 		scounter = 0;
 	}
 	~TestApp(){
-
 	}
 	void init(){
 		Time::setFrameLimit(60);
 		Time::setType(Time::Type::UNLIMITED);
 
-		sp = new Break::Graphics::SpriteBatch();
+
+		Application::init();
 	}
 	void setupScene(){
 		triangles.resize(1000);
@@ -46,6 +60,8 @@ public:
 			triangles[i].append(100,100);
 			triangles[i].setPosition(rand()%640,rand()%480);
 		}
+
+
 		wrect.append(0,0);
 		wrect.append(0,100);
 		wrect.append(100,0);
@@ -54,16 +70,21 @@ public:
 		//wrect.append(0,0.9);
 		wrect.setPosition(640/2,480/2);
 		wrect.setFillColor(Color(255,0,0,255));
+
+		forest = ContentLoader::load<Break::Audio::Music>("res//audio//forest.mp3");
+		//forest->play();
+
+		Application::setupScene();
 	}
 	void loadResources(){
 
 		VertexSet<tv> veve(tv::getDeclaration());
 		IndexSet soso;
 
-		veve.append(tv(vec4(1,-1,0,1)*0.5f,vec4(1,0,0,1),vec2(1,1)));
-		veve.append(tv(vec4(1,1,0,1)*0.5f,vec4(0,1,0,1),vec2(1,0)));
-		veve.append(tv(vec4(-1,-1,0,1)*0.5f,vec4(0,0,1,1),vec2(0,1)));
-		veve.append(tv(vec4(-1,1,0,1)*0.5f,vec4(1,0,1,1),vec2(0,0)));
+		veve.append(tv(vec4(1,-1,1,1)*0.5f,vec4(1,0,0,1),vec2(1,1)));
+		veve.append(tv(vec4(1,1,1,1)*0.5f,vec4(0,1,0,1),vec2(1,0)));
+		veve.append(tv(vec4(-1,-1,1,1)*0.5f,vec4(0,0,1,1),vec2(0,1)));
+		veve.append(tv(vec4(-1,1,1,1)*0.5f,vec4(1,0,1,1),vec2(0,0)));
 
 		//Triangles
 		soso.append(0);
@@ -183,15 +204,27 @@ public:
 
 		ImagePtr loaded = ContentLoader::load<Image>("res\\textures\\grass.jpg");
 		spTex = ContentLoader::load<Texture2D>("res\\textures\\megaman.png");
+		all = make_shared<Break::Graphics::Sprite>(spriteBatch,spTex);
+		auto nullsp = make_shared<spTest>(spriteBatch,spTex);
+		nullsp->setColor(Color(150,100,57,255));
+		mm = make_shared<Break::Graphics::Sprite>(spriteBatch);
+		mm->setSize(50,50);
+		mm->setPosition(400,400);
+		mm->setColor(Color(0,255,0,255));
+		scene->addChild(mm);
+		all->setSize(16,16);
+		all->setPosition(200,200);
+		scene->addChild(nullsp);
+		scene->addChild(all);
 		tex = make_shared<Texture2D>(loaded);
 		shader->setTexture("diffuseS",tex.get());
 		//tex->update(img);
 		//tex->use(Shader::PIXEL,0);
 		cout<<"moka moka"<<endl;
-		
+		Application::loadResources();
 	}
 	void cleanUp(){
-
+		Application::cleanUp();
 	}
 	void randomizeTexture()
 	{
@@ -205,6 +238,7 @@ public:
 			}
 		}
 		tex->update(image);
+
 	}
 	void input(){
 		bool pressed = false;
@@ -249,6 +283,8 @@ public:
 		//closes when user press ESC
 		if(IKeyboard::getKey(IKeyboard::Esc) == IKeyboard::State_Down)
 			this->shutdown();
+		
+		Application::input();
 	}
 	void update(TimeStep time){
 		wrect.rotate(time.delta*100);
@@ -260,6 +296,7 @@ public:
 			cout<<Time::getFPS()<<endl;
 			scounter = 0;
 		}
+		Application::update(time);
 	}
 	void render(){
 		//Engine::Instance->GraphicsDevice->setCullMode(CullMode::NONE);
@@ -270,21 +307,27 @@ public:
 			triangles[i].draw();
 		}*/
 		static float angle = 0;
-		sp->begin();
-		for(int i=0;i<20;i++)
-			sp->draw(NULL,rand()%320,rand()%240,20,20,Color(255,0,0,255));
-		for(int i=0;i<0;i++)
-			sp->draw(tex.get(),rand()%320+320,rand()%240+240,10,10,Color(0,0,255,255));
-		for(int i=0;i<0;i++)
-			sp->draw(NULL, Break::Graphics::Rect(640/2,480/2,100,100),angle,Color(255,255,255,255));
+
+		spriteBatch->begin();
 		
-		sp->draw(spTex.get(), Break::Graphics::Rect(430,320,16,16),angle/10,Color(255,255,255,255));
-		sp->end();
+		for(int i=0;i<0;i++)
+			spriteBatch->draw(NULL,rand()%320,rand()%240,20,20,Color(255,0,0,255));
+		for(int i=0;i<0;i++)
+			spriteBatch->draw(tex.get(),rand()%320+320,rand()%240+240,10,10,Color(0,0,255,255));
+		for(int i=0;i<0;i++)
+			spriteBatch->draw(NULL, Break::Graphics::Rect(640/2,480/2,100,100),angle,Color(255,255,255,255));
+		
+		spriteBatch->draw(spTex.get(), Break::Graphics::Rect(420,50,32,32),Break::Graphics::Rect(0,16,16,16),0,Color(255,255,255,255));
+		spriteBatch->draw(NULL, Break::Graphics::Rect(420,400,16,16),0,Color(255,255,255,127));
+		//mm->draw();
+		spriteBatch->end();
 		//Engine::Instance->GraphicsDevice->setCullMode(CullMode::BACK);
 		shader->use();
 		shader->setTexture("diffuseS",tex.get());
 		//tex->use(Shader::PIXEL,0);
-		moka->draw(Primitive::INDEXED);
+		moka->draw();
 		angle--;
+		Application::render();
 	}
 };
+#endif

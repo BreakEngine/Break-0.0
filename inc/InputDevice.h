@@ -5,11 +5,11 @@ namespace Break{
 		//predefine engine class
 		class Engine;
 
+		///represents an input device
 		class InputDevice{
-			//setting engine as a friend class
 			friend class Engine;
 		public:
-			//constructor
+			///default constructor
 			InputDevice();
 			//virtual destructor
 			virtual ~InputDevice();

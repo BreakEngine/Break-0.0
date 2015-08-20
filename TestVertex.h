@@ -1,3 +1,4 @@
+#ifndef LIBRARY_BUILD
 #pragma  once
 
 #include "IVertex.h"
@@ -25,3 +26,4 @@ public:
 	}
 
 };
+#endif

@@ -2,21 +2,31 @@
 #include "IDisplay.h"
 #include "TimeStep.h"
 #include <memory>
+#include "Scene.h"
+
 namespace Break{
 	namespace Renderer{
 		class GLManager;
 		class DXManager;
 	}
 	namespace Infrastructure{
-		
+		/**
+		 * \brief represents the application that engine will run
+		 * \author Moustapha Saad
+		 */
 		class Application{
 			friend class Renderer::GLManager;
 			friend class Renderer::DXManager;
 		protected:
-			IDisplayPtr _display;
+			/// display of this application
+			IDisplayPtr display;
+
+			/// scene that's being rendered by this application
+			Graphics::Scene* scene;
+			/// handle to scene's spritebatch just for easy access
+			Graphics::SpriteBatch* spriteBatch;
 
 			/*!
-			 * \function void shutdown()
 			 *
 			 * \brief closes the Application
 			 *
@@ -24,37 +34,74 @@ namespace Break{
 			 */
 			void shutdown();
 		public:
+			/**
+			 * \brief default constructor
+			 * \author Moustapha Saad
+			 */
 			Application();
+
+			/**
+			 * \brief default virtual destructor
+			 * \author Moustapha Saad
+			 */
 			virtual ~Application();
 
+			/**
+			 * \brief returns the display of this application
+			 * \return std::shared_ptr<IDisplay>
+			 * \author Moustapha Saad
+			 */
 			IDisplayPtr getDisplay();
-			//setup function called once
+
+			/**
+			 * \brief initialization function called only once at start
+			 * \author Moustapha Saad
+			 */
 			virtual void init();
-			//setup scene function called once
-			virtual void setupScene();
-			//load Resources function called once
+
+			/**
+			 * \brief resource loading function called only once at start
+			 * \author Moustapha Saad
+			 */
 			virtual void loadResources();
 
 			/**
-			 * @fn	virtual void Application::cleanUp();
+			 * \brief setup function called only once at start
+			 * \author Moustapha Saad
+			 */
+			virtual void setupScene();
+
+			/**
 			 *
-			 * @brief	Clean up resources used in this application.
+			 * \brief	Clean up resources used in this application.
 			 *
-			 * @author	Moustapha Saad
-			 * @date	05/02/2015
+			 * \author	Moustapha Saad
 			 */
 
 			virtual void cleanUp();
 
-			//functions that will be called every frame
-			//input function
+
+			/**
+			 * \brief input function called once every frame
+			 * \author Moustapha Saad
+			 */
 			virtual void input();
-			//update it will take the timestep later
+
+			/**
+			 * \brief update function called once every frame
+			 * \param time time step that has info about delta time and elapsed time
+			 * \author Moustapha Saad
+			 */
 			virtual void update(TimeStep time);
-			//render function
+
+			/**
+			 * \brief render function called once every frame
+			 * \author Moustapha Saad
+			 */
 			virtual void render();
 
 		};
+		///type alias for application shared_ptr
 		typedef std::shared_ptr<Application> ApplicationPtr;
 	}
 }

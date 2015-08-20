@@ -10,17 +10,51 @@ namespace Break
 	}
 	namespace Assets
 	{
+		/**
+		 * \brief manages project assets, but the user has to register the asses in the first place
+		 * \author Moustapha Saad
+		 */
 		class AssetManager
 		{
 			friend class Infrastructure::Engine;
+
+			/// assets table
 			static std::map<std::string, IAssetPtr> _assetTable;
 
+			/*
+			 * \brief populates the table with the default assets
+			 * \author Moustapha Saad
+			 */
 			static void addDefaultAssets();
+
+			/**
+			 * \brief performs memory cleanup before destruction
+			 * \author Moustapha Saad
+			 */
 			static void cleanUp();
 		public:
-			static IAsset* find(std::string);
-			static void add(IAssetPtr);
-			static void add(std::string name,IAssetPtr res);
+			/**
+			 * \brief search the table for an asset
+			 * \param name name of the asset
+			 * \return IAsset pointer
+			 * \author Moustapha Saad
+			 */
+			static IAsset* find(std::string name);
+
+			/**
+			 * \brief adds an asset to asset table
+			 * \param asset asset shared pointer
+			 * \author Moustapha Saad
+			 */
+			static void add(IAssetPtr asset);
+
+			/**
+			 * \brief adds an asset with a custom name, it actaully changes the name of the asset
+			 * \param name name of the asset
+			 * \param asset asset shared pointer
+			 * \author Moustapha Saad
+			 */
+			static void add(std::string name,IAssetPtr asset);
 		};
 	}
 }

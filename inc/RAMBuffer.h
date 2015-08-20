@@ -7,44 +7,82 @@ namespace Break{
 		class RAMBuffer{
 		protected:
 
-			//pointer to the data
+			///pointer to the data
 			byte* _data;
-			//size of the data
+			///size of the data
 			unsigned int _size;
-			//how many bytes filled
+			///how many bytes filled
 			unsigned int _fillStatus;
+			///boolean to indicate if this class should delete the allocated block
+			bool _shouldDelete;
 		public:
-			//default constructor doing nothing
+			///default constructor doing nothing
 			RAMBuffer();
-			//allocates the needed size
+
+			/**
+			 * \brief size init constructor
+			 * \param size size of the buffer
+			 * \author Moustapha Saad
+			 */
 			RAMBuffer(unsigned int size);
-			//Just converting to RAMBuffer from an ordinary array
+
+			/**
+			 * \brief existing data init constructor
+			 * \param ptr pointer to existing data
+			 * \param size size of the buffer
+			 * \param deep indicates whether deep copy or shallow (OPTIONAL) default true
+			 */
 			RAMBuffer(void* ptr,unsigned int size,bool deep = true);
-			//copy constructor
+
+			///copy constructor
 			RAMBuffer(const RAMBuffer& val);
 
+			///virtual destructor
 			virtual ~RAMBuffer();
-			//reallocates memory
+
+			///reallocates memory
 			virtual void reallocate(unsigned int size);
-			//appends the following data if it can to stream
+
+			/**
+			 * \brief appends data to buffer
+			 * \param data pointer to data to be appended
+			 * \param size size of the data
+			 * \return true if appended successfully false otherwise
+			 * \author Moustapha Saad
+			 */
 			virtual bool append(void* data,unsigned int size);
-			//appends two RAM buffers
+
+			///appends two RAM buffers
 			virtual bool append(std::shared_ptr<RAMBuffer>);
-			//overwrites a certain amount of data in ram
+
+			/**
+			 * \brief overwrites a certain amount of data in ram
+			 * \param data pointer to data in memory
+			 * \param size size of the data
+			 * \param start offset inside the buffer
+			 * \return true in case of success false otherwise
+			 */
 			virtual bool map(void* data,unsigned int size,unsigned int start);
-			//cleans the data and free the memory
+
+			///cleans the data and free the memory
 			void clear();
-			//returns pointer to the data
+
+			///returns pointer to the data
 			byte* getData(unsigned int offset=0);
-			//returns size of the buffer
+
+			///returns size of the buffer
 			unsigned int getSize();
-			//returns used size
+
+			///returns used size
 			unsigned int getUsedSize();
-			//transforms the current buffer to a handle to existing block of memory
-			void handleToExistingBuffer(void* data,unsigned int size);
-			//deletes the current buffer
+
+			///transforms the current buffer to a handle to existing block of memory
+			void handleToExistingBuffer(void* data,unsigned int size,bool deleteOld=true);
+
+			///deletes the current buffer
 			void deleteBuffer();
-			//returns a deep copy of the buffer
+
+			///returns a deep copy of the buffer
 			std::shared_ptr<RAMBuffer> clone();
 
 		};

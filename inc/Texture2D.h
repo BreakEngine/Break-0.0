@@ -6,6 +6,8 @@
 
 namespace Break{
 	namespace GXWrapper{
+
+		///represents a texture 2d object
 		class Texture2D:public Texture{
 		public:
 			Texture2D(ImagePtr src,bool mipmaps=false);

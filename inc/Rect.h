@@ -4,6 +4,8 @@ namespace Break
 {
 	namespace Graphics
 	{
+
+		///represents a rectangle struct
 		struct Rect
 		{
 			float x,y,width,height;
@@ -14,6 +16,14 @@ namespace Break
 				y=_y;
 				width=_width;
 				height = _height;
+			}
+
+			Rect(const Rect& other)
+			{
+				this->x = other.x;
+				this->y = other.y;
+				this->width = other.width;
+				this->height = other.height;
 			}
 		};
 	}

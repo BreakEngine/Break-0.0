@@ -8,12 +8,14 @@ RAMBuffer::RAMBuffer(unsigned int size){
 	_fillStatus = 0;
 	_size = size;
 	_data = new byte[_size];
+	_shouldDelete = true;
 }
 
 RAMBuffer::RAMBuffer(){
 	_size = 0;
 	_fillStatus = 0;
 	_data = NULL;
+	_shouldDelete = true;
 }
 
 RAMBuffer::RAMBuffer(void* ptr,unsigned int size, bool deep){
@@ -21,11 +23,13 @@ RAMBuffer::RAMBuffer(void* ptr,unsigned int size, bool deep){
 		_data = (byte*)ptr;
 		_size = size;
 		_fillStatus = size;
+		_shouldDelete = false;
 	}else{
 		_fillStatus = size;
 		_size = size;
 		_data = new byte[_size];
 		memcpy(_data,ptr,_size);
+		_shouldDelete = true;
 	}
 }
 
@@ -33,10 +37,11 @@ RAMBuffer::RAMBuffer(const RAMBuffer& val){
 	_size = val._size;
 	_data = val._data;
 	_fillStatus = val._fillStatus;
+	_shouldDelete = false;
 }
 
 RAMBuffer::~RAMBuffer(){
-	if(_data)
+	if(_data && _shouldDelete)
 		delete[] _data;
 }
 
@@ -99,8 +104,12 @@ unsigned int RAMBuffer::getUsedSize(){
 	return _fillStatus;
 }
 
-void RAMBuffer::handleToExistingBuffer(void* data, unsigned size)
+void RAMBuffer::handleToExistingBuffer(void* data, unsigned size,bool deleteOld)
 {
+	/*
+	if(deleteOld)
+		delete[] _data;
+	*/
 	_data = (byte*)data;
 	_size = size;
 	_fillStatus = size;

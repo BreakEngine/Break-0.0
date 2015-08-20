@@ -3,6 +3,12 @@
 #if defined(WIN32) ||defined(_WIN32) || defined(__WIN32__)|| defined(_WIN64) || defined(WIN64)
 #define WINDOWS
 #include <windows.h>
+#elif defined(__linux__) || defined(__unix__)
+#define OS_LINUX
+#include <sys/time.h>
+#include <bits/time.h>
+#include <time.h>
+static const long NANOSECONDS_PER_SECOND = 1000000000L;
 #endif
 
 using namespace Break::Infrastructure;
@@ -18,6 +24,12 @@ double Time::_secondTick = 0;
 unsigned int Time::_frameCounter = 0;
 double Time::_totalElapsedTime = 0;
 unsigned int Time::FPS = 0;
+TimeStep Time::_previousStep = TimeStep(0,0);
+
+TimeStep Time::getTimeStep()
+{
+	return _previousStep;
+}
 
 double Time::getTime(){
 #ifdef WINDOWS
@@ -33,6 +45,11 @@ double Time::getTime(){
 		throw exception("QueryPerformanceCounter can't get the time");
 	}
 	return double(li.QuadPart)/_freq;
+#endif
+#ifdef OS_LINUX
+    timespec ts;
+    clock_gettime(CLOCK_REALTIME, &ts);
+    return (double)(((long) ts.tv_sec * NANOSECONDS_PER_SECOND) + ts.tv_nsec)/((double)(NANOSECONDS_PER_SECOND));
 #endif
 }
 

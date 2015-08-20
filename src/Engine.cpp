@@ -1,3 +1,4 @@
+#define GLM_FORCE_RADIANS
 #include "Engine.h"
 #include <exception>
 #include <iostream>
@@ -9,11 +10,15 @@
 #include "GLMouse.h"
 #include "DXMouse.h"
 #include "AssetManager.h"
-#include <glm/gtc/matrix_transform.inl>
+#include <glm/gtc/matrix_transform.hpp>
+#include <SDL_mixer.h>
 using namespace std;
 using namespace Break::Infrastructure;
 using namespace Break::Renderer;
 EnginePtr Engine::_instance = nullptr;
+
+#pragma comment(lib,"SDL2_mixer.lib")
+#pragma comment(lib,"SDL2.lib")
 
 Property<EnginePtr,Engine,Permission::READ> Engine::Instance((*Engine::_instance.get()),&Engine::get,&Engine::set);
 
@@ -53,11 +58,13 @@ void Engine::setup(ApplicationPtr app,API api,IRendererPtr renderer){
 		_inputDevices.push_back(IKeyboardPtr(new Input::GLKeyboard()));
 		_inputDevices.push_back(IMousePtr(new Input::GLMouse()));
 	}else if(_api == API::DIRECTX){
+		#ifdef _WIN32
 		_graphicsManager = IGXManagerPtr(new DXManager());
 		_inputDevices.push_back(IKeyboardPtr(new Input::DXKeyboard()));
 		_inputDevices.push_back(IMousePtr(new Input::DXMouse()));
+		#endif
 	}else{
-		throw exception("API parameter is not initialized");
+		throw runtime_error("API parameter is not initialized");
 	}
 }
 
@@ -68,9 +75,18 @@ ApplicationPtr Engine::getApplication(){
 	return _application;
 }
 
+void Engine::initAudio()
+{
+	Mix_Init(0);
+	if(Mix_OpenAudio(MIX_DEFAULT_FREQUENCY*2,MIX_DEFAULT_FORMAT,2,2048)<0)
+	{
+		std::cerr<<"Cannot initialize audio"<<std::endl;
+	}
+}
 bool Engine::init(){
 	try{
 		//init graphics device manager
+		initAudio();
 		_initFinished = _graphicsManager->init(_application);
 		Assets::AssetManager::addDefaultAssets();
 		if(_application){
@@ -107,6 +123,7 @@ void Engine::cleanUp(){
 		}
 		_inputDevices.clear();
 	}
+	Mix_Quit();
 }
 
 IRenderer* Engine::getRenderer()
@@ -190,7 +207,9 @@ void Engine::gameloop(){
 	}
 	//calling the processing functions every loop
 	input();
-	update(TimeStep(delta, Time::_totalElapsedTime));
+	Time::_previousStep.delta = delta;
+	Time::_previousStep.elapsedTime = Time::_totalElapsedTime;
+	update(Time::_previousStep);
 	//if need render then render the scene
 	if (needRender)
 	{

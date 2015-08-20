@@ -1,3 +1,4 @@
+#ifdef _WIN32
 #include "DXManager.h"
 #include "Display.h"
 #include "Engine.h"
@@ -61,12 +62,12 @@ bool DXManager::init(ApplicationPtr app){
 
 	RegisterClassEx(&wc);
 
-	RECT wr = { 0, 0, app->_display->getWidth(), app->_display->getHeight() };    // set the size, but not the position
+	RECT wr = { 0, 0, app->display->getWidth(), app->display->getHeight() };    // set the size, but not the position
 	AdjustWindowRect(&wr, WS_OVERLAPPEDWINDOW, FALSE);    // adjust the size
 
 	hWnd = CreateWindowEx(NULL,
 		"WindowClass1",
-		app->_display->getTitle().c_str(),
+		app->display->getTitle().c_str(),
 		WS_OVERLAPPEDWINDOW,
 		100,
 		100,
@@ -80,12 +81,12 @@ bool DXManager::init(ApplicationPtr app){
 
 	// set up and initialize Direct3D
 
-	Display<HWND>* d = new Display<HWND>(*app->_display);
+	Display<HWND>* d = new Display<HWND>(*app->display);
 	d->setHandle(hWnd);
-	app->_display = IDisplayPtr(d);
+	app->display = IDisplayPtr(d);
 
 
-	return this->initD3D(hWnd,app->_display->getWidth(),app->_display->getHeight(),_vsync,false);
+	return this->initD3D(hWnd,app->display->getWidth(),app->display->getHeight(),_vsync,false);
 
 
 }
@@ -536,7 +537,7 @@ void DXManager::swapBuffer(){
 	}
 }
 void DXManager::setCursorPostion(glm::uvec2 val){
-	Display<HWND>* d = dynamic_cast<Display<HWND>*>(Engine::Instance->Application->_display.get());
+	Display<HWND>* d = dynamic_cast<Display<HWND>*>(Engine::Instance->Application->display.get());
 	HWND hnd = d->getHandle();
 	POINT pt;
 	pt.x = val.x;
@@ -1320,3 +1321,4 @@ bool DXManager::applySamplerStateToTexture2D(GPUResource* sampler, GPUResource* 
 {
 	return true;
 }
+#endif

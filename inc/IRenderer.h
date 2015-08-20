@@ -4,12 +4,12 @@
 
 namespace Break{
 	namespace Infrastructure{
-		//renderer class to determine each segmant of the gameloop
+		///renderer class to determine each segmant of the gameloop
 		class IRenderer{
 		public:
-			//public default constructor
+			///public default constructor
 			IRenderer();
-			//public default destructor
+			///public default destructor
 			virtual ~IRenderer();
 			/*!
 			 * \function input

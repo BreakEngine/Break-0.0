@@ -1,3 +1,4 @@
+#ifdef _WIN32
 #include "DXMouse.h"
 #include<windows.h>
 using namespace Break::Input;
@@ -19,3 +20,4 @@ void DXMouse::mouseMove(int x, int y){
 	_position.x = x;
 	_position.y = y;
 }
+#endif

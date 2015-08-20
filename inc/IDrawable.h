@@ -1,8 +1,14 @@
+#pragma once
+
 namespace Break{
 	namespace GXWrapper{
-
+		/**
+		 * \brief API Primitve
+		 * \author Mohammed Shaalan
+		 */
 		struct Primitive{
 
+			///primitive type
 			enum Type
 			{
 				POINTS = 0,
@@ -14,6 +20,7 @@ namespace Break{
 				//TRIANGLE_FAN = 6
 			};
 
+			///primitve Mode
 			enum Mode
 			{
 				NORMAL = 0,
@@ -24,16 +31,19 @@ namespace Break{
 
 		};
 
-		//interface to Draw Everything
+		/**
+		 * \brief draw interface
+		 * \author Mohammed Shaalan
+		 */
 		class IDrawable
 		{
 		public:
-			/*
-			everything will draw throw this ..
-			*/
 
-
-			virtual void draw(Primitive::Mode _mode) = 0;
+			/**
+			 * \brief abstract draw function
+			 * \author Mohammed Shaalan
+			 */
+			virtual void draw() = 0;
 		};
 
 	}

@@ -31,7 +31,7 @@ uint MemoryLayout::calcSize(){
 	return _size;
 }
 
-void MemoryLayout::append(MemoryElement& v){
+void MemoryLayout::append(MemoryElement v){
 	if(v.offset == 0)
 		v.offset = _size;
 	elements.push_back(v);

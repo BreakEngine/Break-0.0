@@ -8,7 +8,7 @@ using namespace Break::GXWrapper;
 using namespace Break::Infrastructure;
 
 
-VertexBuffer::VertexBuffer(Buffer::Type t,MemoryLayout& layout){
+VertexBuffer::VertexBuffer(Buffer::Type t,MemoryLayout layout){
 	_type = t;
 	_layout = layout;
 	if(_type == Buffer::DYNAMIC)
@@ -20,7 +20,7 @@ VertexBuffer::VertexBuffer(Buffer::Type t,MemoryLayout& layout){
 	createGPUResource();
 }
 
-VertexBuffer::VertexBuffer(ISet* set,MemoryLayout& layout,Buffer::Type t){
+VertexBuffer::VertexBuffer(ISet* set,MemoryLayout layout,Buffer::Type t){
 	_type = t;
 	_layout = layout;
 	_buffer = set->getData();
@@ -28,17 +28,10 @@ VertexBuffer::VertexBuffer(ISet* set,MemoryLayout& layout,Buffer::Type t){
 	createGPUResource();
 }
 
-VertexBuffer::VertexBuffer(RAMBufferPtr buffer, MemoryLayout& layout,Buffer::Type t){
+VertexBuffer::VertexBuffer(RAMBufferPtr buffer, MemoryLayout layout,Buffer::Type t){
 	_type = t;
 	_buffer = buffer;
 	_layout = layout;
-	_changed = true;
-	createGPUResource();
-}
-
-VertexBuffer::VertexBuffer(unsigned int size,Buffer::Type t){
-	_type = t;
-	_buffer = RAMBufferPtr(new RAMBuffer(size));
 	_changed = true;
 	createGPUResource();
 }

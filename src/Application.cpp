@@ -3,20 +3,24 @@
 using namespace Break::Infrastructure;
 
 Application::Application(){
-	_display = nullptr;
+	display =nullptr;
+	scene = NULL;
 }
 
 Application::~Application(){
 	cleanUp();
-	_display = nullptr;
+	display = nullptr;
+	if(scene)
+		delete scene;
 }
 
 IDisplayPtr Application::getDisplay(){
-	return _display;
+	return display;
 }
 
 void Application::init(){
-
+	scene = new Graphics::Scene();
+	spriteBatch = scene->spriteBatch;
 }
 void Application::loadResources(){
 
@@ -30,13 +34,13 @@ void Application::cleanUp(){
 }
 
 void Application::input(){
-
+	scene->input();
 }
 void Application::update(TimeStep time){
-
+	scene->update(time);
 }
 void Application::render(){
-
+	scene->draw();
 }
 
 void Application::shutdown(){

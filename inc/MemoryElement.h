@@ -5,24 +5,38 @@
 
 namespace Break{
 	namespace GXWrapper{
+
+		/**
+		 * \brief represents an input layout memory element
+		 * \author Moustapha Saad
+		 */
 		class MemoryElement{
 		public:
-			//type of the element
+			///type of the element
 			enum Type{
 				VEC2=0, VEC3, VEC4, FLOAT, INT, BOOL, MAT3, MAT4, NONE
 			};
 
-			//type of the vertex element
+			///type of the vertex element
 			Type type;
-			//element start offset in bytes
+			///element start offset in bytes
 			uint offset;
-			//element size in bytes
+			///element size in bytes
 			uint size;
-			//element component count
+			///element component count
 			uint components;
-			//
+			/// semantic of the input layout
 			std::string semantic;
 
+			/**
+			 * \brief init constructor
+			 * \param _offset offset inside layout
+			 * \param _size size of this element
+			 * \param _components number of components that this element consists of
+			 * \param _type type of this element (OPTIONAL)
+			 * \param _semantic semantic of this element (OPTIONAL)
+			 * \author Moustapha Saad
+			 */
 			MemoryElement(uint _offset, uint _size, uint _components, Type _type = NONE,std::string _semantic=""){
 				offset = _offset;
 				size = _size;
@@ -31,6 +45,12 @@ namespace Break{
 				semantic = _semantic;
 			}
 
+			/**
+			 * \brief size deduced type constructor
+			 * \param _type type of this element
+			 * \param _semantic semantic of this element
+			 * \author Moustapha Saad
+			 */
 			MemoryElement(Type _type, std::string _semantic){
 				type = _type;
 				offset = 0;
@@ -78,6 +98,12 @@ namespace Break{
 				}
 			}
 
+			/**
+			 * \brief comparision function
+			 * \param val const reference to element
+			 * \return true in case of equality false otherwise
+			 * \author Moustapha Saad
+			 */
 			bool equals(const MemoryElement& val)
 			{
 				bool res = false;
@@ -95,7 +121,7 @@ namespace Break{
 				return res;
 
 			}
-			//copy constructor
+			///copy constructor
 			MemoryElement(const MemoryElement& val){
 				offset = val.offset;
 				size = val.size;
@@ -104,7 +130,7 @@ namespace Break{
 				semantic = val.semantic;
 			}
 
-			//default destructor
+			///default destructor
 			~MemoryElement(){
 
 			}

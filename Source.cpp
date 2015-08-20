@@ -1,14 +1,14 @@
-//#include <vld.h>
+#define LIBRARY_BUILD
+#ifndef LIBRARY_BUILD
 #include "Infrastructure.h"
+#include "AudioTest.h"
 #include "TestApplication.h"
-
 using namespace std;
 using namespace Break::Infrastructure;
-using namespace Break::GXWrapper;
 using namespace glm;
 
 int main(){	
-	Engine::Instance->setup(make_shared<TestApp>(),API::OPENGL);
+	Engine::Instance->setup(make_shared<TestApp>(),API::DIRECTX);
 	Engine::Instance->join(true);
 	Engine::Instance->start();
 	
@@ -18,3 +18,5 @@ int main(){
 	//system("pause");
 	return 0;
 }
+
+#endif

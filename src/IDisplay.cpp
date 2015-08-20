@@ -5,7 +5,6 @@ IDisplay::IDisplay(unsigned int x, unsigned int y, std::string t){
 	_width = x;
 	_height = y;
 	_title = t;
-
 }
 
 IDisplay::~IDisplay(){

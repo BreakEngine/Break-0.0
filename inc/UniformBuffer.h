@@ -13,18 +13,32 @@ namespace Break{
 		class DXManager;
 	}
 	namespace GXWrapper{
+
+		/**
+		 * \brief represents a uniform block buffer
+		 * \author Moustapha Saad
+		 */
 		class UniformBuffer: public Infrastructure::GPUResource{
 			friend class Renderer::GLManager;
 			friend class Renderer::DXManager;
 		protected:
+			///data buffer
 			Infrastructure::RAMBufferPtr _buffer;
+			///unifrom block slot in the shader
 			unsigned int _slot;
+			///shader type that this block is in
 			Shader::Type _shader;
+			///update indicator
 			bool needUpdate;
+
+			///invokes create function to GPU
 			virtual bool createGPUResource() override;
 		public:
+
+			///default constrcutor
 			UniformBuffer();
 
+			///size init constructor
 			UniformBuffer(unsigned int size,unsigned int slot,Shader::Type shader);
 
 			UniformBuffer(const UniformBuffer& val);
@@ -33,24 +47,34 @@ namespace Break{
 
 			void clear();
 
+			///binds the uniform buffer
 			void use();
 
+			///reallocates the current memory
 			void reallocate(unsigned int size);
 
+			///maps the data to range in buffer
 			void map(void* data,unsigned int size, unsigned int start);
 
+			///invokes sync with GPU
 			void invokeUpdate();
 
+			///appends buffer to uniform
 			bool appendBuffer(void* data,unsigned int size);
 
+			///returns buffer size
 			unsigned int getSize();
 
+			///sync the data with GPU
 			void flush();
 
+			///slot getter
 			unsigned int getSlot();
 
+			///sets buffer slot
 			void setSlot(unsigned int val);
 
+			///returns a data pointer
 			Infrastructure::byte* getData(unsigned int offset=0);
 		};
 		typedef std::shared_ptr<UniformBuffer> UniformBufferPtr;

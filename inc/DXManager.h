@@ -1,4 +1,5 @@
 #pragma once
+#ifdef _WIN32
 #include <Windows.h>
 #include <dxgi.h>
 #include <d3dcommon.h>
@@ -13,7 +14,9 @@ namespace Break{
 		protected:
 			//swap chain to control frame buffer
 			IDXGISwapChain* _swapChain;
+			//DX device
 			ID3D11Device* _device;
+			//DX Context
 			ID3D11DeviceContext* _deviceContext;
 
 			//get properties of a render target view.
@@ -32,7 +35,6 @@ namespace Break{
 			unsigned int _videoCardMemory;
 			char _videoCardDescription[128];
 		private:
-			//setups DX
 			bool initD3D(HWND hWnd, int Width, int Height, bool vsync, bool fullscreen );
 			//window start
 			void windowStart();
@@ -92,3 +94,4 @@ namespace Break{
 		};
 	}
 }
+#endif

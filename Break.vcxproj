@@ -11,9 +11,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AudioTest.h" />
     <ClInclude Include="inc\AccessException.h" />
     <ClInclude Include="inc\Application.h" />
     <ClInclude Include="inc\AssetManager.h" />
+    <ClInclude Include="inc\Sound.h" />
     <ClInclude Include="inc\Buffer.h" />
     <ClInclude Include="inc\Display.h" />
     <ClInclude Include="inc\DXKeyboard.h" />
@@ -35,10 +37,16 @@
     <ClInclude Include="inc\GPUResource.h" />
     <ClInclude Include="inc\GXWrapper.h" />
     <ClInclude Include="inc\IDrawable.h" />
+    <ClInclude Include="inc\Entity.h" />
+    <ClInclude Include="inc\IUpdateable.h" />
     <ClInclude Include="inc\MathUtils.h" />
+    <ClInclude Include="inc\Music.h" />
     <ClInclude Include="inc\Rect.h" />
     <ClInclude Include="inc\SamplerState.h" />
+    <ClInclude Include="inc\Scene.h" />
     <ClInclude Include="inc\Shape2D.h" />
+    <ClInclude Include="inc\SoundEffect.h" />
+    <ClInclude Include="inc\Sprite.h" />
     <ClInclude Include="inc\SpriteBatch.h" />
     <ClInclude Include="inc\Texture.h" />
     <ClInclude Include="inc\IAttribute.h" />
@@ -79,6 +87,7 @@
     <ClInclude Include="TestVertex.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AudioTest.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\AssetManager.cpp" />
@@ -99,9 +108,11 @@
     <ClCompile Include="src\IndexBuffer.cpp" />
     <ClCompile Include="src\InputDevice.cpp" />
     <ClCompile Include="src\IRenderer.cpp" />
+    <ClCompile Include="src\MathUtils.cpp" />
     <ClCompile Include="src\RAMBuffer.cpp" />
     <ClCompile Include="src\ContentLoader.cpp" />
     <ClCompile Include="src\SamplerState.cpp" />
+    <ClCompile Include="src\Scene.cpp" />
     <ClCompile Include="src\Shader.cpp" />
     <ClCompile Include="src\Shape2D.cpp" />
     <ClCompile Include="src\SpriteBatch.cpp" />
@@ -126,7 +137,7 @@
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v110</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -144,12 +155,12 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)\bin\$(Configuration)\</OutDir>
-    <IncludePath>$(ProjectDir)\libs\freeimage;$(ProjectDir)\inc;$(ProjectDir)\libs\glm\include;$(DXSDK_DIR)Include;$(ProjectDir)\libs\glew-1.10.0\include;$(ProjectDir)\libs\glfw-3.1.bin.WIN32\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)\libs\freeimage;$(DXSDK_DIR)Lib\x86;$(ProjectDir)\libs\glew-1.10.0\lib\Release\Win32;$(ProjectDir)\libs\glfw-3.1.bin.WIN32\lib-vc2012;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)\libs\SDL2_mixer\include;$(ProjectDir)\libs\freeimage;$(ProjectDir)\inc;$(ProjectDir)\libs\glm\include;$(DXSDK_DIR)Include;$(ProjectDir)\libs\glew-1.10.0\include;$(ProjectDir)\libs\glfw-3.1.bin.WIN32\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)\libs\SDL2_mixer\lib\x86s;$(ProjectDir)\libs\freeimage;$(DXSDK_DIR)Lib\x86;$(ProjectDir)\libs\glew-1.10.0\lib\Release\Win32;$(ProjectDir)\libs\glfw-3.1.bin.WIN32\lib-vc2012;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(ProjectDir)\libs\freeimage;$(DXSDK_DIR)Include;$(ProjectDir)\libs\glfw-3.1.bin.WIN32\include;$(ProjectDir)\libs\glew-1.10.0\include;$(ProjectDir)\inc;$(ProjectDir)\libs\glm\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)\libs\freeimage;$(DXSDK_DIR)Lib\x86;$(ProjectDir)\libs\glew-1.10.0\lib\Release\Win32;$(ProjectDir)\libs\glfw-3.1.bin.WIN32\lib-vc2012;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)\libs\SDL2_mixer\include;$(ProjectDir)\libs\freeimage;$(DXSDK_DIR)Include;$(ProjectDir)\libs\glfw-3.1.bin.WIN32\include;$(ProjectDir)\libs\glew-1.10.0\include;$(ProjectDir)\inc;$(ProjectDir)\libs\glm\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)\libs\SDL2_mixer\lib\x86s;$(ProjectDir)\libs\freeimage;$(DXSDK_DIR)Lib\x86;$(ProjectDir)\libs\glew-1.10.0\lib\Release\Win32;$(ProjectDir)\libs\glfw-3.1.bin.WIN32\lib-vc2012;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)\bin\$(Configuration)\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
