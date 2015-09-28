@@ -13,7 +13,7 @@ namespace Break{
 		 * special class of set that holds vertices
 		 */
 		template<typename T>
-		class VertexSet : public Set<T>{
+		class BREAK_API_EX VertexSet : public Set<T>{
 		public:
 
 			/**
@@ -24,7 +24,12 @@ namespace Break{
 			 */
 			virtual Infrastructure::RAMBufferPtr getData(bool shallow = false) override{
 				if(this->_data.size()>0){
-					auto ret = std::make_shared<Infrastructure::RAMBuffer>(&this->_data[0],this->_data.size()*declaration.getSize(),!shallow);
+					auto ret = std::make_shared<Infrastructure::RAMBuffer>();
+					if(shallow)
+						ret->copyHandle(&this->_data[0],this->_data.size()*declaration.getSize());
+					else
+						ret->copyBuffer(&this->_data[0],this->_data.size()*declaration.getSize());
+
 					return ret;
 				}else{
 					return nullptr;

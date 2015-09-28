@@ -264,6 +264,27 @@
     <ClInclude Include="AudioTest.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="inc\Services.h">
+      <Filter>inc\Infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\GPUIns.hpp">
+      <Filter>inc\API</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Argument.hpp">
+      <Filter>inc\API</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\GPU_VM.hpp">
+      <Filter>inc\API</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\GPU_ISA.hpp">
+      <Filter>inc\API</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Object.hpp">
+      <Filter>inc\Infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Component.hpp">
+      <Filter>inc\Infrastructure</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp">
@@ -376,6 +397,12 @@
     </ClCompile>
     <ClCompile Include="AudioTest.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GPU_VM.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Services.cpp">
+      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

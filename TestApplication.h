@@ -11,6 +11,8 @@
 #include "SpriteBatch.h"
 #include "inc/Sprite.h"
 #include "Music.h"
+#include "inc/Services.h"
+#include "inc/GPUException.h"
 
 using namespace std;
 using namespace Break::Infrastructure;
@@ -51,7 +53,13 @@ public:
 
 		Application::init();
 	}
+	void testVM()
+	{
+		
+	}
 	void setupScene(){
+
+		testVM();
 		triangles.resize(1000);
 		for(int i=0;i<1000;i++)
 		{

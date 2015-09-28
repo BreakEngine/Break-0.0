@@ -1,5 +1,6 @@
 #pragma once
 #include "TimeStep.h"
+#include "GlobalDefinitions.h"
 namespace Break
 {
 	namespace GXWrapper
@@ -8,7 +9,7 @@ namespace Break
 		 * \brief insterface to update functions
 		 * \author Moustapha Saad
 		 */
-		class IUpdateable
+		class BREAK_API_EX IUpdateable
 		{
 		public:
 			virtual void input()=0;

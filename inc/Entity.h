@@ -2,8 +2,11 @@
 #include <vector>
 #include <memory>
 #include <string>
+#include "Component.hpp"
 #include "IUpdateable.h"
 #include "IDrawable.h"
+#include "Transformable.h"
+#include "GlobalDefinitions.h"
 
 namespace Break
 {
@@ -13,7 +16,9 @@ namespace Break
 		 * \brief main class of the scene tree every object is an entity
 		 * \author Moustapha Saad
 		 */
-		class Entity: public GXWrapper::IUpdateable, public GXWrapper::IDrawable
+		class BREAK_API_EX Entity: public GXWrapper::IUpdateable,
+			public GXWrapper::IDrawable, public Object,
+			public Transformable
 		{
 		private:
 			/**
@@ -35,24 +40,30 @@ namespace Break
 			///children list
 			std::vector<std::shared_ptr<Entity> > _children;
 
+			///component list
+			list<ComponentPtr> _components;
+
 			///parent pointer
 			Entity* _parent;
-
-			///name of entity
-			std::string _name;
 		public:
+
 			/**
-			 * \brief default constructor
-			 * \name name of the entity (OPTIONAL) - if no name provided then it will generate one
+			 * \brief default constructor generates a unique name to the entity
 			 * \author Moustapha Saad
 			 */
-			Entity(std::string name="")
+			Entity():Object(generateName())
 			{
 				_parent = nullptr;
-				if(name.size()>0)
-					_name = name;
-				else
-					_name = generateName();
+			}
+
+			/**
+			 * \brief default constructor
+			 * \name name of the entity
+			 * \author Moustapha Saad
+			 */
+			Entity(std::string name):Object(name)
+			{
+				_parent = nullptr;
 			}
 
 			/**
@@ -65,13 +76,36 @@ namespace Break
 			}
 
 			/**
-			 * \brief name getter
-			 * \return name of the entity
+			 * \brief finds a child with a specific name
+			 * \param name name of the entity that will be searched for
+			 * \return pointer to the child entity - null if not found
 			 * \author Moustapha Saad
 			 */
-			std::string getName()
+			Entity* find(std::string name)
 			{
-				return _name;
+				for(auto child :_children){
+					if(child->id == name){
+						return child.get();
+					}
+				}
+				return null;
+			}
+
+			/**
+			 * \brief finds a child with a specific name
+			 * \param name name of the entity that will be searched for
+			 * \return list of the found children
+			 * \author Moustapha Saad
+			 */
+			list<Entity*> find_all(std::string name)
+			{
+				list<Entity*> res;
+				for(auto child :_children){
+					if(child->id == name){
+						res.push_back(child.get());
+					}
+				}
+				return res;
 			}
 
 			/**
@@ -80,10 +114,10 @@ namespace Break
 			 * \return pointer to Entity if found otherwise NULL
 			 * \author Moustapha Saad
 			 */
-			Entity* find(std::string name)
+			Entity* search(std::string name)
 			{
 				for(auto child :_children){
-					if(child->_name == name){
+					if(child->id == name){
 						return child.get();
 					}else{
 						auto res = child->find(name);
@@ -92,6 +126,41 @@ namespace Break
 					}
 				}
 				return NULL;
+			}
+
+			/**
+			 * \brief adds a component of type T passed in the template
+			 * \author Moustapha Saad
+			 */
+			template<class T>
+			void addComponent()
+			{
+				ComponentPtr component = std::make_shared<T>();
+				component->gameEntity = this;
+				_components.push_back(component);
+			}
+
+			list<Component*> getComponents(std::string id)
+			{
+				list<Component*> res;
+				for(auto component : _components)
+					if(component->id == id)
+						res.push_back(component.get());
+				return res;
+			}
+			/**
+			 * \brief gets component with a name 'id'
+			 * \param id id of the component
+			 * \return pointer to the component - null if not found
+			 * \author Moustapha Saad
+			 */
+			Component* getComponent(std::string id)
+			{
+				for(auto component : _components)
+					if(component->id == id)
+						return component.get();
+
+				return nullptr;
 			}
 
 			/**

@@ -1,6 +1,7 @@
 #pragma once
 #include "Sound.h"
 #include <SDL_mixer.h>
+#include "GlobalDefinitions.h"
 
 namespace Break
 {
@@ -10,7 +11,7 @@ namespace Break
 		 * \brief reperesents a raw sound class
 		 * \author Mohammed Shaalan
 		 */
-		class SoundEffect:public Sound
+		class BREAK_API_EX SoundEffect:public Sound
 		{
 		public:
 			///changes the volume of the current playing music

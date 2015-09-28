@@ -1,10 +1,11 @@
 #pragma once
 #include "IGPUHandle.h"
 #include <d3d11.h>
+#include "GlobalDefinitions.h"
 
 namespace Break{
 	namespace Renderer{
-		class DXShaderHandle: public Infrastructure::IGPUHandle{
+		class BREAK_API_EX DXShaderHandle: public Infrastructure::IGPUHandle{
 		public:
 			ID3D11VertexShader* vertexShader;
 			ID3D11PixelShader* pixelShader;

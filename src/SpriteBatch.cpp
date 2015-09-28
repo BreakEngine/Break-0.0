@@ -43,11 +43,17 @@ SpriteBatch::SpriteBatch(ShaderPtr shader):_vertices(Assets::Vertex2DPosColorTex
 	_geometry = std::make_shared<Geometry>(*new VertexBuffer(256000, VertexBuffer::DYNAMIC),Assets::Vertex2DPosColorTex::getDescription(),
 		new IndexBuffer(48000,IndexBuffer::DYNAMIC),Primitive::TRIANGLES);
 	*/
-	auto vbuffer = make_shared<Infrastructure::RAMBuffer>(&_vertices[0],256000,false);
+	auto vbuffer =  make_shared<Infrastructure::RAMBuffer>();
+	vbuffer->copyHandle(&_vertices[0],256000);
+
+	auto ibuffer =  make_shared<Infrastructure::RAMBuffer>();
+	ibuffer->copyHandle(&_indices[0],48000);
+
+
 	_geometry = std::make_shared<Geometry>(new VertexBuffer(vbuffer,
 		Assets::Vertex2DPosColorTex::getDescription(), VertexBuffer::DYNAMIC),
 		Assets::Vertex2DPosColorTex::getDescription(),
-		new IndexBuffer(make_shared<Infrastructure::RAMBuffer>(&_indices[0],48000,false),IndexBuffer::DYNAMIC),Primitive::TRIANGLES);
+		new IndexBuffer(ibuffer,IndexBuffer::DYNAMIC),Primitive::TRIANGLES);
 
 	_count = 0;
 	iCount = 0;

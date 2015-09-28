@@ -12,7 +12,7 @@ MemoryLayout::MemoryLayout(std::vector<MemoryElement>& e){
 	calcSize();
 }
 
-MemoryLayout::MemoryLayout(MemoryElement* e, uint count){
+MemoryLayout::MemoryLayout(MemoryElement* e, u32 count){
 	for(int i=0;i<count;i++)
 		elements.push_back(e[i]);
 	calcSize();
@@ -23,7 +23,7 @@ MemoryLayout::MemoryLayout(const MemoryLayout& val){
 	_size = val._size;
 }
 
-uint MemoryLayout::calcSize(){
+u32 MemoryLayout::calcSize(){
 	_size = 0;
 	for(auto element : elements){
 		_size += element.size;
@@ -38,7 +38,7 @@ void MemoryLayout::append(MemoryElement v){
 	_size += v.size;
 }
 
-uint MemoryLayout::getSize(){
+u32 MemoryLayout::getSize(){
 	return _size;
 }
 
@@ -46,7 +46,7 @@ MemoryLayout::~MemoryLayout(){
 	elements.clear();
 }
 
-uint MemoryLayout::getElementCount(){
+u32 MemoryLayout::getElementCount(){
 	return elements.size();
 }
 

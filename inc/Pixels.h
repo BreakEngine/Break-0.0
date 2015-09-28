@@ -1,13 +1,13 @@
 #pragma once
 #include <glm/detail/type_vec4.hpp>
-
+#include "GlobalDefinitions.h"
 namespace Break{
 	namespace GXWrapper{
 
 		/**
 		 * \brief represents a pixel object (BGRA)
 		 */
-		struct Pixel{
+		struct BREAK_API_EX Pixel{
 			///pixel data
 			unsigned char B,G,R,A;
 

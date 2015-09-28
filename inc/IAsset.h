@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <memory>
+#include "GlobalDefinitions.h"
 
 namespace Break{
 	namespace Assets{
@@ -9,7 +10,7 @@ namespace Break{
 		 * \brief represents a Asset class
 		 * \author Moustapha Saad
 		 */
-		class IAsset{
+		class BREAK_API_EX IAsset{
 		friend class AssetManager;
 		public:
 			///type of the asset

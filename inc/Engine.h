@@ -7,6 +7,9 @@
 #include "IGXManager.h"
 #include "InputDevice.h"
 #include "Application.h"
+#include "GlobalDefinitions.h"
+#include "GPU_VM.hpp"
+
 namespace Break{
 	namespace Renderer{
 		class GLManager;
@@ -16,12 +19,12 @@ namespace Break{
 		/**
 		 * supportted apis by the engine
 		 */
-		enum class API{ OPENGL, DIRECTX };
+		BREAK_API_EX enum class API{ OPENGL, DIRECTX };
 
 		/**
 		 * Main class of the whole engine
 		 */
-		class Engine{
+		class BREAK_API_EX Engine{
 			friend class Renderer::GLManager;
 			friend class Renderer::DXManager;
 		public:
@@ -228,6 +231,8 @@ namespace Break{
 
 			///orthographics projection based on display info
 			glm::mat4 _2DOrthographic;
+
+			Renderer::GPU_VM* _gpuVM;
 
 			/**
 			 * private default constructor of the engine

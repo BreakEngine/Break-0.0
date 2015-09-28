@@ -1,11 +1,13 @@
 #pragma once
 #include"IKeyboard.h"
+#include "GlobalDefinitions.h"
+
 namespace Break{
 	namespace Renderer{
 		class DXManager;
 	}
 	namespace Input{
-		class DXKeyboard:public Infrastructure::IKeyboard{
+		class BREAK_API_EX DXKeyboard:public Infrastructure::IKeyboard{
 			friend class Renderer::DXManager;
 		private:
 

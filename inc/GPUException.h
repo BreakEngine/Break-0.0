@@ -1,6 +1,7 @@
 #pragma once
 #include <exception>
 #include <string>
+#include "GlobalDefinitions.h"
 
 namespace Break{
 	namespace GXWrapper{
@@ -9,7 +10,7 @@ namespace Break{
 		 * \brief GPU exception that represents an exception on GPU side
 		 * \author Moustapha Saad
 		 */
-		class GPUException : public std::exception{
+		class BREAK_API_EX GPUException : public std::exception{
 		private:
 			//exception side
 			std::string _msg;

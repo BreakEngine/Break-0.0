@@ -2,13 +2,15 @@
 #include <string>
 #include <memory>
 #include "Property.h"
+#include "GlobalDefinitions.h"
+
 namespace Break{
 	namespace Infrastructure{
 		/**
 		 * \brief represents a display
 		 * \author Moustapha Saad
 		 */
-		class IDisplay
+		class BREAK_API_EX IDisplay
 		{
 		protected:
 

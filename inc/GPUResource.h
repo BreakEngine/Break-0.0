@@ -2,7 +2,7 @@
 
 #include "IGPUHandle.h"
 #include <memory>
-
+#include "GlobalDefinitions.h"
 namespace Break{
 	namespace Renderer{
 		class GLManager;
@@ -13,7 +13,7 @@ namespace Break{
 		 * \brief represents a gpu resource class
 		 * \author Moustapha Saad
 		 */
-		class GPUResource{
+		class BREAK_API_EX GPUResource{
 			friend class Renderer::GLManager;
 			friend class Renderer::DXManager;
 		protected:
@@ -44,6 +44,15 @@ namespace Break{
 				_handle = nullptr;
 			}
 
+			IGPUHandle* getHandle()
+			{
+				return _handle.get();
+			}
+
+			void setHandle(IGPUHandlePtr val)
+			{
+				_handle = val;
+			}
 
 		};
 		///type alias of GPUResource shared_ptr

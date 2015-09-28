@@ -10,7 +10,7 @@ namespace Break{
 		 * \brief represents an input layout memory element
 		 * \author Moustapha Saad
 		 */
-		class MemoryElement{
+		class BREAK_API_EX MemoryElement{
 		public:
 			///type of the element
 			enum Type{
@@ -20,11 +20,11 @@ namespace Break{
 			///type of the vertex element
 			Type type;
 			///element start offset in bytes
-			uint offset;
+			u32 offset;
 			///element size in bytes
-			uint size;
+			u32 size;
 			///element component count
-			uint components;
+			u32 components;
 			/// semantic of the input layout
 			std::string semantic;
 
@@ -37,7 +37,7 @@ namespace Break{
 			 * \param _semantic semantic of this element (OPTIONAL)
 			 * \author Moustapha Saad
 			 */
-			MemoryElement(uint _offset, uint _size, uint _components, Type _type = NONE,std::string _semantic=""){
+			MemoryElement(u32 _offset, u32 _size, u32 _components, Type _type = NONE,std::string _semantic=""){
 				offset = _offset;
 				size = _size;
 				components = _components;

@@ -14,7 +14,14 @@
     <ClInclude Include="AudioTest.h" />
     <ClInclude Include="inc\AccessException.h" />
     <ClInclude Include="inc\Application.h" />
+    <ClInclude Include="inc\Argument.hpp" />
     <ClInclude Include="inc\AssetManager.h" />
+    <ClInclude Include="inc\Component.hpp" />
+    <ClInclude Include="inc\GPUIns.hpp" />
+    <ClInclude Include="inc\GPU_ISA.hpp" />
+    <ClInclude Include="inc\GPU_VM.hpp" />
+    <ClInclude Include="inc\Object.hpp" />
+    <ClInclude Include="inc\Services.h" />
     <ClInclude Include="inc\Sound.h" />
     <ClInclude Include="inc\Buffer.h" />
     <ClInclude Include="inc\Display.h" />
@@ -99,6 +106,7 @@
     <ClCompile Include="src\GLKeyboard.cpp" />
     <ClCompile Include="src\GLManager.cpp" />
     <ClCompile Include="src\GLMouse.cpp" />
+    <ClCompile Include="src\GPU_VM.cpp" />
     <ClCompile Include="src\IAttribute.cpp" />
     <ClCompile Include="src\IDisplay.cpp" />
     <ClCompile Include="src\IGXManager.cpp" />
@@ -113,6 +121,7 @@
     <ClCompile Include="src\ContentLoader.cpp" />
     <ClCompile Include="src\SamplerState.cpp" />
     <ClCompile Include="src\Scene.cpp" />
+    <ClCompile Include="src\Services.cpp" />
     <ClCompile Include="src\Shader.cpp" />
     <ClCompile Include="src\Shape2D.cpp" />
     <ClCompile Include="src\SpriteBatch.cpp" />
@@ -137,7 +146,7 @@
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v110</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>

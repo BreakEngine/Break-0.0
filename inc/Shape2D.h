@@ -5,14 +5,14 @@
 #include "Texture.h"
 #include "IndexSet.h"
 #include "Transformable.h"
-
+#include "GlobalDefinitions.h"
 
 namespace Break
 {
 	namespace Graphics
 	{
 		///represents a shape2D
-		class Shape2D: public GXWrapper::IDrawable, public Transformable
+		class BREAK_API_EX Shape2D: public GXWrapper::IDrawable, public Transformable
 		{
 		protected:
 			///color of the shape

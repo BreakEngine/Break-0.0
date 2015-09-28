@@ -3,6 +3,7 @@
 #include "TimeStep.h"
 #include <memory>
 #include "Scene.h"
+#include "GlobalDefinitions.h"
 
 namespace Break{
 	namespace Renderer{
@@ -14,7 +15,7 @@ namespace Break{
 		 * \brief represents the application that engine will run
 		 * \author Moustapha Saad
 		 */
-		class Application{
+		class BREAK_API_EX Application{
 			friend class Renderer::GLManager;
 			friend class Renderer::DXManager;
 		protected:

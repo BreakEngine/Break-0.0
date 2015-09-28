@@ -1,6 +1,7 @@
 #pragma once
 #include <map>
 #include "IAsset.h"
+#include "GlobalDefinitions.h"
 
 namespace Break
 {
@@ -14,7 +15,7 @@ namespace Break
 		 * \brief manages project assets, but the user has to register the asses in the first place
 		 * \author Moustapha Saad
 		 */
-		class AssetManager
+		class BREAK_API_EX AssetManager
 		{
 			friend class Infrastructure::Engine;
 

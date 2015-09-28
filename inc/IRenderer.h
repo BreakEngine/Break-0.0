@@ -1,11 +1,12 @@
 #pragma once
 #include"TimeStep.h"
 #include<memory>
+#include "GlobalDefinitions.h"
 
 namespace Break{
 	namespace Infrastructure{
 		///renderer class to determine each segmant of the gameloop
-		class IRenderer{
+		class BREAK_API_EX IRenderer{
 		public:
 			///public default constructor
 			IRenderer();

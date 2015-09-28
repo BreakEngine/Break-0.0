@@ -3,14 +3,14 @@
 #include "Image.h"
 #include <memory>
 #include "Shader.h"
-
+#include "GlobalDefinitions.h"
 namespace Break{
 	namespace GXWrapper{
 
 		/**
 		 * \brief represents a generic texture object
 		 */
-		class Texture:public Infrastructure::GPUResource{
+		class BREAK_API_EX Texture:public Infrastructure::GPUResource{
 			friend class Shader;
 		public:
 

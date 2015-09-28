@@ -6,18 +6,18 @@
 #include <map>
 #include "SamplerState.h"
 #include "IAsset.h"
-
+#include "GlobalDefinitions.h"
 namespace Break{
 	namespace GXWrapper{
 		class Texture;
 
 		///represnets a row in uniform table
-		struct uniformRow{
+		struct BREAK_API_EX uniformRow{
 			std::string _blockName;
 			unsigned int _offset,_size;
 		};
 		///represents a row in samplers table
-		struct samplersRow
+		struct BREAK_API_EX samplersRow
 		{
 			unsigned int _slot;
 			unsigned int _shader;
@@ -36,7 +36,7 @@ namespace Break{
 		class UniformBuffer;
 
 		///represents a GPU program
-		class Shader:public Infrastructure::GPUResource, public Assets::IAsset{
+		class BREAK_API_EX Shader:public Infrastructure::GPUResource, public Assets::IAsset{
 			friend class Renderer::GLManager;
 			friend class Renderer::DXManager;
 		protected:

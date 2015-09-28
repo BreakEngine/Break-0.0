@@ -1,12 +1,13 @@
 #pragma once
 #include"IKeyboard.h"
 #include <GLFW/glfw3.h>
+#include "GlobalDefinitions.h"
 namespace Break{
 	namespace Renderer{
 		class GLManager;
 	}
 	namespace Input{
-		class GLKeyboard : public Infrastructure::IKeyboard{
+		class BREAK_API_EX GLKeyboard : public Infrastructure::IKeyboard{
 			friend class Renderer::GLManager;
 		private:
 

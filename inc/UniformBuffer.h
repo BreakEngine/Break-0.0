@@ -18,7 +18,7 @@ namespace Break{
 		 * \brief represents a uniform block buffer
 		 * \author Moustapha Saad
 		 */
-		class UniformBuffer: public Infrastructure::GPUResource{
+		class BREAK_API_EX UniformBuffer: public Infrastructure::GPUResource{
 			friend class Renderer::GLManager;
 			friend class Renderer::DXManager;
 		protected:
@@ -75,7 +75,7 @@ namespace Break{
 			void setSlot(unsigned int val);
 
 			///returns a data pointer
-			Infrastructure::byte* getData(unsigned int offset=0);
+			byte* getData(unsigned int offset=0);
 		};
 		typedef std::shared_ptr<UniformBuffer> UniformBufferPtr;
 	}

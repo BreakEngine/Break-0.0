@@ -1,12 +1,13 @@
 #pragma once
 #include"IMouse.h"
 #include <GLFW/glfw3.h>
+#include "GlobalDefinitions.h"
 namespace Break{
 	namespace Renderer{
 		class GLManager;
 	}
 	namespace Input{
-		class GLMouse : public Infrastructure::IMouse{
+		class BREAK_API_EX GLMouse : public Infrastructure::IMouse{
 			friend class Renderer::GLManager;
 		private:
 

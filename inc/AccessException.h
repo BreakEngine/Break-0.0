@@ -1,6 +1,8 @@
 #pragma once
 #include <exception>
 #include <string>
+#include "GlobalDefinitions.h"
+
 namespace Break{
 	namespace Infrastructure{
 
@@ -8,7 +10,7 @@ namespace Break{
 		 * \brief exception class for unauthorized access of data
 		 * \author Moustapha Saad
 		 */
-		class accessException:public std::exception{
+		class BREAK_API_EX accessException:public std::exception{
 
 		private:
 			///msg string that will be sent with exception

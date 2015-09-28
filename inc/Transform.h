@@ -1,6 +1,8 @@
 #pragma once
 #include <glm/glm.hpp>
 #include <glm/gtc/quaternion.hpp>
+#include "GlobalDefinitions.h"
+
 namespace Break
 {
 	namespace Graphics
@@ -10,7 +12,7 @@ namespace Break
 		 * \brief reperesents a transformation matrix of an object
 		 * \author Moustapha Saad
 		 */
-		class Transform
+		class BREAK_API_EX Transform
 		{
 		protected:
 			///transformation matrix

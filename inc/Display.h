@@ -1,12 +1,14 @@
 #pragma once
 #include "IDisplay.h"
+#include "GlobalDefinitions.h"
+
 namespace Break
 {
 
 	namespace Infrastructure{
 		///template display to handle the gl and dx display handle
 		template<class T>
-		class Display:public IDisplay{
+		class BREAK_API_EX Display:public IDisplay{
 		protected:
 			T handle;
 		public:

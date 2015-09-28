@@ -1,8 +1,11 @@
 #include "UniformBuffer.h"
 #include "Engine.h"
 #include <memory>
+#include <Services.h>
+#include <GPUException.h>
 using namespace Break::GXWrapper;
 using namespace Break::Infrastructure;
+using namespace Break;
 using namespace std;
 
 UniformBuffer::UniformBuffer(){
@@ -24,7 +27,12 @@ UniformBuffer::UniformBuffer(unsigned int size,unsigned int slot,Shader::Type sh
 }
 
 UniformBuffer::~UniformBuffer(){
-	Engine::Instance->GraphicsDevice->deleteBuffer(this);
+	Renderer::GPUIns ins;
+	ins.instruction = Renderer::GPU_ISA::DEL;
+	ins.args.push(Renderer::Arg(Renderer::GPU_ISA::UNIFORM_BUFFER));
+	ins.args.push(Renderer::Arg(_handle.get()));
+
+	Services::getGPU_VM()->execute(ins);
 	if(_buffer)
 		_buffer = nullptr;
 }
@@ -48,7 +56,14 @@ void UniformBuffer::map(void* data,unsigned int size, unsigned int start){
 void UniformBuffer::invokeUpdate()
 {
 	if(needUpdate){
-		Engine::Instance->GraphicsDevice->updateUniformBuffer(this,0,getSize());
+		Renderer::GPUIns ins;
+		ins.instruction = Renderer::GPU_ISA::MAP;
+		ins.args.push(Renderer::Arg(Renderer::GPU_ISA::UNIFORM_BUFFER));
+		ins.args.push(Renderer::Arg(_handle.get()));
+		ins.args.push(Renderer::Arg(_buffer->getSize()));
+		ins.args.push(Renderer::Arg(_buffer->getData()));
+		
+		Services::getGPU_VM()->execute(ins);
 		needUpdate = false;
 	}
 }
@@ -59,18 +74,58 @@ bool UniformBuffer::appendBuffer(void* data,unsigned int size){
 
 void UniformBuffer::flush(){
 	if(!_handle)
-		Engine::Instance->GraphicsDevice->createUniformBuffer(this);
-	else
-		Engine::Instance->GraphicsDevice->updateUniformBuffer(this,0,_buffer->getSize());
+		createGPUResource();
+	else{
+		//Engine::Instance->GraphicsDevice->updateUniformBuffer(this,0,_buffer->getSize());
+		Renderer::GPUIns ins;
+		ins.instruction = Renderer::GPU_ISA::MAP;
+		ins.args.push(Renderer::Arg(Renderer::GPU_ISA::UNIFORM_BUFFER));
+		ins.args.push(Renderer::Arg(_handle.get()));
+		ins.args.push(Renderer::Arg(_buffer->getSize()));
+		ins.args.push(Renderer::Arg(_buffer->getData()));
+		
+		Services::getGPU_VM()->execute(ins);
+	}
 }
 
 bool UniformBuffer::createGPUResource(){
-	Engine::Instance->GraphicsDevice->createUniformBuffer(this);
+	//Engine::Instance->GraphicsDevice->createUniformBuffer(this);
+	Renderer::GPUIns ins;
+	ins.instruction = Renderer::GPU_ISA::GEN;
+	ins.args.push(Renderer::Arg(Renderer::GPU_ISA::UNIFORM_BUFFER));
+	ins.args.push(Renderer::Arg(_buffer->getSize()));
+	ins.args.push(Renderer::Arg(_buffer->getData()));
+	ins.args.push(Renderer::Arg(_slot));
+
+	try{
+		_handle = Services::getGPU_VM()->execute(ins);
+	}catch(GPUException e)
+	{
+		cerr<<e.what()<<endl;
+		return false;
+	}
 	return true;
 }
 
 void UniformBuffer::use(){
-	Engine::Instance->GraphicsDevice->useUniformBuffer(this);
+	//Engine::Instance->GraphicsDevice->useUniformBuffer(this);
+	Renderer::GPUIns ins;
+	ins.instruction = Renderer::GPU_ISA::BIND;
+	ins.args.push(Renderer::Arg(Renderer::GPU_ISA::UNIFORM_BUFFER));
+	ins.args.push(Renderer::Arg(_handle.get()));
+	if(_shader == Shader::VERTEX)
+		ins.args.push(Renderer::Arg(Renderer::GPU_ISA::VERTEX_SHADER));
+	else if(_shader == Shader::PIXEL)
+		ins.args.push(Renderer::Arg(Renderer::GPU_ISA::PIXEL_SHADER));
+
+	ins.args.push(Renderer::Arg(_slot));
+
+	try{
+		Services::getGPU_VM()->execute(ins);
+	}catch(GPUException e)
+	{
+		cerr<<e.what()<<endl;
+	}
 }
 
 unsigned int UniformBuffer::getSlot(){

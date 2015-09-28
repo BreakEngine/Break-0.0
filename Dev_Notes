@@ -1,0 +1,159 @@
+/*
+ * This is a developers notes on design and dev of Break Engine
+ * Dev. 01: Moustapha Saad, Alias = urationc
+ * Dev. 02: Mohamed Shaalan, Alias = ...
+ */
+
+
+ 
+urationc:
+	So, we arrived at the second run of break dev, First thing to do is to fix bugs,
+	those are minor issues, and then go to real work of upgrading the engine systems.
+
+	First we are considering two main upgrades:
+	01 - firm entity model that will carry all object data, and i have a recommendation
+	a component pattern
+	02 - a request system to GX_API
+
+	detailed discussion:
+	01
+
+	an entity should have a list of components that will do the work for it, and the entity
+	will be reduced to being only a shell that will hold all those components together, so
+	user can attach a component to the entity and even retrive it later, the more components
+	you add the more you extend your object.
+
+	class Entity{
+		std::map<std::string, Component*> m_components;
+
+		void input(){
+			for (auto it:m_components)
+			{
+				it->second->input(this);
+			}
+		}
+		void update(){
+			for (auto it:m_components)
+			{
+				it->second->update(this);
+			}
+		}
+		void render(){
+			for(auto it:m_components)
+			{
+				it->second->render(this);
+			}
+		}
+	};
+
+	The answer to physics engine problem:
+	this component system will resolve the problem of the integration of the physics engine
+	if the user needs to add entity to physics engine he then needs to add a "physics component"
+	this addition will trigger a registeration call to physics engine then it will be added to the simulation
+	and also this will make the physics system able to manipulate the object from within
+
+	the problem of the custom collider
+	this problem will be annihilated using template partial specialization
+	so the Code goes like this
+
+	class CollisionDispatcher{
+		template<class obj1Type, class obj2Type>
+		static bool isCollided(obj1Type& obj1, obj2Type& obj2){
+			//this is the generic function that the compiler will call when there's no specialization
+			return false;
+		}
+	};
+
+	template<>
+	bool isCollided<Rectangle,Circle>(Rectangle& obj1, Circle& obj2){
+		//specialized code goes here
+	}
+
+	//adding custom code
+	template<>
+	bool isCollided<PixelCollision,Circle>(PixelCollision& obj1, Circle& obj2){
+		//specialized code goes here
+		//you can even call the built-in collider function
+		bool rect_check = isCollided<Rectangle, Circle>(obj1,obj2);
+		//this will check using the built-in rectangle code
+	}
+
+	02
+	VertexBuffer vbuffer = new VertexBuffer();
+
+	Data > Logic
+
+	bool createVertexBuffer(GPUResource vBuffer);
+
+	enum GPU_ISA{
+		CREATE_VERTEXBUFFER = 50
+	};
+
+	GPUIns ins; 
+	ins.command = GPU_ISA::CREATE_VERTEXBUFFER;
+	ins.args.push(BUFFER::STATIC);
+	ins.args.push(ptr);
+	ins.args.push(size);
+
+	Engine::Instance->GraphicsDevice->executeInstruction(ins);
+
+	IGPUHandlePtr executeInstruction(ins){
+		switch(ins.command){
+			case GPU_ISA::CREATE_VERTEXBUFFER:
+			//code goes here
+			u32 bfr_size = ins.args.pop();
+			void* bfr_ptr = ins.args.pop();
+			Buffer::Type bfr_type = ins.args.pop();
+
+			//GL
+			glcreate
+			//
+			//DX
+			device->create
+			//
+			return handle;
+			break;
+		}
+	}
+
+	/**************** GPU ISA *******************/
+	GEN  GPU_ISA[VERTEXBUFFER](tag) 	GPU_ISA[STATIC/DYNAMIC](tag)	 u32(size) 					void*(data ptr)
+	GEN  GPU_ISA[INDEXBUFFER](tag) 		GPU_ISA[STATIC/DYNAMIC](tag)	 u32(size) 					void*(data ptr)
+	GEN  GPU_ISA[UNIFORMBUFFER](tag) 	u32(size) 					 	void*(data ptr)			u32(slot)
+	GEN  GPU_ISA[PROGRAM](tag)			std::string*(vertex shader)	 	std::string*(pixel shader)	MemoryLayout*(input layout)
+	GEN  GPU_ISA[TEXTURE2D](tag)		Image*(image data)			 	bool(mipmaps)
+	GEN  GPU_ISA[GEOMETRY](tag)			IGPUHandle*(vertex buffer)		IGPUHandle*(index buffer)	MemoryLayout*(input layout)
+	GEN  GPU_ISA[SAMPLER](tag)			TextureAddressMode(U)			TextureAddressMode(V)		TextureAddressMode(W)		TextureFilter(filter) CompareFunction(function)	Color*(border color)
+
+	MAP  GPU_ISA[VERTEXBUFFER](tag)		IGPUHandle*(ptr to handle) 	 u32(size) 			void*(data ptr)
+	MAP  GPU_ISA[INDEXBUFFER](tag)		IGPUHandle*(ptr to handle) 	 u32(size) 			void*(data ptr)
+	MAP  GPU_ISA[UNIFORMBUFFER](tag)	IGPUHandle*(ptr to handle) 	 u32(size) 			void*(data ptr)
+	MAP  GPU_ISA[TEXTURE2D](tag)		IGPUHandle*(ptr to handle)	 Image*(image data)
+
+	DEL  GPU_ISA[VERTEXBUFFER](tag)		IGPUHandle*(ptr to handle)
+	DEL  GPU_ISA[INDEXBUFFER](tag)		IGPUHandle*(ptr to handle)
+	DEL  GPU_ISA[UNIFORMBUFFER](tag)	IGPUHandle*(ptr to handle)
+	DEL  GPU_ISA[PROGRAM](tag)			IGPUHandle*(ptr to handle)
+	DEL  GPU_ISA[TEXTURE2D](tag)		IGPUHandle*(ptr to handle)
+	DEL  GPU_ISA[GEOMETRY](tag)			IGPUHandle*(ptr to handle)
+	DEL  GPU_ISA[SAMPLER](tag)			IGPUHandle*(ptr to handle)
+
+	BIND GPU_ISA[VERTEXBUFFER](tag)		IGPUHandle*(ptr to handle)	 u32(stride)
+	BIND GPU_ISA[INDEXBUFFER](tag)		IGPUHandle*(ptr to handle)
+	BIND GPU_ISA[UNIFORMBUFFER](tag)	IGPUHandle*(ptr to handle)   GPU_ISA[VERTEXSHADER/PIXELSHADER]	u32(slot)
+	BIND GPU_ISA[PROGRAM](tag)			IGPUHandle*(ptr to handle)
+	BIND GPU_ISA[TEXTURE2D](tag)		IGPUHandle*(ptr to handle)   GPU_ISA[VERTEXSHADER/PIXELSHADER]	u32(sample unit)
+	BIND GPU_ISA[SAMPLER](tag)			IGPUHandle*(ptr to handle)	 GPU_ISA[VERTEXSHADER/PIXELSHADER]	u32(slot)
+
+	APPLY from 					to 						from handle 				to handle
+	APPLY GPU_ISA[SAMPLER](tag) GPU_ISA[TEXTURE2D](tag) IGPUHandle*(sampler handle) IGPUHandle*(texture handle) bool(mipmaps) TextureAddressMode(U) TextureAddressMode(V) TextureFilter(filter) CompareFunction(function)	Color*(border color)
+
+	DRAW Primitive::Type(type) IGPUHandle*(geometry) IGPUHandle*(vertex buffer) u32(vertices count) MemoryLayout*(input layout)
+
+	DRAW_INDEXED Primitive::Type(type) IGPUHandle*(geometry) IGPUHandle*(vertex buffer) IGPUHandle*(index buffer) u32(indices count) MemoryLayout*(input layout)
+
+	DRAW_MULTIPLE Primitive::Type(type) IGPUHandle*(geometry) IGPUHandle*(vertex buffer) u32(vertices count) u32(instances count) MemoryLayout*(input layout)
+
+	DRAW_MULTIPLE_INDEXED Primitive::Type(type) IGPUHandle*(geometry) IGPUHandle*(vertex buffer) IGPUHandle*(index buffer) u32(indices count) u32(instances count) MemoryLayout*(input layout)
+
+	

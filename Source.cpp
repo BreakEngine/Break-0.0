@@ -1,8 +1,12 @@
-#define LIBRARY_BUILD
+//#define LIBRARY_BUILD
 #ifndef LIBRARY_BUILD
 #include "Infrastructure.h"
 #include "AudioTest.h"
 #include "TestApplication.h"
+#include <string>
+#include "inc/Services.h"
+#include "GlobalDefinitions.h"
+
 using namespace std;
 using namespace Break::Infrastructure;
 using namespace glm;
@@ -12,10 +16,6 @@ int main(){
 	Engine::Instance->join(true);
 	Engine::Instance->start();
 	
-	//note: jjiji
-	//TODO: this needs cleaning up
-	// FEATURE: Need to add support for XYZ
-	//system("pause");
 	return 0;
 }
 

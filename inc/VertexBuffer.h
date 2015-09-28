@@ -13,7 +13,7 @@ namespace Break{
 		 * \brief This class is meant to be as an abstract representation of the vertex buffer
 		 * \author Moustapha Saad
 		 */
-		class VertexBuffer : public Buffer<ISet>{
+		class BREAK_API_EX VertexBuffer : public Buffer<ISet>{
 		public:
 
 			///copy constructor

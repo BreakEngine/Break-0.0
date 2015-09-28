@@ -1,5 +1,6 @@
 #include "SamplerState.h"
 #include <Engine.h>
+#include <Services.h>
 
 using namespace Break::GXWrapper;
 
@@ -24,7 +25,12 @@ SamplerState::SamplerState(const SamplerState& val)
 }
 SamplerState::~SamplerState()
 {
-	Break::Infrastructure::Engine::Instance->GraphicsDevice->deleteSamplerState(this);
+	//Break::Infrastructure::Engine::Instance->GraphicsDevice->deleteSamplerState(this);
+	Renderer::GPUIns ins;
+	ins.instruction = Renderer::GPU_ISA::DEL;
+	ins.args.push(Renderer::GPU_ISA::SAMPLER);
+	ins.args.push(_handle.get());
+	Services::getGPU_VM()->execute(ins);
 }
 
 bool SamplerState::createGPUResource()

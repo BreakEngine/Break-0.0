@@ -5,6 +5,7 @@
 #include "Geometry.h"
 #include "IndexSet.h"
 #include "Rect.h"
+#include "GlobalDefinitions.h"
 
 namespace Break
 {
@@ -16,7 +17,7 @@ namespace Break
 		 * \brief sprite batcher class
 		 * \author Moustapha Saad
 		 */
-		class SpriteBatch
+		class BREAK_API_EX SpriteBatch
 		{
 		private:
 			///sprites limit

@@ -20,6 +20,7 @@
 #include <DXSamplerHandle.h>
 using namespace std;
 //
+using namespace Break;
 using namespace Break::Renderer;
 using namespace Break::Infrastructure;
 using namespace Break::GXWrapper;
@@ -687,6 +688,47 @@ bool DXManager::createVertexBuffer(GPUResource* buffer){
 		return true;
 }
 
+IGPUHandlePtr DXManager::vm_createVertexBuffer(GPU_ISA type, u32 size, void* data)
+{
+
+	auto handle = make_shared<DXBufferHandle>();
+
+	CD3D11_BUFFER_DESC bufferDESC;
+	bufferDESC.ByteWidth = size;
+	bufferDESC.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+	bufferDESC.MiscFlags = 0;
+
+	switch (type)
+	{
+	//dynamic
+	case GPU_ISA::DYNAMIC:
+		bufferDESC.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+		bufferDESC.Usage = D3D11_USAGE_DYNAMIC;
+		break;
+	//static
+	case GPU_ISA::STATIC:
+		bufferDESC.CPUAccessFlags = 0;
+		bufferDESC.Usage = D3D11_USAGE_IMMUTABLE;
+		break;
+	default:
+		return nullptr;
+		break;
+	}
+
+	D3D11_SUBRESOURCE_DATA initData;
+	initData.pSysMem = data;
+	initData.SysMemPitch = 0;
+	initData.SysMemSlicePitch = 0;
+
+	HRESULT res = _device->CreateBuffer(&bufferDESC,&initData,&handle->DXBuffer);
+
+
+	if(FAILED(res))
+		return nullptr;
+	else
+		return handle;
+}
+
 bool DXManager::createIndexBuffer(GPUResource* buffer){
 	
 	GXWrapper::IndexBuffer* IBuffer = dynamic_cast<GXWrapper::IndexBuffer*>(buffer);
@@ -729,6 +771,45 @@ bool DXManager::createIndexBuffer(GPUResource* buffer){
 
 }
 
+Infrastructure::IGPUHandlePtr DXManager::vm_createIndexBuffer(GPU_ISA type, u32 size, void* data)
+{
+
+	auto handle = make_shared<DXBufferHandle>();
+
+	D3D11_BUFFER_DESC bufferDesc;
+	bufferDesc.ByteWidth = size;
+	bufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
+	bufferDesc.MiscFlags = 0;
+
+	switch (type)
+	{
+		//dynamic
+	case GPU_ISA::DYNAMIC:
+		bufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+		bufferDesc.Usage = D3D11_USAGE_DYNAMIC;
+		break;
+		//static
+	case GPU_ISA::STATIC:
+		bufferDesc.CPUAccessFlags = 0;
+		bufferDesc.Usage = D3D11_USAGE_IMMUTABLE;
+		break;
+	default:
+		break;
+	}
+
+	D3D11_SUBRESOURCE_DATA initData;
+	initData.pSysMem = data;
+	initData.SysMemPitch = 0;
+	initData.SysMemSlicePitch = 0;
+
+	HRESULT res = _device->CreateBuffer(&bufferDesc,&initData,&handle->DXBuffer);
+
+	if(FAILED(res))
+		return nullptr;
+	else
+		return handle;
+}
+
 bool DXManager::updateVertexBuffer(GPUResource* buffer,unsigned int offset,unsigned int size){
 	auto VBuffer = dynamic_cast<GXWrapper::VertexBuffer*>(buffer);
 
@@ -746,6 +827,36 @@ bool DXManager::updateVertexBuffer(GPUResource* buffer,unsigned int offset,unsig
 
 	_deviceContext->Unmap(handle->DXBuffer,0);
 	return true;
+}
+
+void DXManager::vm_mapVertexBuffer(Infrastructure::IGPUHandle* _handle, u32 size, void* data)
+{
+
+	DXBufferHandle* handle = dynamic_cast<DXBufferHandle*>(_handle);
+
+	D3D11_MAPPED_SUBRESOURCE mappedData;
+	_deviceContext->Map(handle->DXBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedData);
+
+	//memcpy(mappedData.pData,VBuffer->getData(offset),size);
+	auto cpySize = size;
+	memcpy(mappedData.pData,data,cpySize);
+
+	_deviceContext->Unmap(handle->DXBuffer,0);
+}
+
+void DXManager::vm_mapIndexBuffer(Infrastructure::IGPUHandle* _handle, u32 size, void* data)
+{
+
+	DXBufferHandle* handle = dynamic_cast<DXBufferHandle*>(_handle);
+
+	D3D11_MAPPED_SUBRESOURCE mappedData;
+	_deviceContext->Map(handle->DXBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedData);
+
+	//memcpy(mappedData.pData,IBuffer->getData(offset),size);
+	auto cpySize = size;
+	memcpy(mappedData.pData,data,cpySize);
+
+	_deviceContext->Unmap(handle->DXBuffer,0);
 }
 
 bool DXManager::updateIndexBuffer(GPUResource* buffer, unsigned int offset, unsigned int size){
@@ -774,6 +885,14 @@ bool DXManager::deleteBuffer(GPUResource* buffer){
 	return true;
 }
 
+bool DXManager::vm_deleteBuffer(Infrastructure::IGPUHandle* _handle)
+{
+	auto handle = dynamic_cast<DXBufferHandle*>(_handle);
+
+	handle->DXBuffer->Release();
+	return true;
+}
+
 bool DXManager::useVertexBuffer(GPUResource* buffer){
 	auto VBuffer = dynamic_cast<VertexBuffer*>(buffer);
 	auto handle = dynamic_cast<DXBufferHandle*>(buffer->_handle.get());
@@ -785,10 +904,25 @@ bool DXManager::useVertexBuffer(GPUResource* buffer){
 	return true;
 }
 
+void DXManager::vm_bindVertexBuffer(Infrastructure::IGPUHandle* _handle, u32 _stride)
+{
+	auto handle = dynamic_cast<DXBufferHandle*>(_handle);
+
+	unsigned int stride = _stride;
+	unsigned int offset = 0;
+	_deviceContext->IASetVertexBuffers(0,1,&handle->DXBuffer,&stride,&offset);
+}
+
 bool DXManager::useIndexBuffer(GPUResource* buffer){
 	auto handle = dynamic_cast<DXBufferHandle*>(buffer->_handle.get());
 	_deviceContext->IASetIndexBuffer(handle->DXBuffer,DXGI_FORMAT_R32_UINT,0);
 	return true;
+}
+
+void DXManager::vm_bindIndexBuffer(Infrastructure::IGPUHandle* _handle)
+{
+	auto handle = dynamic_cast<DXBufferHandle*>(_handle);
+	_deviceContext->IASetIndexBuffer(handle->DXBuffer,DXGI_FORMAT_R32_UINT,0);
 }
 
 DXGI_FORMAT DXManager::getFormat(MemoryElement& element){
@@ -995,6 +1129,85 @@ bool DXManager::createShader(GPUResource* shader){
 	return true;
 }
 
+IGPUHandlePtr DXManager::vm_createProgram(std::string vertex, std::string pixel, GXWrapper::MemoryLayout* inputLayout)
+{	
+	auto handle = make_shared<DXShaderHandle>();
+
+	HRESULT res;
+	ID3D10Blob* errorMessage;
+	ID3D10Blob* vertexShaderBuffer;
+	ID3D10Blob* pixelShaderBuffer;
+	D3D11_INPUT_ELEMENT_DESC* layout;
+	unsigned int nElements;
+
+	errorMessage = 0;
+	vertexShaderBuffer = 0;
+	pixelShaderBuffer = 0;
+
+	res = D3DCompile(vertex.c_str(),vertex.size(),"VS",NULL,NULL,"main",
+			"vs_4_0",D3DCOMPILE_ENABLE_BACKWARDS_COMPATIBILITY,NULL,&vertexShaderBuffer,&errorMessage);
+
+	if(FAILED(res)){
+		if(errorMessage){
+			cout<<(char*)errorMessage->GetBufferPointer()<<endl;
+		}
+		throw GPUException("Cannot compile vertex shader");
+	}
+
+	res = D3DCompile(pixel.c_str(),pixel.size(),"PS",NULL,NULL,"main",
+		"ps_4_0",D3DCOMPILE_ENABLE_BACKWARDS_COMPATIBILITY,NULL,&pixelShaderBuffer,&errorMessage);
+
+	if(FAILED(res)){
+		if(errorMessage){
+			cout<<(char*)errorMessage->GetBufferPointer()<<endl;
+		}
+		throw GPUException("Cannot compile pixel shader");
+	}
+
+	res = _device->CreateVertexShader(vertexShaderBuffer->GetBufferPointer(),vertexShaderBuffer->GetBufferSize(),
+		NULL, &handle->vertexShader);
+
+	if(FAILED(res)){
+		throw GPUException("Cannot generate vertex shader");
+	}
+
+	res = _device->CreatePixelShader(pixelShaderBuffer->GetBufferPointer(),pixelShaderBuffer->GetBufferSize(),NULL,&handle->pixelShader);
+	if(FAILED(res)){
+		throw GPUException("Cannot generate pixel shader");
+	}
+
+	layout = new D3D11_INPUT_ELEMENT_DESC[inputLayout->getElementCount()];
+
+	for(int i=0;i<inputLayout->getElementCount();i++){
+		layout[i].SemanticName = inputLayout->elements[i].semantic.c_str();
+		layout[i].SemanticIndex = 0;
+		layout[i].Format = getFormat(inputLayout->elements[i]);
+		layout[i].InputSlot = 0;
+		layout[i].AlignedByteOffset = inputLayout->elements[i].offset;
+		layout[i].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+		layout[i].InstanceDataStepRate = 0;
+	}
+
+	res = _device->CreateInputLayout(layout,inputLayout->getElementCount(),vertexShaderBuffer->GetBufferPointer(),
+			vertexShaderBuffer->GetBufferSize(),&handle->inputLayout);
+
+	if(FAILED(res)){
+		throw GPUException("Cannot create input layout");
+	}
+
+	vertexShaderBuffer->Release();
+	vertexShaderBuffer =0;
+	pixelShaderBuffer->Release();
+	pixelShaderBuffer=0;
+
+	return handle;
+	//res = D3DX11CompileFromMemory(program->_vs,program->_vs.size(),);
+	//compile pixel shader
+	//create vertex shader
+	//create pixel shader
+	//create layout
+}
+
 bool DXManager::useShader(GPUResource* shader){
 	auto handle = dynamic_cast<DXShaderHandle*>(shader->_handle.get());
 
@@ -1003,6 +1216,15 @@ bool DXManager::useShader(GPUResource* shader){
 	_deviceContext->PSSetShader(handle->pixelShader,NULL,0);
 
 	return true;
+}
+
+void DXManager::vm_bindShader(Infrastructure::IGPUHandle* _handle)
+{
+	auto handle = dynamic_cast<DXShaderHandle*>(_handle);
+
+	_deviceContext->IASetInputLayout(handle->inputLayout);
+	_deviceContext->VSSetShader(handle->vertexShader,NULL,0);
+	_deviceContext->PSSetShader(handle->pixelShader,NULL,0);
 }
 
 bool DXManager::deleteShader(GPUResource* shader){
@@ -1024,6 +1246,27 @@ bool DXManager::deleteShader(GPUResource* shader){
 		handle->pixelShader = 0;
 	}
 	return true;
+}
+
+void DXManager::vm_deleteShader(Infrastructure::IGPUHandle* _handle)
+{
+	auto handle = dynamic_cast<DXShaderHandle*>(_handle);
+
+	if(handle->inputLayout)
+	{
+		handle->inputLayout->Release();
+		handle->inputLayout = 0;
+	}
+	if(handle->vertexShader)
+	{
+		handle->vertexShader->Release();
+		handle->vertexShader = 0;
+	}
+	if(handle->pixelShader)
+	{
+		handle->pixelShader->Release();
+		handle->pixelShader = 0;
+	}
 }
 
 bool DXManager::createUniformBuffer(GPUResource* buffer){
@@ -1055,6 +1298,33 @@ bool DXManager::createUniformBuffer(GPUResource* buffer){
 		return true;
 }
 
+Infrastructure::IGPUHandlePtr DXManager::vm_createUniformBuffer(u32 size, void* data, u32 slot)
+{
+
+	auto handle = make_shared<DXBufferHandle>();
+
+	D3D11_BUFFER_DESC desc;
+	desc.Usage = D3D11_USAGE_DYNAMIC;
+	desc.ByteWidth = size;
+	desc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+	desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+	desc.MiscFlags = 0;
+	desc.StructureByteStride = 0;
+
+
+	D3D11_SUBRESOURCE_DATA initData;
+	initData.pSysMem = data;
+	initData.SysMemPitch = 0;
+	initData.SysMemSlicePitch = 0;
+
+	auto res = _device->CreateBuffer(&desc,&initData,&handle->DXBuffer);
+
+	if(FAILED(res))
+		return nullptr;
+	else
+		return handle;
+}
+
 bool DXManager::updateUniformBuffer(GPUResource* buffer,unsigned int offset,unsigned int size){
 	auto UBuffer = dynamic_cast<GXWrapper::UniformBuffer*>(buffer);
 
@@ -1072,6 +1342,22 @@ bool DXManager::updateUniformBuffer(GPUResource* buffer,unsigned int offset,unsi
 	return true;
 }
 
+void DXManager::vm_mapUniformBuffer(Infrastructure::IGPUHandle* _handle, u32 size, void* data)
+{
+
+	DXBufferHandle* handle = dynamic_cast<DXBufferHandle*>(_handle);
+
+	D3D11_MAPPED_SUBRESOURCE mappedData;
+	_deviceContext->Map(handle->DXBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedData);
+
+	if(!mappedData.pData)
+		throw GPUException("Cannot map uniform buffer");
+	//memcpy(mappedData.pData,UBuffer->getData(offset),size);
+	memcpy(mappedData.pData,data,size);
+
+	_deviceContext->Unmap(handle->DXBuffer,0);
+}
+
 bool DXManager::useUniformBuffer(GPUResource* buffer){
 	auto UBuffer = dynamic_cast<GXWrapper::UniformBuffer*>(buffer);
 	auto handle = dynamic_cast<DXBufferHandle*>(UBuffer->_handle.get());
@@ -1084,6 +1370,19 @@ bool DXManager::useUniformBuffer(GPUResource* buffer){
 		return false;
 
 	return true;
+}
+
+void DXManager::vm_bindUniformBuffer(Infrastructure::IGPUHandle* _handle, Renderer::GPU_ISA shader, u32 slot)
+{
+	auto handle = dynamic_cast<DXBufferHandle*>(_handle);
+	
+	if(shader == GPU_ISA::VERTEX_SHADER){
+		_deviceContext->VSSetConstantBuffers(slot,1,&handle->DXBuffer);
+	}else if(shader == GPU_ISA::PIXEL_SHADER){
+		_deviceContext->PSSetConstantBuffers(slot,1,&handle->DXBuffer);
+	}else
+		throw GPUException("Cannot bind uniform buffer to shader");
+
 }
 
 bool DXManager::createTexture2D(GPUResource* texture,Image& img){
@@ -1131,6 +1430,50 @@ bool DXManager::createTexture2D(GPUResource* texture,Image& img){
 	return true;
 }
 
+Infrastructure::IGPUHandlePtr DXManager::vm_createTexture2D(GXWrapper::Image& img, bool mipmaps)
+{
+
+	auto handle = make_shared<DXTexture2DHandle>();
+
+	D3D11_TEXTURE2D_DESC desc;
+	desc.ArraySize = 1;
+	desc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
+	desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+	desc.MipLevels = 1;
+	desc.MiscFlags = 0;
+	desc.SampleDesc.Count = 1;
+    desc.SampleDesc.Quality = 0;
+	desc.Usage = D3D11_USAGE_DYNAMIC;
+	desc.Width = img.getWidth();
+	desc.Height = img.getHeight();
+	desc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
+
+	D3D11_SUBRESOURCE_DATA descData;
+	//ZeroMemory(&descData,sizeof(D3D11_SUBRESOURCE_DATA));
+	descData.pSysMem = img.getPixels();
+	descData.SysMemPitch = img.getWidth()*sizeof(Pixel);
+	descData.SysMemSlicePitch = img.getSize();
+	auto res = _device->CreateTexture2D(&desc,&descData,&handle->texture); 
+	if(FAILED(res)){
+		cout<<res<<endl;
+		throw GPUException("Cannot create texture2D");
+	}
+	D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc;
+	srvDesc.Format = desc.Format;
+	srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+	srvDesc.Texture2D.MipLevels = 1;
+	srvDesc.Texture2D.MostDetailedMip = 0;
+	res = _device->CreateShaderResourceView(handle->texture,&srvDesc,&handle->resourceView);
+	if(FAILED(res)){
+		cout<<res<<endl;
+		throw GPUException("Cannot create shader resource from texture2D");
+	}
+	if(mipmaps)
+		_deviceContext->GenerateMips(handle->resourceView);
+
+	return handle;
+}
+
 bool DXManager::updateTexture2D(GPUResource* texture, Image& img)
 {
 	auto handle = dynamic_cast<DXTexture2DHandle*>(texture->_handle.get());
@@ -1146,6 +1489,21 @@ bool DXManager::updateTexture2D(GPUResource* texture, Image& img)
 	_deviceContext->Unmap(handle->texture,0);
 	return true;
 
+}
+
+void DXManager::vm_mapTexture2D(Infrastructure::IGPUHandle* _handle, GXWrapper::Image& img)
+{
+	auto handle = dynamic_cast<DXTexture2DHandle*>(_handle);
+
+	D3D11_MAPPED_SUBRESOURCE mappedData;
+	_deviceContext->Map(handle->texture, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedData);
+
+	if(!mappedData.pData)
+		throw GPUException("Cannot map texture2D");
+	//memcpy(mappedData.pData,UBuffer->getData(offset),size);
+	memcpy(mappedData.pData,img.getPixels(),img.getSize());
+
+	_deviceContext->Unmap(handle->texture,0);
 }
 
 bool DXManager::deleteTexture2D(GPUResource* texture)
@@ -1164,6 +1522,23 @@ bool DXManager::deleteTexture2D(GPUResource* texture)
 		handle->resourceView = 0;
 	}
 	return true;
+}
+
+void DXManager::vm_deleteTexture2D(Infrastructure::IGPUHandle* _handle)
+{
+	auto handle = dynamic_cast<DXTexture2DHandle*>(_handle);
+
+	if(handle->texture)
+	{
+		handle->texture->Release();
+		handle->texture = 0;
+	}
+
+	if(handle->resourceView)
+	{
+		handle->resourceView->Release();
+		handle->resourceView = 0;
+	}
 }
 
 bool DXManager::useTexture2D(GPUResource* texture, unsigned unit, Shader::Type type)
@@ -1189,9 +1564,32 @@ bool DXManager::useTexture2D(GPUResource* texture, unsigned unit, Shader::Type t
 	}
 }
 
+void DXManager::vm_bindTexture2D(Infrastructure::IGPUHandle* _handle, Renderer::GPU_ISA type, u32 unit)
+{
+	auto handle = dynamic_cast<DXTexture2DHandle*>(_handle);
+
+	switch(type)
+	{
+	case GPU_ISA::VERTEX_SHADER:
+		_deviceContext->VSSetShaderResources(unit,1,&handle->resourceView);
+		break;
+	case GPU_ISA::PIXEL_SHADER:
+		_deviceContext->PSSetShaderResources(unit,1,&handle->resourceView);
+		break;
+	default:
+		throw GPUException("unidentified shader type to bind texture to it");
+		break;
+	}
+}
+
 bool DXManager::createGeometry(Geometry*)
 {
 	return true;
+}
+
+Infrastructure::IGPUHandlePtr DXManager::vm_createGeometry(Infrastructure::IGPUHandle* vertex, Infrastructure::IGPUHandle* pixel, GXWrapper::MemoryLayout* input_layout)
+{
+	return make_shared<IGPUHandle>();
 }
 
 bool DXManager::drawGeometry(Geometry* geometry, Primitive::Mode mode)
@@ -1263,9 +1661,76 @@ bool DXManager::drawGeometry(Geometry* geometry, Primitive::Mode mode)
 	return true;
 }
 
+void DXManager::vm_draw(GXWrapper::Primitive::Type type, Infrastructure::IGPUHandle* geometry, Infrastructure::IGPUHandle* vertex_buffer, u32 vertices_count, GXWrapper::MemoryLayout* input_layout)
+{
+
+	if(type == 0)
+		_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_POINTLIST);
+
+	if(type == 1)
+		_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
+
+	if(type == 2)
+		_deviceContext->IASetPrimitiveTopology( D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
+
+	if(type == 3)
+		_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
+
+	if(type == 4)
+		_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+	if(type == 5)
+		_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
+
+	if(type == 6)
+		_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP_ADJ);
+
+	vm_bindVertexBuffer(vertex_buffer,input_layout->getSize());
+
+	_deviceContext->Draw(vertices_count,0);
+	
+}
+
+void DXManager::vm_drawIndexed(GXWrapper::Primitive::Type type, Infrastructure::IGPUHandle* geometry, Infrastructure::IGPUHandle* vertex_buffer, Infrastructure::IGPUHandle* index_buffer, u32 indices_count, GXWrapper::MemoryLayout* input_layout)
+{
+
+	if(type == 0)
+		_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_POINTLIST);
+
+	if(type == 1)
+		_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
+
+	if(type == 2)
+		_deviceContext->IASetPrimitiveTopology( D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
+
+	if(type == 3)
+		_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
+
+	if(type == 4)
+		_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+	if(type == 5)
+		_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
+
+	if(type == 6)
+		_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP_ADJ);
+
+
+
+
+	vm_bindVertexBuffer(vertex_buffer,input_layout->getSize());
+	vm_bindIndexBuffer(index_buffer);
+	_deviceContext->DrawIndexed(indices_count,0,0);
+}
+
 bool DXManager::deleteGeometry(GPUResource*)
 {
 	return true; 
+}
+
+void DXManager::vm_deleteGeometry(Infrastructure::IGPUHandle* _handle)
+{
+	return;
 }
 
 bool DXManager::createSamplerState(GPUResource* gpSampler)
@@ -1297,6 +1762,33 @@ bool DXManager::createSamplerState(GPUResource* gpSampler)
 	return true;
 }
 
+Infrastructure::IGPUHandlePtr DXManager::vm_createSampleState(GXWrapper::TextureAddressMode U, GXWrapper::TextureAddressMode V, GXWrapper::TextureAddressMode W, GXWrapper::TextureFilter filter, GXWrapper::CompareFunction func, GXWrapper::Color* color)
+{
+	D3D11_SAMPLER_DESC samplerDesc;
+	samplerDesc.AddressU = getAddressMode(U);
+	samplerDesc.AddressV = getAddressMode(V);
+	samplerDesc.AddressW = getAddressMode(W);
+	samplerDesc.ComparisonFunc = getCompareFunc(func);
+	samplerDesc.Filter = getFilter(filter);
+	samplerDesc.MipLODBias = 0.0f;
+	samplerDesc.MaxAnisotropy = 1;
+	samplerDesc.BorderColor[0] = color->R;
+	samplerDesc.BorderColor[1] = color->G;
+	samplerDesc.BorderColor[2] = color->B;
+	samplerDesc.BorderColor[3] = color->A;
+	//samplerDesc.ComparisonFunc = D3D11_COMPARISON_ALWAYS;
+	samplerDesc.MinLOD = 0;
+	samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
+
+	auto handle = make_shared<DXSamplerHandle>();
+
+	auto result = _device->CreateSamplerState(&samplerDesc,&handle->sampler);
+	if(FAILED(result))
+		throw GPUException("Cannot create sampler");
+	
+	return handle;
+}
+
 bool DXManager::useSamplerState(GPUResource* gpSampler, unsigned slot, Shader::Type type)
 {
 	auto handle = dynamic_cast<DXSamplerHandle*>(gpSampler->_handle.get());
@@ -1309,6 +1801,16 @@ bool DXManager::useSamplerState(GPUResource* gpSampler, unsigned slot, Shader::T
 	return true;
 }
 
+void DXManager::vm_bindSampler(Infrastructure::IGPUHandle* _handle, Renderer::GPU_ISA shader, u32 slot)
+{
+	auto handle = dynamic_cast<DXSamplerHandle*>(_handle);
+
+	if(shader == GPU_ISA::VERTEX_SHADER)
+		_deviceContext->VSSetSamplers(slot,1,&handle->sampler);
+	else if(shader == GPU_ISA::PIXEL_SHADER)
+		_deviceContext->PSSetSamplers(slot,1,&handle->sampler);
+}
+
 bool DXManager::deleteSamplerState(GPUResource* gpSampler)
 {
 	auto handle = dynamic_cast<DXSamplerHandle*>(gpSampler->_handle.get());
@@ -1317,8 +1819,20 @@ bool DXManager::deleteSamplerState(GPUResource* gpSampler)
 	return true;
 }
 
+void DXManager::vm_deleteSampler(Infrastructure::IGPUHandle* _handle)
+{
+	auto handle = dynamic_cast<DXSamplerHandle*>(_handle);
+	handle->sampler->Release();
+	handle->sampler = 0;
+}
+
 bool DXManager::applySamplerStateToTexture2D(GPUResource* sampler, GPUResource* texture)
 {
 	return true;
+}
+
+void DXManager::vm_applySamplerTexture2D(Infrastructure::IGPUHandle* sampler, Infrastructure::IGPUHandle* texture, bool mipmaps, GXWrapper::TextureAddressMode U, GXWrapper::TextureAddressMode V, GXWrapper::TextureFilter filter, GXWrapper::CompareFunction func, GXWrapper::Color border_color)
+{
+	return;
 }
 #endif

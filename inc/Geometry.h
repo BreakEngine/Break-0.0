@@ -3,6 +3,7 @@
 #include "ISet.h"
 #include "GeometryData.h"
 #include <memory>
+#include "GlobalDefinitions.h"
 
 namespace Break{
 	namespace Renderer
@@ -16,7 +17,7 @@ namespace Break{
 		 * \author Moustapha Saad
 		 */
 
-		class Geometry: public IDrawable, Infrastructure::GPUResource{
+		class BREAK_API_EX Geometry: public IDrawable, Infrastructure::GPUResource{
 			friend class Renderer::GLManager;
 			friend class Renderer::DXManager;
 			friend class Renderer::SpriteBatcher;

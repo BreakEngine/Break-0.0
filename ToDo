@@ -1,0 +1,26 @@
+/*
+ * - To add details to Task you should use [your description goes here]
+ * - Lists goes with the minus symbol like this list
+ */
+
+Game Engine State:
+	- 2D Full Support Done
+	- Audio System
+
+Work that are Done:
+	- fix input bug [fires only once even if button is still down]
+
+Work to be Done:
+	- fix clear color issue [bind it to the scene]
+	- implement request system to Graphics Device [so user pass request not calling functions]
+	- add font rendering
+	- add proper physics engine
+	- add debug facility
+	- add HISL support/shaders to engine
+	- create proper renderer class
+
+Optional -but it's good to be added-:
+	- generic File system
+	- asset system -for asset packing and stream-
+	- proper audio mixer
+	- OS class to handle os calls

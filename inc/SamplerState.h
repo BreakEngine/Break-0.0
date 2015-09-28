@@ -2,19 +2,20 @@
 #include "Pixels.h"
 #include <memory>
 #include "GPUResource.h"
+#include "GlobalDefinitions.h"
 
 namespace Break
 {
 	namespace GXWrapper
 	{
 		///texture address modes
-		enum class TextureAddressMode
+		BREAK_API_EX enum class TextureAddressMode
 		{
 			WRAP=0, CLAMP, MIRROR, BORDER
 		};
 
 		///texture filters to be applied to sampler
-		enum class TextureFilter
+		BREAK_API_EX enum class TextureFilter
 		{
 			LINEAR=0, POINT, ANISOTROPIC, LINEAR_MIP_POINT, POINT_MIP_LINEAR,
 			MIN_LINEAR_MAG_POINT_MIP_LINEAR,MIN_LINEAR_MAG_POINT_MIP_POINT,
@@ -22,14 +23,14 @@ namespace Break
 		};
 
 		///texture compare functions
-		enum class CompareFunction
+		BREAK_API_EX enum class CompareFunction
 		{
 			ALWAYS=0, NEVER, LESS, LESS_EQUAL, EQUAL, GREATER_EQUAL, GREATER,
 			NOT_EQUAL
 		};
 
 		///represents a sampler unit
-		class SamplerState: public Infrastructure::GPUResource
+		class BREAK_API_EX SamplerState: public Infrastructure::GPUResource
 		{
 		protected:
 			///invokes a GPU create function

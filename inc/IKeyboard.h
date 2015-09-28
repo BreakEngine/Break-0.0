@@ -2,9 +2,11 @@
 #include<map>
 #include<memory>
 #include "InputDevice.h"
+#include "GlobalDefinitions.h"
+
 namespace Break{
 	namespace Infrastructure{
-		class IKeyboard:public InputDevice{
+		class BREAK_API_EX IKeyboard:public InputDevice{
 		public:
 			virtual ~IKeyboard();
 

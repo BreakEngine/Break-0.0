@@ -1,11 +1,11 @@
 #pragma once
-
+#include "GlobalDefinitions.h"
 namespace Break{
 	namespace GXWrapper{
 		/**
 		 * \brief interface of the vertex objects
 		 */
-		class IVertex{
+		class BREAK_API_EX IVertex{
 		public:
 			///default constructor
 			IVertex(){}

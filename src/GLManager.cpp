@@ -20,6 +20,7 @@
 using namespace std;
 using namespace Break::Renderer;
 using namespace Break::Infrastructure;
+using namespace Break;
 using namespace Break::GXWrapper;
 
 #pragma comment(lib,"opengl32.lib")
@@ -229,6 +230,8 @@ void GLManager::start(){
 
 void GLManager::setRasterMode(RasterMode mode)
 {
+	//this is my Saad comment 
+
 	switch (mode)
 	{
 	case RasterMode::FILL: 
@@ -312,6 +315,42 @@ bool GLManager::createVertexBuffer(GPUResource* buffer){
 	return true;
 }
 
+Infrastructure::IGPUHandlePtr GLManager::vm_createVertexBuffer(Renderer::GPU_ISA type, u32 size, void* data)
+{
+
+	auto handle = make_shared<GLHandle>();
+	
+	GLuint id = -1;
+	glGenBuffers(1,&id);
+	if (id == -1)
+		throw GPUException("Cannot generate vertex buffer");
+	glBindBuffer(GL_ARRAY_BUFFER,id);
+	
+	
+	switch (type)
+	{
+
+	//static
+	case GPU_ISA::STATIC:
+		glBufferData(GL_ARRAY_BUFFER,size,data,GL_STATIC_DRAW);
+		break;
+
+	//dynamic
+	case GPU_ISA::DYNAMIC:
+		glBufferData(GL_ARRAY_BUFFER,size,data,GL_DYNAMIC_DRAW);
+		break;
+
+	default:
+		return nullptr;
+		break;
+	}
+
+	handle->ID = id;
+
+	glBindBuffer(GL_ARRAY_BUFFER,0);
+	return handle;
+}
+
 bool GLManager::createIndexBuffer(GPUResource* buffer){
 	GXWrapper::IndexBuffer* IBuffer = dynamic_cast<GXWrapper::IndexBuffer*>(buffer);
 
@@ -347,6 +386,40 @@ bool GLManager::createIndexBuffer(GPUResource* buffer){
 	return true;
 }
 
+Infrastructure::IGPUHandlePtr GLManager::vm_createIndexBuffer(Renderer::GPU_ISA type, u32 size, void* data)
+{
+
+	auto handle = make_shared<GLHandle>();
+
+	GLuint id=-1;
+	glGenBuffers(1,&id);
+	if (id == -1)
+		throw GPUException("Cannot generate index buffer");
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,id);
+
+	switch (type)
+	{
+
+		//static
+	case GPU_ISA::STATIC:
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER,size,data,GL_STATIC_DRAW);
+		break;
+		//dynamic
+	case GPU_ISA::DYNAMIC:
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER,size,data,GL_DYNAMIC_DRAW);
+		break;
+
+	default:
+		return nullptr;
+		break;
+	}
+
+	handle->ID = id;
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
+	return handle;
+}
+
 bool GLManager::updateVertexBuffer(GPUResource* buffer, unsigned int offset, unsigned int size){
 	GXWrapper::VertexBuffer* VBuffer = dynamic_cast<GXWrapper::VertexBuffer*>(buffer);
 
@@ -368,6 +441,25 @@ bool GLManager::updateVertexBuffer(GPUResource* buffer, unsigned int offset, uns
 
 	glBindBuffer(GL_ARRAY_BUFFER,0);
 	return true;
+}
+
+void GLManager::vm_mapVertexBuffer(Infrastructure::IGPUHandle* _handle, u32 size, void* data)
+{
+
+	auto handle = dynamic_cast<GLHandle*>(_handle);
+
+	glBindBuffer(GL_ARRAY_BUFFER,handle->ID);
+	//glBufferData(GL_ARRAY_BUFFER,VBuffer->getSize(),NULL,GL_DYNAMIC_DRAW);
+	void* GPUPtr = NULL;
+	GPUPtr = glMapBufferRange(GL_ARRAY_BUFFER,0,size,GL_MAP_WRITE_BIT|GL_MAP_INVALIDATE_RANGE_BIT );
+
+	if(GPUPtr == NULL)
+		throw GXWrapper::GPUException("Cannot Map Vertex Buffer: Failed to get buffer pointer");
+
+	memcpy(GPUPtr,data,size);
+	glUnmapBuffer(GL_ARRAY_BUFFER);
+
+	glBindBuffer(GL_ARRAY_BUFFER,0);
 }
 
 bool GLManager::updateIndexBuffer(GPUResource* buffer, unsigned int offset, unsigned int size){
@@ -393,8 +485,34 @@ bool GLManager::updateIndexBuffer(GPUResource* buffer, unsigned int offset, unsi
 	return true;
 }
 
+void GLManager::vm_mapIndexBuffer(Infrastructure::IGPUHandle* _handle, u32 size, void* data)
+{
+
+	auto handle = dynamic_cast<GLHandle*>(_handle);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,handle->ID);
+	//glBufferData(GL_ELEMENT_ARRAY_BUFFER,IBuffer->getSize(),NULL,GL_DYNAMIC_DRAW);
+	void* GPUPtr = NULL;
+	GPUPtr = glMapBufferRange(GL_ELEMENT_ARRAY_BUFFER,0,size,GL_MAP_WRITE_BIT |GL_MAP_INVALIDATE_RANGE_BIT );
+
+	if(GPUPtr == NULL)
+		throw GXWrapper::GPUException("Cannot Map Index Buffer: Failed to get buffer pointer");
+
+	memcpy(GPUPtr,data,size);
+	glUnmapBuffer(GL_ELEMENT_ARRAY_BUFFER);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
+}
+
 bool GLManager::deleteBuffer(GPUResource* buffer){
 	auto handle = dynamic_cast<GLHandle*>(buffer->_handle.get());
+	glDeleteBuffers(1,&handle->ID);
+	return true;
+}
+
+bool GLManager::vm_deleteBuffer(Infrastructure::IGPUHandle* _handle)
+{
+	auto handle = dynamic_cast<GLHandle*>(_handle);
 	glDeleteBuffers(1,&handle->ID);
 	return true;
 }
@@ -406,10 +524,23 @@ bool GLManager::useVertexBuffer(GPUResource* buffer){
 	return true;
 }
 
+void GLManager::vm_bindVertexBuffer(Infrastructure::IGPUHandle* _handle, u32 stride)
+{
+	auto handle = dynamic_cast<GLHandle*>(_handle);
+
+	glBindBuffer(GL_ARRAY_BUFFER,handle->ID);
+}
+
 bool GLManager::useIndexBuffer(GPUResource* buffer){
 	auto handle = dynamic_cast<GLHandle*>(buffer->_handle.get());
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,handle->ID);
 	return true;
+}
+
+void GLManager::vm_bindIndexBuffer(Infrastructure::IGPUHandle* _handle)
+{
+	auto handle = dynamic_cast<GLHandle*>(_handle);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,handle->ID);
 }
 
 bool GLManager::createShader(GPUResource* shader){
@@ -479,6 +610,72 @@ bool GLManager::createShader(GPUResource* shader){
 	return true;
 }
 
+Infrastructure::IGPUHandlePtr GLManager::vm_createProgram(std::string vertex, std::string pixel, GXWrapper::MemoryLayout* inputLayout)
+{
+
+	auto handle = make_shared<GLShaderHandle>();
+
+	handle->vertexShader = glCreateShader(GL_VERTEX_SHADER);
+
+	char* error = new char[1024];
+	const GLchar* p[1];
+	p[0] = vertex.c_str();
+	GLint lengths[1];
+	lengths[0] = vertex.size();
+	glShaderSource(handle->vertexShader,1,p,lengths);
+	glCompileShader(handle->vertexShader);
+
+	GLint res = 0;
+	glGetShaderiv(handle->vertexShader,GL_COMPILE_STATUS,&res);
+
+	if(res == GL_FALSE){
+		glGetShaderInfoLog(handle->vertexShader,1024,NULL,error);
+		std::cout<<error<<std::endl;
+		throw GPUException("Cannot compile vertex shader");
+	}
+
+	handle->pixelShader = glCreateShader(GL_FRAGMENT_SHADER);
+
+	p[0] = pixel.c_str();
+	lengths[0] = pixel.size();
+
+	glShaderSource(handle->pixelShader,1,p,lengths);
+	glCompileShader(handle->pixelShader);
+
+	glGetShaderiv(handle->pixelShader,GL_COMPILE_STATUS,&res);
+
+	if(res == GL_FALSE){
+		glGetShaderInfoLog(handle->pixelShader,1024,NULL,error);
+		std::cout<<error<<std::endl;
+		throw GPUException("Cannot compile pixel shader");
+	}
+
+	handle->program = glCreateProgram();
+
+	glAttachShader(handle->program,handle->vertexShader);
+	glAttachShader(handle->program,handle->pixelShader);
+
+	glLinkProgram(handle->program);
+	glGetProgramiv(handle->program,GL_LINK_STATUS,&res);
+
+	if(res == GL_FALSE){
+		glGetProgramInfoLog(handle->program,1024,NULL,error);
+		std::cout<<error<<std::endl;
+		throw GPUException("Cannot link GPU program");
+	}
+	glValidateProgram(handle->program);
+	glGetProgramiv(handle->program,GL_VALIDATE_STATUS,&res);
+
+	if(res == GL_FALSE){
+		glGetProgramInfoLog(handle->program,1024,NULL,error);
+		std::cout<<error<<std::endl;
+		throw GPUException("GPU program validation error");
+	}
+
+	delete[] error;
+	return handle;
+}
+
 bool GLManager::deleteShader(GPUResource* shader){
 	auto handle = dynamic_cast<GLShaderHandle*>(shader->_handle.get());
 
@@ -492,12 +689,31 @@ bool GLManager::deleteShader(GPUResource* shader){
 	return true;
 }
 
+void GLManager::vm_deleteShader(Infrastructure::IGPUHandle* _handle)
+{
+	auto handle = dynamic_cast<GLShaderHandle*>(_handle);
+
+	if(handle->vertexShader)
+		glDeleteShader(handle->vertexShader);
+	if(handle->pixelShader)
+		glDeleteShader(handle->pixelShader);
+	if(handle->program)
+		glDeleteProgram(handle->program);
+}
+
 bool GLManager::useShader(GPUResource* shader){
 	auto handle = dynamic_cast<GLShaderHandle*>(shader->_handle.get());
 
 	glUseProgram(handle->program);
 
 	return true;
+}
+
+void GLManager::vm_bindShader(Infrastructure::IGPUHandle* _handle)
+{
+	auto handle = dynamic_cast<GLShaderHandle*>(_handle);
+
+	glUseProgram(handle->program);
 }
 
 bool GLManager::createUniformBuffer(GPUResource* buffer){
@@ -515,6 +731,22 @@ bool GLManager::createUniformBuffer(GPUResource* buffer){
 
 	buffer->_handle = handle;
 	return true;
+}
+
+Infrastructure::IGPUHandlePtr GLManager::vm_createUniformBuffer(u32 size, void* data, u32 slot)
+{
+
+	auto handle = make_shared<GLHandle>();
+
+	glGenBuffers(1,&handle->ID);
+	glBindBuffer(GL_UNIFORM_BUFFER,handle->ID);
+	glBufferData(GL_UNIFORM_BUFFER,size,data,GL_DYNAMIC_DRAW);
+
+	glBindBufferBase(GL_UNIFORM_BUFFER,slot,handle->ID);
+
+	glBindBuffer(GL_UNIFORM_BUFFER,0);
+
+	return handle;
 }
 
 bool GLManager::updateUniformBuffer(GPUResource* buffer,unsigned int offset,unsigned int size){
@@ -538,12 +770,38 @@ bool GLManager::updateUniformBuffer(GPUResource* buffer,unsigned int offset,unsi
 	return true;
 }
 
+void GLManager::vm_mapUniformBuffer(Infrastructure::IGPUHandle* _handle, u32 size, void* data)
+{
+
+	auto handle = dynamic_cast<GLHandle*>(_handle);
+
+	glBindBuffer(GL_UNIFORM_BUFFER,handle->ID);
+	//glBufferData(GL_UNIFORM_BUFFER,UBuffer->getSize(),NULL,GL_DYNAMIC_DRAW);
+	void* GPUPtr = NULL;
+	GPUPtr = glMapBufferRange(GL_UNIFORM_BUFFER,0,size,GL_MAP_WRITE_BIT |GL_MAP_INVALIDATE_RANGE_BIT );
+
+	if(GPUPtr == NULL)
+		throw GXWrapper::GPUException("Cannot Map Uniform Buffer: Failed to get buffer pointer");
+
+	memcpy(GPUPtr,data,size);
+	glUnmapBuffer(GL_UNIFORM_BUFFER);
+
+	glBindBuffer(GL_UNIFORM_BUFFER,0);
+}
+
 bool GLManager::useUniformBuffer(GPUResource* buffer){
 	auto handle = dynamic_cast<GLHandle*>(buffer->_handle.get());
 	auto UBuffer = dynamic_cast<GXWrapper::UniformBuffer*>(buffer);
 	glBindBuffer(GL_UNIFORM_BUFFER,handle->ID);
 	glBindBufferBase(GL_UNIFORM_BUFFER,UBuffer->_slot,handle->ID);
 	return true;
+}
+
+void GLManager::vm_bindUniformBuffer(Infrastructure::IGPUHandle* _handle, Renderer::GPU_ISA shader, u32 slot)
+{
+	auto handle = dynamic_cast<GLHandle*>(_handle);
+	glBindBuffer(GL_UNIFORM_BUFFER,handle->ID);
+	glBindBufferBase(GL_UNIFORM_BUFFER,slot,handle->ID);
 }
 
 bool GLManager::createTexture2D(GPUResource* texture,Image& img){
@@ -563,6 +821,21 @@ bool GLManager::createTexture2D(GPUResource* texture,Image& img){
 	return true;
 }
 
+Infrastructure::IGPUHandlePtr GLManager::vm_createTexture2D(GXWrapper::Image& img, bool mipmaps)
+{
+	auto handle = make_shared<GLHandle>();
+
+	glGenTextures(1,&handle->ID);
+	glBindTexture(GL_TEXTURE_2D,handle->ID);
+
+		glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,img.getWidth(),img.getHeight(),0,GL_BGRA,GL_UNSIGNED_BYTE,img.getPixels());
+		if(mipmaps)
+			glGenerateMipmap(GL_TEXTURE_2D);
+
+	glBindTexture(GL_TEXTURE_2D,0);
+	return handle;
+}
+
 bool GLManager::updateTexture2D(GPUResource* texture,Image& img){
 	auto handle = dynamic_cast<GLHandle*>(texture->_handle.get());
 
@@ -570,6 +843,16 @@ bool GLManager::updateTexture2D(GPUResource* texture,Image& img){
 	glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,img.getWidth(),img.getHeight(),0,GL_BGRA,GL_UNSIGNED_BYTE,img.getPixels());
 	glBindTexture(GL_TEXTURE_2D,0);
 	return true;
+}
+
+void GLManager::vm_mapTexture2D(Infrastructure::IGPUHandle* _handle, GXWrapper::Image& img)
+{
+	auto handle = dynamic_cast<GLHandle*>(_handle);
+
+	glBindTexture(GL_TEXTURE_2D,handle->ID);
+	glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,img.getWidth(),img.getHeight(),0,GL_BGRA,GL_UNSIGNED_BYTE,img.getPixels());
+	glBindTexture(GL_TEXTURE_2D,0);
+	
 }
 
 bool GLManager::deleteTexture2D(GPUResource* texture){
@@ -580,6 +863,13 @@ bool GLManager::deleteTexture2D(GPUResource* texture){
 	return true;
 }
 
+void GLManager::vm_deleteTexture2D(Infrastructure::IGPUHandle* _handle)
+{
+	auto handle = dynamic_cast<GLHandle*>(_handle);
+
+	glDeleteTextures(1,&handle->ID);
+}
+
 bool GLManager::useTexture2D(GPUResource* texture, unsigned int unit, Shader::Type)
 {
 	auto handle = dynamic_cast<GLHandle*>(texture->_handle.get());
@@ -588,6 +878,14 @@ bool GLManager::useTexture2D(GPUResource* texture, unsigned int unit, Shader::Ty
 	glBindTexture(GL_TEXTURE_2D,handle->ID);
 
 	return true;
+}
+
+void GLManager::vm_bindTexture2D(Infrastructure::IGPUHandle* _handle, Renderer::GPU_ISA type, u32 unit)
+{
+	auto handle = dynamic_cast<GLHandle*>(_handle);
+
+	glActiveTexture(GL_TEXTURE0+unit);
+	glBindTexture(GL_TEXTURE_2D,handle->ID);
 }
 
 bool GLManager::createGeometry(Geometry* geometry)
@@ -615,6 +913,33 @@ bool GLManager::createGeometry(Geometry* geometry)
 
 	geo->_handle = handle;
 	return true;
+}
+
+Infrastructure::IGPUHandlePtr GLManager::vm_createGeometry(Infrastructure::IGPUHandle* vertex, Infrastructure::IGPUHandle* index, GXWrapper::MemoryLayout* input_layout)
+{
+
+	auto handle = make_shared<GLHandle>();
+
+	glGenVertexArrays(1,&handle->ID);
+	glBindVertexArray(handle->ID);
+
+	//geo->_geometryData.vertices->use();
+	vm_bindVertexBuffer(vertex,input_layout->getSize());
+	
+	MemoryLayout layout = *input_layout;
+
+	for(int i=0;i<layout.getElementCount();i++)
+	{
+		glEnableVertexAttribArray(i);
+		glVertexAttribPointer(i,layout.elements[i].components,GL_FLOAT,GL_FALSE,layout.getSize(),reinterpret_cast<void*>(layout.elements[i].offset));
+	}
+	if(index)
+		vm_bindIndexBuffer(index);
+
+	glBindVertexArray(0);
+
+	
+	return handle;
 }
 
 bool GLManager::drawGeometry(Geometry* geometry, Primitive::Mode mode)
@@ -735,6 +1060,68 @@ bool GLManager::drawGeometry(Geometry* geometry, Primitive::Mode mode)
 	return true;
 }
 
+void GLManager::vm_draw(GXWrapper::Primitive::Type type,Infrastructure::IGPUHandle* geometry_handle,
+						Infrastructure::IGPUHandle* vertex_buffer, u32 vertices_count,
+						GXWrapper::MemoryLayout* input_layout)
+{
+
+	auto handle = dynamic_cast<GLHandle*>(geometry_handle);
+
+	glBindVertexArray(handle->ID);
+
+	vm_bindVertexBuffer(vertex_buffer,input_layout->getSize());
+		if(type == 0)
+			glDrawArrays(GL_POINTS,0,vertices_count);
+		else if(type == 1)
+			glDrawArrays(GL_LINES,0,vertices_count);
+		else if(type == 2)
+			glDrawArrays(GL_LINE_STRIP,0,vertices_count);
+		else if(type == 3)
+			glDrawArrays(GL_LINE_LOOP,0,vertices_count);
+		else if(type == 4)
+			glDrawArrays(GL_TRIANGLES,0,vertices_count);
+		else if(type == 5)
+			glDrawArrays(GL_TRIANGLE_STRIP,0,vertices_count);
+		else if(type == 6)
+			glDrawArrays(GL_TRIANGLE_FAN,0,vertices_count);
+		else
+			throw GPUException("Cannot identify primitive type");
+
+}
+
+void GLManager::vm_drawIndexed(GXWrapper::Primitive::Type type, Infrastructure::IGPUHandle* geometry, Infrastructure::IGPUHandle* vertex_buffer, Infrastructure::IGPUHandle* index_buffer, u32 indices_count, GXWrapper::MemoryLayout* input_layout)
+{
+
+	auto handle = dynamic_cast<GLHandle*>(geometry);
+
+	glBindVertexArray(handle->ID);
+
+	vm_bindVertexBuffer(vertex_buffer,input_layout->getSize());
+
+	vm_bindIndexBuffer(index_buffer);
+	if(type == 0)
+		glDrawElements(GL_POINTS , indices_count , GL_UNSIGNED_INT ,(void*)0);
+	else if(type == 1)
+		glDrawElements(GL_LINES , indices_count , GL_UNSIGNED_INT ,(void*)0);
+
+	else if(type == 2)
+		glDrawElements(GL_LINE_STRIP , indices_count , GL_UNSIGNED_INT ,(void*)0);
+
+	else if(type == 3)
+		glDrawElements(GL_LINE_LOOP , indices_count , GL_UNSIGNED_INT ,(void*)0);
+
+	else if(type == 4)
+		glDrawElements(GL_TRIANGLES , indices_count , GL_UNSIGNED_INT ,(void*)0);
+
+	else if(type == 5)
+		glDrawElements(GL_TRIANGLE_STRIP , indices_count , GL_UNSIGNED_INT ,(void*)0);
+
+	else if(type == 6)
+		glDrawElements(GL_TRIANGLE_FAN , indices_count , GL_UNSIGNED_INT ,(void*)0);
+	else
+		throw GPUException("Cannot identify primitive type");
+}
+
 bool GLManager::deleteGeometry(GPUResource* geometry)
 {
 	auto handle = dynamic_cast<GLHandle*>(geometry->_handle.get());
@@ -744,9 +1131,21 @@ bool GLManager::deleteGeometry(GPUResource* geometry)
 	return true;
 }
 
+void GLManager::vm_deleteGeometry(Infrastructure::IGPUHandle* _handle)
+{
+	auto handle = dynamic_cast<GLHandle*>(_handle);
+
+	glDeleteVertexArrays(1,&handle->ID);
+}
+
 bool GLManager::createSamplerState(GPUResource*)
 {
 	return true;
+}
+
+Infrastructure::IGPUHandlePtr GLManager::vm_createSampleState(GXWrapper::TextureAddressMode U, GXWrapper::TextureAddressMode V, GXWrapper::TextureAddressMode W, GXWrapper::TextureFilter filter, GXWrapper::CompareFunction func, GXWrapper::Color* color)
+{
+	return make_shared<GLHandle>();
 }
 
 bool GLManager::useSamplerState(GPUResource*, unsigned slot, Shader::Type type)
@@ -754,9 +1153,19 @@ bool GLManager::useSamplerState(GPUResource*, unsigned slot, Shader::Type type)
 	return true;
 }
 
+void GLManager::vm_bindSampler(Infrastructure::IGPUHandle* _handle, Renderer::GPU_ISA shader, u32 slot)
+{
+	return;
+}
+
 bool GLManager::deleteSamplerState(GPUResource*)
 {
 	return true;
+}
+
+void GLManager::vm_deleteSampler(Infrastructure::IGPUHandle* _handle)
+{
+	return;
 }
 
 bool GLManager::applySamplerStateToTexture2D(GPUResource* gpSampler, GPUResource* texture)
@@ -782,4 +1191,19 @@ bool GLManager::applySamplerStateToTexture2D(GPUResource* gpSampler, GPUResource
 
 	return true;
 
+}
+
+void GLManager::vm_applySamplerTexture2D(Infrastructure::IGPUHandle* sampler, Infrastructure::IGPUHandle* texture, bool mipmaps, GXWrapper::TextureAddressMode U, GXWrapper::TextureAddressMode V, GXWrapper::TextureFilter filter, GXWrapper::CompareFunction func, GXWrapper::Color border_color)
+{
+	auto texHandle = dynamic_cast<GLHandle*>(texture);
+
+		glBindTexture(GL_TEXTURE_2D,texHandle->ID);
+		applyFilter2D(filter,mipmaps,GL_TEXTURE_2D);
+		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,getAddressMode(U));
+		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,getAddressMode(V));
+		float border[4] = {border_color.R,border_color.G,border_color.B,border_color.A};
+		glTexParameterfv(GL_TEXTURE_2D,GL_TEXTURE_BORDER_COLOR,border);
+		if(func != GXWrapper::CompareFunction::NEVER)
+			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_COMPARE_FUNC,getCompareFunc(func));
+		glBindTexture(GL_TEXTURE_2D,0);
 }

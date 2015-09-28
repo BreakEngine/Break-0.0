@@ -3,7 +3,7 @@
 
 using namespace glm;
 using namespace Break::GXWrapper;
-using namespace Break::Infrastructure;
+using namespace Break;
 
 IAttribute::IAttribute(){
 	_data = NULL;

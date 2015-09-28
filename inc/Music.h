@@ -1,6 +1,7 @@
 #pragma once
 #include "Sound.h"
 #include <SDL_mixer.h>
+#include "GlobalDefinitions.h"
 
 namespace Break
 {
@@ -10,7 +11,7 @@ namespace Break
 		 * \brief reperesents a music class, you can only play one music object at a time
 		 * \author Mohammed Shaalan
 		 */
-		class Music:public Sound
+		class BREAK_API_EX Music:public Sound
 		{
 		public:
 			///changes the volume of the current playing music

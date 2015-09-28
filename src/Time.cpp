@@ -1,7 +1,7 @@
 #include "Time.h"
 #include <exception>
 #if defined(WIN32) ||defined(_WIN32) || defined(__WIN32__)|| defined(_WIN64) || defined(WIN64)
-#define WINDOWS
+#define OS_WINDOWS
 #include <windows.h>
 #elif defined(__linux__) || defined(__unix__)
 #define OS_LINUX
@@ -32,7 +32,7 @@ TimeStep Time::getTimeStep()
 }
 
 double Time::getTime(){
-#ifdef WINDOWS
+#ifdef OS_WINDOWS
 	LARGE_INTEGER li;
 	if(!_init){
 		if(!QueryPerformanceFrequency((&li)))

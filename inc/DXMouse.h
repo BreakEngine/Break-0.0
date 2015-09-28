@@ -1,11 +1,13 @@
 #pragma once
 #include "IMouse.h"
+#include "GlobalDefinitions.h"
+
 namespace Break{
 	namespace Renderer{
 		class DXManager;
 	}
 	namespace Input{
-		class DXMouse : public Infrastructure::IMouse{
+		class BREAK_API_EX DXMouse : public Infrastructure::IMouse{
 			friend class Renderer::DXManager;
 		private:
 

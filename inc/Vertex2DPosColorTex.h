@@ -2,12 +2,13 @@
 #include "IVertex.h"
 #include <glm/common.hpp>
 #include "MemoryLayout.h"
+#include "GlobalDefinitions.h"
 
 namespace Break
 {
 	namespace Assets
 	{
-		class Vertex2DPosColorTex: public GXWrapper::IVertex
+		class BREAK_API_EX Vertex2DPosColorTex: public GXWrapper::IVertex
 		{
 		public:
 			glm::vec2 position;

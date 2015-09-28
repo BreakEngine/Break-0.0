@@ -1,10 +1,10 @@
 #pragma once
 #include <exception>
 #include <string>
-
+#include "GlobalDefinitions.h"
 namespace Break{
 	namespace Infrastructure{
-		class MemoryException:public std::exception{
+		class BREAK_API_EX MemoryException:public std::exception{
 		protected:
 			std::string _msg;
 		public:

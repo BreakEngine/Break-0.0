@@ -1,10 +1,11 @@
 #pragma once
 #include "IGPUHandle.h"
 #include <d3d11.h>
+#include "GlobalDefinitions.h"
 
 namespace Break{
 	namespace Renderer{
-		class DXSamplerHandle: public Infrastructure::IGPUHandle{
+		class BREAK_API_EX DXSamplerHandle: public Infrastructure::IGPUHandle{
 		public:
 			ID3D11SamplerState *sampler;
 

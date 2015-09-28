@@ -2,6 +2,7 @@
 
 #include "MemoryElement.h"
 #include <vector>
+#include "GlobalDefinitions.h"
 
 namespace Break{
 	namespace GXWrapper{
@@ -10,13 +11,13 @@ namespace Break{
 		 * \brief represnets memory input layout
 		 * \author Moustapha Saad
 		 */
-		class MemoryLayout{
+		class BREAK_API_EX MemoryLayout{
 		protected:
 			///size of full data
-			uint _size;
+			u32 _size;
 
 			///calculates the size of the memory layout
-			uint calcSize();
+			u32 calcSize();
 		public:
 			///elements vector
 			std::vector<MemoryElement> elements;
@@ -26,7 +27,7 @@ namespace Break{
 			///vector init constructor
 			MemoryLayout(std::vector<MemoryElement>& e);
 			///raw pointer init constructor
-			MemoryLayout(MemoryElement* e, uint count);
+			MemoryLayout(MemoryElement* e, u32 count);
 			///copy constrcutor
 			MemoryLayout(const MemoryLayout& val);
 
@@ -38,10 +39,10 @@ namespace Break{
 			void append(MemoryElement v);
 
 			///size getter
-			uint getSize();
+			u32 getSize();
 
 			///count getter
-			uint getElementCount();
+			u32 getElementCount();
 
 			///equality check function
 			bool equals(const MemoryLayout& val);

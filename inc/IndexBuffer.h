@@ -3,6 +3,7 @@
 #include "Buffer.h"
 #include "ISet.h"
 #include "RAMBuffer.h"
+#include "GlobalDefinitions.h"
 
 namespace Break{
 	namespace GXWrapper{
@@ -10,7 +11,7 @@ namespace Break{
 		 * \brief  an abstraction of the index buffer
 		 * \author Moustapha Saad
 		 */
-		class IndexBuffer : public Buffer<ISet>{
+		class BREAK_API_EX IndexBuffer : public Buffer<ISet>{
 		public:
 
 			///copy constructor

@@ -1,10 +1,11 @@
 #pragma once
 #include "Engine.h"
+#include "GlobalDefinitions.h"
 namespace Break{
 	namespace Infrastructure{
 		class TimeStep;
 		///Time class to manage the time querys from the OS
-		class Time{
+		class BREAK_API_EX Time{
 			friend class Engine;
 		public:
 			///types of the time FPS class

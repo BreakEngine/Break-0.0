@@ -2,6 +2,8 @@
 #include <vector>
 #include "RAMBuffer.h"
 #include "MemoryLayout.h"
+#include "GlobalDefinitions.h"
+
 namespace Break{
 	namespace GXWrapper{
 
@@ -9,7 +11,7 @@ namespace Break{
 		 * \brief This class is meant to hold a set of data of any type, like vertices of indices
 		 * \author Moustapha Saad
 		 */
-		class ISet{
+		class BREAK_API_EX ISet{
 		public:
 			/**
 			 * \brief returns a raw ram buffer of the current data
@@ -44,7 +46,7 @@ namespace Break{
 		typedef std::shared_ptr<ISet> ISetPtr;
 		
 		template<class T>
-		class Set : public ISet{
+		class BREAK_API_EX Set : public ISet{
 		protected:
 			///data list
 			std::vector<T> _data;

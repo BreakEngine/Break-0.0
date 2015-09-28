@@ -2,7 +2,7 @@
 #include "Entity.h"
 #include "SpriteBatch.h"
 #include "Sprite.h"
-
+#include "GlobalDefinitions.h"
 namespace Break
 {
 	namespace Infrastructure
@@ -12,7 +12,7 @@ namespace Break
 	namespace Graphics
 	{
 		///represents a scene node in entity graph
-		class Scene: public Entity
+		class BREAK_API_EX Scene: public Entity
 		{
 			friend class Infrastructure::Application;
 		protected:

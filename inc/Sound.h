@@ -1,13 +1,14 @@
 #pragma once
 
 #include<memory>
+#include "GlobalDefinitions.h"
 namespace Break
 {
 	namespace Audio
 	{
 
 		///represents a sound
-		class Sound
+		class BREAK_API_EX Sound
 		{	
 		public:
 			///sound status

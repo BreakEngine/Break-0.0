@@ -3,6 +3,7 @@
 #include "SpriteBatch.h"
 #include "Entity.h"
 #include <memory>
+#include "GlobalDefinitions.h"
 
 namespace Break
 {
@@ -14,7 +15,7 @@ namespace Break
 		 * \brief represnets a sprite object
 		 * \author Moustapha Saad
 		 */
-		class Sprite : public Entity
+		class BREAK_API_EX Sprite : public Entity
 		{
 		public:
 			virtual void input() override{

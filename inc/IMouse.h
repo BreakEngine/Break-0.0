@@ -3,9 +3,10 @@
 #include<memory>
 #include<glm/glm.hpp>
 #include "InputDevice.h"
+#include "GlobalDefinitions.h"
 namespace Break{
 	namespace Infrastructure{
-		class IMouse:public InputDevice{			
+		class BREAK_API_EX IMouse:public InputDevice{			
 		public:
 
 			/**

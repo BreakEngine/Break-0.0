@@ -4,15 +4,15 @@
 namespace Break{
 	namespace Infrastructure{
 		//class represents a chunk of bytes in ram
-		class RAMBuffer{
+		class BREAK_API_EX RAMBuffer{
 		protected:
 
 			///pointer to the data
 			byte* _data;
 			///size of the data
-			unsigned int _size;
+			u32 _size;
 			///how many bytes filled
-			unsigned int _fillStatus;
+			u32 _fillStatus;
 			///boolean to indicate if this class should delete the allocated block
 			bool _shouldDelete;
 		public:
@@ -24,15 +24,7 @@ namespace Break{
 			 * \param size size of the buffer
 			 * \author Moustapha Saad
 			 */
-			RAMBuffer(unsigned int size);
-
-			/**
-			 * \brief existing data init constructor
-			 * \param ptr pointer to existing data
-			 * \param size size of the buffer
-			 * \param deep indicates whether deep copy or shallow (OPTIONAL) default true
-			 */
-			RAMBuffer(void* ptr,unsigned int size,bool deep = true);
+			RAMBuffer(u32 size);
 
 			///copy constructor
 			RAMBuffer(const RAMBuffer& val);
@@ -41,7 +33,7 @@ namespace Break{
 			virtual ~RAMBuffer();
 
 			///reallocates memory
-			virtual void reallocate(unsigned int size);
+			virtual void reallocate(u32 size);
 
 			/**
 			 * \brief appends data to buffer
@@ -50,10 +42,10 @@ namespace Break{
 			 * \return true if appended successfully false otherwise
 			 * \author Moustapha Saad
 			 */
-			virtual bool append(void* data,unsigned int size);
+			virtual bool append(void* data,u32 size);
 
 			///appends two RAM buffers
-			virtual bool append(std::shared_ptr<RAMBuffer>);
+			virtual bool append(RAMBuffer*);
 
 			/**
 			 * \brief overwrites a certain amount of data in ram
@@ -62,25 +54,37 @@ namespace Break{
 			 * \param start offset inside the buffer
 			 * \return true in case of success false otherwise
 			 */
-			virtual bool map(void* data,unsigned int size,unsigned int start);
+			virtual bool map(void* data,u32 size,u32 start);
 
 			///cleans the data and free the memory
 			void clear();
 
 			///returns pointer to the data
-			byte* getData(unsigned int offset=0);
+			byte* getData(u32 offset=0);
 
 			///returns size of the buffer
-			unsigned int getSize();
+			u32 getSize();
 
 			///returns used size
-			unsigned int getUsedSize();
+			u32 getUsedSize();
 
-			///transforms the current buffer to a handle to existing block of memory
-			void handleToExistingBuffer(void* data,unsigned int size,bool deleteOld=true);
 
 			///deletes the current buffer
 			void deleteBuffer();
+
+			/*
+			 * \brief shallow copy buffer from meory
+			 * \param ptr pointer to buffer in memory
+			 * \param size size of the buffer in bytes
+			 */
+			void copyHandle(void* ptr,u32 size);
+
+			/*
+			 * \brief deep copy buffer from meory
+			 * \param ptr pointer to buffer in memory
+			 * \param size size of the buffer in bytes
+			 */
+			void copyBuffer(void* ptr,u32 size);
 
 			///returns a deep copy of the buffer
 			std::shared_ptr<RAMBuffer> clone();

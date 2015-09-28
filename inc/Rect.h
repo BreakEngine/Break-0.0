@@ -1,12 +1,12 @@
 #pragma once
-
+#include "GlobalDefinitions.h"
 namespace Break
 {
 	namespace Graphics
 	{
 
 		///represents a rectangle struct
-		struct Rect
+		struct BREAK_API_EX Rect
 		{
 			float x,y,width,height;
 			Rect(){x=0;y=0;width=0;height=0;}

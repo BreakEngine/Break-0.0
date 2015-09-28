@@ -2,6 +2,7 @@
 #include "Pixels.h"
 #include "IAsset.h"
 #include <memory>
+#include "GlobalDefinitions.h"
 
 namespace Break{
 	namespace GXWrapper{
@@ -10,7 +11,7 @@ namespace Break{
 		 * \brief represents an image resource
 		 * \author Moustapha Saad
 		 */
-		class Image:public Assets::IAsset{
+		class BREAK_API_EX Image:public Assets::IAsset{
 
 			///pointer to image pixels
 			Pixel* _data;

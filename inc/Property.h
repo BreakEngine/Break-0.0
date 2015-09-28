@@ -1,9 +1,10 @@
 #pragma once
 #include "AccessException.h"
 #include <iostream>
+#include "GlobalDefinitions.h"
 namespace Break{
 	namespace Infrastructure{
-		enum Permission{
+		BREAK_API_EX enum Permission{
 			READ,WRITE,READ_WRITE
 		};
 		/**
@@ -19,7 +20,7 @@ namespace Break{
 		 */
  
 		template<class Prop, class Obj, Permission permission>
-		class Property{
+		class BREAK_API_EX Property{
  
 			/**
 			 * @typedef	Prop(Obj::* _get)()

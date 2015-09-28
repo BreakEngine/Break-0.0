@@ -8,7 +8,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/transform.hpp>
-
+#include "GlobalDefinitions.h"
 
 namespace Break
 {
@@ -38,7 +38,7 @@ namespace Break
 	namespace Infrastructure
 	{
 
-		struct Mat2
+		struct BREAK_API_EX Mat2
 			{
 				union
 				{
@@ -116,7 +116,7 @@ namespace Break
 				}
 			};
 
-		class MathUtils
+		class BREAK_API_EX MathUtils
 		{
 		public:
 

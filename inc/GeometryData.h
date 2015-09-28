@@ -3,6 +3,7 @@
 #include "IndexBuffer.h"
 #include <memory>
 #include "IDrawable.h"
+#include "GlobalDefinitions.h"
 
 namespace Break{
 	namespace GXWrapper{
@@ -10,7 +11,7 @@ namespace Break{
 		 * \brief holds geometry data
 		 * \author Moustapha Saad
 		 */
-		class GeometryData{
+		class BREAK_API_EX GeometryData{
 		public:
 			///vertex buffer pointer
 			std::shared_ptr<VertexBuffer> vertices;

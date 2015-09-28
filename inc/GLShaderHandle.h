@@ -1,9 +1,11 @@
 #pragma once
 #include "IGPUHandle.h"
 #include <GL/glew.h>
+#include "GlobalDefinitions.h"
+
 namespace Break{
 	namespace Renderer{
-		class GLShaderHandle:public Infrastructure::IGPUHandle{
+		class BREAK_API_EX GLShaderHandle:public Infrastructure::IGPUHandle{
 		public:
 			GLuint vertexShader;
 			GLuint pixelShader;

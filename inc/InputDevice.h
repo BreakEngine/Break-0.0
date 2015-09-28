@@ -1,12 +1,13 @@
 #pragma once
 #include <memory>
+#include "GlobalDefinitions.h"
 namespace Break{
 	namespace Infrastructure{
 		//predefine engine class
 		class Engine;
 
 		///represents an input device
-		class InputDevice{
+		class BREAK_API_EX InputDevice{
 			friend class Engine;
 		public:
 			///default constructor

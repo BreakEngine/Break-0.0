@@ -10,6 +10,7 @@
 #include "GLMouse.h"
 #include "DXMouse.h"
 #include "AssetManager.h"
+#include "Services.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <SDL_mixer.h>
 using namespace std;
@@ -31,6 +32,7 @@ Engine::Engine():GraphicsDevice(*this,&Engine::getGraphicsDevice,NULL),
 	_renderer = nullptr;
 	_graphicsManager = nullptr;
 	_application = nullptr;
+	_gpuVM = nullptr;
 	_shutdown = false;
 	_initFinished = false;
 }
@@ -53,6 +55,8 @@ void Engine::setup(ApplicationPtr app,API api,IRendererPtr renderer){
 	_api = api;
 	_renderer = renderer;
 	_application = app;
+	_gpuVM = new GPU_VM();
+
 	if(_api == API::OPENGL){
 		_graphicsManager = IGXManagerPtr(new GLManager());
 		_inputDevices.push_back(IKeyboardPtr(new Input::GLKeyboard()));
@@ -66,6 +70,9 @@ void Engine::setup(ApplicationPtr app,API api,IRendererPtr renderer){
 	}else{
 		throw runtime_error("API parameter is not initialized");
 	}
+	Services::registerEngine(this);
+	Services::registerGraphics(_graphicsManager.get());
+	Services::registerVM(_gpuVM);
 }
 
 IGXManagerPtr Engine::getGraphicsDevice(){
@@ -123,6 +130,8 @@ void Engine::cleanUp(){
 		}
 		_inputDevices.clear();
 	}
+	if(_gpuVM)
+		delete _gpuVM;
 	Mix_Quit();
 }
 

@@ -2,6 +2,7 @@
 #include "IAsset.h"
 #include "Image.h"
 #include <string>
+#include "GlobalDefinitions.h"
 
 namespace Break{
 	namespace Assets{
@@ -9,7 +10,7 @@ namespace Break{
 		 * \brief loads anytype of resource
 		 * \author Moustapha Saad
 		 */
-		class ContentLoader{
+		class BREAK_API_EX ContentLoader{
 		public:
 			/**
 			 * \brief loads any type of resource

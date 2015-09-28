@@ -13,7 +13,7 @@ namespace Break{
 		 * \author Moustapha Saad
 		 */
 		template<class T>
-		class Buffer : public Infrastructure::GPUResource{
+		class BREAK_API_EX Buffer : public Infrastructure::GPUResource{
 		public:
 			/**
 			 * \brief types of buffer
@@ -26,7 +26,8 @@ namespace Break{
 		protected:
 
 			///optimal sizes of the buffer
-			static const unsigned int STATIC_OPTIMAL_SIZE,DYNAMIC_OPTIMAL_SIZE;
+			static const unsigned int STATIC_OPTIMAL_SIZE;
+			static const unsigned int DYNAMIC_OPTIMAL_SIZE;
 
 			///corresponding ram buffer
 			Infrastructure::RAMBufferPtr _buffer;
@@ -155,7 +156,7 @@ namespace Break{
 			 */
 			void fromHandle(void* data,unsigned int size)
 			{
-				_buffer->handleToExistingBuffer(data,size);
+				_buffer->copyHandle(data,size);
 			}
 
 			/**
@@ -203,7 +204,7 @@ namespace Break{
 			 * \return byte pointer to the data in memory
 			 * \author Moustapha Saad
 			 */
-			Infrastructure::byte* getData(unsigned int offset = 0){
+			byte* getData(unsigned int offset = 0){
 				return _buffer->getData(offset);
 			}
 

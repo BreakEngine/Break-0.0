@@ -11,11 +11,11 @@ namespace Break{
 		/*
 		 * Attribute Class that generalize vertex attribute
 		 */
-		class IAttribute{
+		class BREAK_API_EX IAttribute{
 			friend class Vertex;
 
 			//byte pointer to the data
-			Infrastructure::byte* _data;
+			byte* _data;
 			//size of the array
 			unsigned int _size;
 			//indicate whether it's just a handle to buffer or not
@@ -47,7 +47,7 @@ namespace Break{
 			IAttribute& operator=(const IAttribute& val);
 
 			unsigned int getSize();
-			Infrastructure::byte* getData();
+			byte* getData();
 			void clean();
 			
 		};

@@ -1,11 +1,22 @@
 #include "Geometry.h"
 #include "Engine.h"
+#include <Services.h>
 
 using namespace Break::GXWrapper;
 
 bool Geometry::createGPUResource()
 {
-	return Break::Infrastructure::Engine::Instance->GraphicsDevice->createGeometry(this);
+	//return Break::Infrastructure::Engine::Instance->GraphicsDevice->createGeometry(this);
+	Renderer::GPUIns ins;
+	ins.instruction = Renderer::GPU_ISA::GEN;
+
+	ins.args.push(Renderer::GPU_ISA::GEOMETRY);
+	ins.args.push(_geometryData.vertices->getHandle());
+	ins.args.push(_geometryData.indices->getHandle());
+	MemoryLayout layout = _geometryData.vertices->getLayout();
+	ins.args.push(&layout);
+	_handle = Services::getGPU_VM()->execute(ins);
+	return true;
 }
 
 Geometry::Geometry(ISet& vertices, ISet* indices,Primitive::Type type){
@@ -50,7 +61,13 @@ Geometry::Geometry(const Geometry& val){
 }
 
 Geometry::~Geometry(){
-	Break::Infrastructure::Engine::Instance->GraphicsDevice->deleteGeometry(this);
+	//Break::Infrastructure::Engine::Instance->GraphicsDevice->deleteGeometry(this);
+	Renderer::GPUIns ins;
+	ins.instruction = Renderer::GPU_ISA::DEL;
+	ins.args.push(Renderer::GPU_ISA::GEOMETRY);
+	ins.args.push(_handle.get());
+
+	Services::getGPU_VM()->execute(ins);
 }
 
 unsigned int* Geometry::getIndices(){
@@ -74,10 +91,32 @@ GeometryData& Geometry::getGeometryData()
 
 void Geometry::draw()
 {
-	if(_geometryData.vertices && _geometryData.indices)
-		Break::Infrastructure::Engine::Instance->GraphicsDevice->drawGeometry(this,Primitive::Mode::INDEXED);
-	else if(_geometryData.vertices)
-		Break::Infrastructure::Engine::Instance->GraphicsDevice->drawGeometry(this,Primitive::Mode::NORMAL);
+	if(_geometryData.vertices && _geometryData.indices){
+		//Break::Infrastructure::Engine::Instance->GraphicsDevice->drawGeometry(this,Primitive::Mode::INDEXED);
+		Renderer::GPUIns ins;
+		ins.instruction = Renderer::GPU_ISA::DRAW_INDEXED;
+
+		ins.args.push(_geometryData.primitive);
+		ins.args.push(_handle.get());
+		ins.args.push(_geometryData.vertices->getHandle());
+		ins.args.push(_geometryData.indices->getHandle());
+		ins.args.push(_geometryData.indicesCount);
+		ins.args.push(&_declaration);
+
+		Services::getGPU_VM()->execute(ins);
+	}else if(_geometryData.vertices){
+		//Break::Infrastructure::Engine::Instance->GraphicsDevice->drawGeometry(this,Primitive::Mode::NORMAL);
+		Renderer::GPUIns ins;
+		ins.instruction = Renderer::GPU_ISA::DRAW;
+
+		ins.args.push(_geometryData.primitive);
+		ins.args.push(_handle.get());
+		ins.args.push(_geometryData.vertices->getHandle());
+		ins.args.push(_geometryData.verticesCount);
+		ins.args.push(&_declaration);
+
+		Services::getGPU_VM()->execute(ins);
+	}
 }
 
 unsigned int Geometry::getVerticesCount(){

@@ -2,6 +2,7 @@
 #include "MemoryException.h"
 #include <cstring>
 using namespace Break::Infrastructure;
+using namespace Break;
 using namespace std;
 
 RAMBuffer::RAMBuffer(unsigned int size){
@@ -18,20 +19,6 @@ RAMBuffer::RAMBuffer(){
 	_shouldDelete = true;
 }
 
-RAMBuffer::RAMBuffer(void* ptr,unsigned int size, bool deep){
-	if(!deep){
-		_data = (byte*)ptr;
-		_size = size;
-		_fillStatus = size;
-		_shouldDelete = false;
-	}else{
-		_fillStatus = size;
-		_size = size;
-		_data = new byte[_size];
-		memcpy(_data,ptr,_size);
-		_shouldDelete = true;
-	}
-}
 
 RAMBuffer::RAMBuffer(const RAMBuffer& val){
 	_size = val._size;
@@ -63,7 +50,7 @@ bool RAMBuffer::append(void* data,unsigned int size){
 	}
 }
 
-bool RAMBuffer::append(RAMBufferPtr buffer){
+bool RAMBuffer::append(RAMBuffer* buffer){
 	if(_fillStatus+buffer->_fillStatus<=_size){
 		memcpy(_data+_fillStatus,buffer->_data,buffer->_fillStatus);
 		_fillStatus += buffer->_fillStatus;
@@ -104,16 +91,6 @@ unsigned int RAMBuffer::getUsedSize(){
 	return _fillStatus;
 }
 
-void RAMBuffer::handleToExistingBuffer(void* data, unsigned size,bool deleteOld)
-{
-	/*
-	if(deleteOld)
-		delete[] _data;
-	*/
-	_data = (byte*)data;
-	_size = size;
-	_fillStatus = size;
-}
 
 void RAMBuffer::deleteBuffer()
 {
@@ -126,3 +103,22 @@ RAMBufferPtr RAMBuffer::clone(){
 	ret->append(_data,_size);
 	return ret;
 }
+
+void RAMBuffer::copyHandle(void* ptr,u32 size)
+{
+		_data = (byte*)ptr;
+		_size = size;
+		_fillStatus = size;
+		_shouldDelete = false;
+}
+
+
+void RAMBuffer::copyBuffer(void* ptr,u32 size)
+{
+		_fillStatus = size;
+		_size = size;
+		_data = new byte[_size];
+		memcpy(_data,ptr,_size);
+		_shouldDelete = true;
+}
+

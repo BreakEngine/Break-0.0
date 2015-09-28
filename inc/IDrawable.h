@@ -1,4 +1,5 @@
 #pragma once
+#include "GlobalDefinitions.h"
 
 namespace Break{
 	namespace GXWrapper{
@@ -6,7 +7,7 @@ namespace Break{
 		 * \brief API Primitve
 		 * \author Mohammed Shaalan
 		 */
-		struct Primitive{
+		struct BREAK_API_EX Primitive{
 
 			///primitive type
 			enum Type
@@ -35,7 +36,7 @@ namespace Break{
 		 * \brief draw interface
 		 * \author Mohammed Shaalan
 		 */
-		class IDrawable
+		class BREAK_API_EX IDrawable
 		{
 		public:
 
